@@ -12,6 +12,6 @@ namespace SkjaTextar.Models
         public int RequestID { get; set; }
         public bool Vote { get; set; }
         
-        public virtual Request Request;
+        public virtual Request Request { get; set; }
     }
 }

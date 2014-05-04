@@ -11,6 +11,7 @@ namespace SkjaTextar.Models
 		public string CommentText { get; set; }
 		public int TranslationID { get; set; }
 		public int UserID { get; set; }
+
 		public virtual Translation Translation { get; set; }
 	}
 }

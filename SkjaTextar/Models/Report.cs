@@ -11,6 +11,7 @@ namespace SkjaTextar.Models
         public int TranslationID { get; set; }
         public string ReportText { get; set; }
         public DateTime ReportDate { get; set; }
-        public virtual Translation Translation;
+
+        public virtual Translation Translation { get; set; }
     }
 }
