@@ -28,9 +28,9 @@ namespace SkjaTextar
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+                appId: "657226957688658",
+                appSecret: "074a63a56507c059d982b721ba59c4ab");
 
             app.UseGoogleAuthentication(
                 clientId: "609312055860-nniknvqsdfku418lt9s12t7npbc41ov2.apps.googleusercontent.com",
