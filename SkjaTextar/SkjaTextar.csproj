@@ -175,6 +175,7 @@
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Request.cs" />
     <Compile Include="Models\Show.cs" />
     <Compile Include="Models\Translation.cs" />
     <Compile Include="Models\TranslationSegment.cs" />
