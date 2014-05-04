@@ -32,7 +32,9 @@ namespace SkjaTextar
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication();
+            app.UseGoogleAuthentication(
+                clientId: "609312055860-nniknvqsdfku418lt9s12t7npbc41ov2.apps.googleusercontent.com",
+                clientSecret: "i72MjSaJ0QJp9W5lG9a_XR6j");
         }
     }
 }
