@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace SkjaTextar.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class User : IdentityUser
     {
+        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<TranslationVote> TranslationVotes { get; set; }
+        public virtual ICollection<RequestVote> RequestVotes { get; set; }
+        public virtual ICollection<Achievement> Achievements { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<User>

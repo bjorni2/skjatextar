@@ -9,5 +9,7 @@ namespace SkjaTextar.Models
 	{
 		public int ID { get; set; }
 		public string AchievementText { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
 	}
 }

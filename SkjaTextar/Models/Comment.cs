@@ -13,5 +13,6 @@ namespace SkjaTextar.Models
 		public int UserID { get; set; }
 
 		public virtual Translation Translation { get; set; }
+        public virtual User User { get; set; }
 	}
 }
