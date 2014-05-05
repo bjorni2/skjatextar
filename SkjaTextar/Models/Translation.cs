@@ -10,6 +10,7 @@ namespace SkjaTextar.Models
         public int ID { get; set; }
         public int MediaID { get; set; }
         public int Score { get; set; }
+        public int NumberOfDownloads { get; set; }
         public bool Locked { get; set; }
         public string Language { get; set; }
 
