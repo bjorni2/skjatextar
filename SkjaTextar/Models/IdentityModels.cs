@@ -16,7 +16,7 @@ namespace SkjaTextar.Models
         }
     }
 
-    public class SubTitleInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class ApplicationInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
