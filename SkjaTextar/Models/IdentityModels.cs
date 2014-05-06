@@ -31,6 +31,7 @@ namespace SkjaTextar.Models
         }
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Media> Medias { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Show> Shows { get; set; }
         public DbSet<Clip> Clips { get; set; }
