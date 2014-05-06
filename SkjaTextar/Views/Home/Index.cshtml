@@ -16,41 +16,37 @@
     <div class="col-md-3 col-sm-6">
         <ul class="list-group">
             <li class="list-group-item list-group-item-heading text-center h4">Virkir notendur</li>
-            <li class="list-group-item"><span class="badge">14</span>Björn</li>
-            <li class="list-group-item"><span class="badge">11</span>Andri</li>
-            <li class="list-group-item"><span class="badge">9</span>Carl</li>
-            <li class="list-group-item"><span class="badge">3</span>Ingólfur</li>
-            <li class="list-group-item"><span class="badge">2</span>Jóhann</li>
+            @foreach(var item in Model.ActiveUsers)
+            {
+                <li class="list-group-item"><span class="badge">@item.Score</span>@item.UserName</li>
+            }
         </ul>
     </div>
     <div class="col-md-3 col-sm-6">
         <ul class="list-group">
             <li class="list-group-item list-group-item-heading text-center h4">Mest sótt</li>
-            <li class="list-group-item"><span class="badge">1337</span>Gladiator</li>
-            <li class="list-group-item"><span class="badge">999</span>Toy story</li>
-            <li class="list-group-item"><span class="badge">666</span>Die hard</li>
-            <li class="list-group-item"><span class="badge">256</span>Top gun</li>
-            <li class="list-group-item"><span class="badge">42</span>Naked gun</li>
+            @foreach(var item in Model.TopTranslations)
+            {
+                <li class="list-group-item"><span class="badge">@item.NumberOfDownloads</span>@item.Media.Title</li>
+            }
         </ul>
     </div>
     <div class="col-md-3 col-sm-6">
         <ul class="list-group">
             <li class="list-group-item list-group-item-heading text-center h4">Heitar beiðnir</li>
-            <li class="list-group-item"><span class="badge">IS</span>Joe dirt</li>
-            <li class="list-group-item"><span class="badge">IS</span>The Animal</li>
-            <li class="list-group-item"><span class="badge">IS</span>Jack and Jill</li>
-            <li class="list-group-item"><span class="badge">EN</span>Der Untergang</li>
-            <li class="list-group-item"><span class="badge">PL</span>101 Reykjavík</li>
+            @foreach(var item in Model.TopRequests)
+            {
+                <li class="list-group-item"><span class="badge">@item.Language</span>@item.Media.Title</li>
+            }
         </ul>
     </div>
     <div class="col-md-3 col-sm-6">
         <ul class="list-group">
             <li class="list-group-item list-group-item-heading text-center h4">Nýjast</li>
-            <li class="list-group-item"><span class="badge">IS</span>Game of Thrones S03E04</li>
-            <li class="list-group-item"><span class="badge">IS</span>Robocop</li>
-            <li class="list-group-item"><span class="badge">IS</span>12 Angry men</li>
-            <li class="list-group-item"><span class="badge">EN</span>Taken</li>
-            <li class="list-group-item"><span class="badge">PL</span>Skyfall</li>
+            @foreach(var item in Model.NewTranslations)
+            {
+                <li class="list-group-item"><span class="badge">@item.Language</span>@item.Media.Title</li>
+            }
         </ul>
     </div>
 </div>
