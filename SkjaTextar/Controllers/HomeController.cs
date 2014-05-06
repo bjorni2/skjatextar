@@ -18,9 +18,11 @@ namespace SkjaTextar.Controllers
             var topUser = _context.Users.ToList().OrderByDescending(u => u.Score).Take(5);
             var topDownload = _context.Translations.OrderByDescending(t => t.NumberOfDownloads).Take(5);
             var newTrans = _context.Translations.OrderByDescending(t => t.ID).Take(5);
+            var topRequest = _context.Requests.OrderByDescending(r => r.Score).Take(5);
             model.ActiveUsers = topUser.ToList();
             model.TopTranslations = topDownload.ToList();
             model.NewTranslations = newTrans.ToList();
+            model.TopRequests = topRequest.ToList();
             return View(model);
         }
 
