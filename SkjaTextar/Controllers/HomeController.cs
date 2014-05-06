@@ -20,14 +20,10 @@ namespace SkjaTextar.Controllers
         public ActionResult Index()
         {
             var model = new HomeViewModel();
-            var topUser = _unitOfWork.UserRepository.Get().ToList().OrderByDescending(u => u.Score).Take(5);
-            var topDownload = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.NumberOfDownloads).Take(5);
-            var newTrans = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).Take(5);
-            var topRequest = _unitOfWork.RequestRepository.Get().OrderByDescending(r => r.Score).Take(5);
-            model.ActiveUsers = topUser.ToList();
-            model.TopTranslations = topDownload.ToList();
-            model.NewTranslations = newTrans.ToList();
-            model.TopRequests = topRequest.ToList();
+            model.ActiveUsers = _unitOfWork.UserRepository.Get().ToList().OrderByDescending(u => u.Score).Take(5).ToList();
+            model.TopTranslations = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.NumberOfDownloads).Take(5).ToList();
+            model.NewTranslations = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).Take(5).ToList();
+            model.TopRequests = _unitOfWork.RequestRepository.Get().OrderByDescending(r => r.Score).Take(5).ToList();
             return View(model);
         }
 

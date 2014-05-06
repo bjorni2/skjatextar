@@ -259,13 +259,14 @@
     <Content Include="Views\Example\Details.cshtml" />
     <Content Include="Views\Example\Edit.cshtml" />
     <Content Include="Views\Example\Index.cshtml" />
+    <Content Include="Views\Media\MovieIndex.cshtml" />
+    <Content Include="Views\Media\ShowIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Category\" />
-    <Folder Include="Views\Media\" />
     <Folder Include="Views\Request\" />
     <Folder Include="Views\Translation\" />
   </ItemGroup>

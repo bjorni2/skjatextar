@@ -1,0 +1,50 @@
+﻿@model SkjaTextar.Models.Movie
+
+@{
+    ViewBag.Title = "MovieIndex";
+}
+
+<h2>MovieIndex</h2>
+
+<div>
+    <h4>Movie</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Link)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+
+    </dl>
+    @foreach(var item in Model.Translations)
+    {
+        <p>@item.Language</p>
+    }
+</div>

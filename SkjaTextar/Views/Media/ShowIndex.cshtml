@@ -1,0 +1,66 @@
+﻿@model SkjaTextar.Models.Show
+
+@{
+    ViewBag.Title = "ShowIndex";
+}
+
+<h2>ShowIndex</h2>
+
+<div>
+    <h4>Show</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReleaseYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Link)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Series)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Series)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Episode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Episode)
+        </dd>
+
+    </dl>
+    @foreach (var item in Model.Translations)
+    {
+        <p>@item.Language</p>
+    }
+</div>
