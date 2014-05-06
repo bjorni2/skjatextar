@@ -10,6 +10,7 @@ namespace SkjaTextar.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public int CategoryID { get; set; }
+        public int ReleaseYear { get; set; }
         public virtual string Link { get; set; }
         public bool Active { get; set; }
 

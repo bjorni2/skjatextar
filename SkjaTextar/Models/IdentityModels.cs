@@ -29,22 +29,44 @@ namespace SkjaTextar.Models
             : base("SubTitleContext")
         {
         }
+        public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 
     public class ApplicationInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            // Example of test data
+            var achievements = new List<Achievement>
+            {
+                new Achievement{ ID = 1, AchievementText = "1 lína þýdd" },
+                new Achievement{ ID = 2, AchievementText = "5 línur þýddar" },
+                new Achievement{ ID = 3, AchievementText = "25 línur þýddar" },
+                new Achievement{ ID = 4, AchievementText = "100 línur þýddar" },
+                new Achievement{ ID = 5, AchievementText = "1 ný þýðing" },
+                new Achievement{ ID = 6, AchievementText = "5 nýjar þýðingar" },
+                new Achievement{ ID = 7, AchievementText = "25 nýjar þýðingar" },
+                new Achievement{ ID = 8, AchievementText = "100 nýjar þýðingar" }
+            };
+            achievements.ForEach(a => context.Achievements.Add(a));
+            context.SaveChanges();
 
-            //var students = new List<Student>
-            //{
-            //new Student{FirstMidName="Carson",LastName="Alexander",EnrollmentDate=DateTime.Parse("2005-09-01")},
-            //new Student{FirstMidName="Meredith",LastName="Alonso",EnrollmentDate=DateTime.Parse("2002-09-01")},
-            //};
+            var categories = new List<Category>
+            {
+                new Category{ ID = 1, Name = "Gaman" },
+                new Category{ ID = 2, Name = "Spenna" },
+                new Category{ ID = 3, Name = "Drama" },
+                new Category{ ID = 4, Name = "Barnaefni" }
+            };
+            categories.ForEach(c => context.Categories.Add(c));
+            context.SaveChanges();
 
-            //students.ForEach(s => context.Students.Add(s));
-            //context.SaveChanges();
+            var movies = new List<Movie>
+            {
+                new Movie{ ID = 1, CategoryID = 2, Title = "Die Hard", ReleaseYear = 1988, Active = true },
+                new Movie{ ID = 2, CategoryID = 4, Title = "Lion King", ReleaseYear = 1995, Active = true },
+                new Movie{ ID = 3, CategoryID = 3, Title = "Brokeback mountain", ReleaseYear = 2005, Active = true },
+            };
         }
     }
 }
