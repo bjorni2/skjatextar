@@ -12,12 +12,10 @@ namespace SkjaTextar.Controllers
     {
         public MediaController() : base()
         {
-
         }
 
         public MediaController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-
         }
 
         public ActionResult Index(int? id)
