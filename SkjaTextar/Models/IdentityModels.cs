@@ -26,7 +26,7 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            : base("SubTitleContext")
+            : base("SQLserverinnokkar")
         {
         }
         public DbSet<Achievement> Achievements { get; set; }
