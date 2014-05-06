@@ -24,9 +24,22 @@ namespace SkjaTextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
             ViewBag.Category = _unitOfWork.CategoryRepository.GetByID(id).Name;
-            return View("IndexMovie", model);
+            switch (mediaType)
+            {
+                case "Movie":
+                    var modelMovie = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
+                    return View("IndexMovie", modelMovie);
+                case "Show":
+                    var modelShow = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
+                    return View("IndexShow", modelShow);
+                case "Clip":
+                    var modelClip = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
+                    return View("IndexClip", modelClip);
+                default:
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            
         }
 	}
 }
