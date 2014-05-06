@@ -9,14 +9,19 @@ using SkjaTextar.DAL;
 
 namespace SkjaTextar.Controllers
 {
-    [RequireHttps]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private IUnitOfWork _unitOfWork;
-        public HomeController()
+
+        public HomeController() : base()
         {
-            _unitOfWork = new UnitOfWork();
+
         }
+
+        public HomeController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
+
         public ActionResult Index()
         {
             var model = new HomeViewModel();
@@ -39,12 +44,6 @@ namespace SkjaTextar.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            _unitOfWork.Dispose();
-            base.Dispose(disposing);
         }
     }
 }

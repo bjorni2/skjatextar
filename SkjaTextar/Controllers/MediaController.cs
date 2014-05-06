@@ -8,16 +8,18 @@ using System.Net;
 
 namespace SkjaTextar.Controllers
 {
-    public class MediaController : Controller
+    public class MediaController : BaseController
     {
-        private IUnitOfWork _unitOfWork;
-
-        public MediaController()
+        public MediaController() : base()
         {
-            _unitOfWork = new UnitOfWork();
+
         }
-        //
-        // GET: /Media/
+
+        public MediaController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
+
         public ActionResult Index()
         {
             return View();
