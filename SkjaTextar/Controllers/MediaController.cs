@@ -20,9 +20,25 @@ namespace SkjaTextar.Controllers
 
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View();
+            if (id.HasValue)
+            {
+                var model = _unitOfWork.MediaRepository.GetByID(id);
+                string type = model.GetType().BaseType.Name;
+                switch (type)
+                {
+                    case "Movie":
+                        return View("MovieIndex", model);
+                    case "Show":
+                        return View("ShowIndex", model);
+                    case "Clip":
+                        return View("ClipIndex", model);
+                    default:
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         public ActionResult MovieIndex(int? id)

@@ -262,6 +262,7 @@
     <Content Include="Views\Example\Index.cshtml" />
     <Content Include="Views\Media\MovieIndex.cshtml" />
     <Content Include="Views\Media\ShowIndex.cshtml" />
+    <Content Include="Views\Media\ClipIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
