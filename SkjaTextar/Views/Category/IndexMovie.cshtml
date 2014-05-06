@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SkjaTextar.Models.Movie>
+@{
+    ViewBag.Title = "IndexMovie";
+}
+
+<h2>Movie - @ViewBag.Category</h2>
+
+@foreach(var item in Model)
+{
+    <p>@item.Title - @item.ReleaseYear</p>
+}

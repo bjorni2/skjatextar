@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SkjaTextar.Models.Category>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-heading text-center h4">Kvikmyndir</li>
+            @foreach(var item in Model)
+            {
+                <li class="list-group-item">@item.Name</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-heading text-center h4">Þættir</li>
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item">@item.Name</li>
+            }
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-heading text-center h4">Myndbrot</li>
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item">@item.Name</li>
+            }
+        </ul>
+    </div>
+</div>
+
