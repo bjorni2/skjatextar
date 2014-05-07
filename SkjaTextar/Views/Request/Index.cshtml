@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MediaID)
+            @Html.DisplayNameFor(model => model.Media.Title)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Language)
@@ -26,7 +26,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.MediaID)
+            @Html.DisplayFor(modelItem => item.Media.Title)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Language)
