@@ -1,0 +1,42 @@
+﻿@model SkjaTextar.Models.Request
+
+@{
+    ViewBag.Title = "MovieRequestDetails";
+}
+
+<h2>MovieRequestDetails</h2>
+
+<div>
+    <h4>Request</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Language)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

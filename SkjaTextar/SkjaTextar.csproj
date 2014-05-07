@@ -265,12 +265,15 @@
     <Content Include="Views\Media\ClipIndex.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\MovieByCategory.cshtml" />
+    <Content Include="Views\Request\MovieRequestDetails.cshtml" />
+    <Content Include="Views\Request\ShowRequestDetails.cshtml" />
+    <Content Include="Views\Request\ClipRequestDetails.cshtml" />
+    <Content Include="Views\Request\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Request\" />
     <Folder Include="Views\Translation\" />
   </ItemGroup>
   <ItemGroup>
