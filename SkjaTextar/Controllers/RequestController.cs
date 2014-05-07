@@ -12,7 +12,14 @@ namespace SkjaTextar.Controllers
         // GET: /Request/
         public ActionResult Index()
         {
-            return View();
+			var model = _unitOfWork.CategoryRepository.Get().ToList().OrderByDescending(m => m.ID);
+			return View(model);
         }
+
+		public ActionResult Details()
+		{
+
+			return View();
+		}
 	}
 }
