@@ -269,12 +269,15 @@
     <Content Include="Views\Request\ShowRequestDetails.cshtml" />
     <Content Include="Views\Request\ClipRequestDetails.cshtml" />
     <Content Include="Views\Request\Create.cshtml" />
+    <Content Include="Views\Translation\Index.cshtml" />
+    <Content Include="Views\Translation\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Translation\" />
+    <Folder Include="Views\Shared\Request\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

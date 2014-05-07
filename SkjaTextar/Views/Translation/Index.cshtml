@@ -1,0 +1,41 @@
+﻿@model SkjaTextar.Models.Translation
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Þýðing</h2>
+<div class="row">
+    <div class="col-md-5 col-md-offset-2">
+        @foreach(var item in Model.TranslationSegments)
+        {
+            <p>@item.Timestamp</p>
+            <p>@item.Original1</p>
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" value="@item.Line1" readonly="readonly" />
+                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
+            </div>
+            <p>@item.Original2</p>
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control" value="@item.Line2" readonly="readonly" />
+                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
+            </div>
+        }
+    </div>
+    <div class="col-md-3 col-md-offset-2">
+        <ul>
+            <li class="active">
+                <a href="#000000">00:00:00</a>
+            </li>
+            <li>
+                <a href="#001500">00:15:00</a>
+            </li>
+            <li>
+                <a href="#003000">00:30:00</a>
+            </li>
+            <li>
+                <a href="#004500">00:45:00</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
