@@ -11,6 +11,10 @@ namespace SkjaTextar.Controllers
 {
     public class CategoryController : BaseController
     {
+        public CategoryController() : base(new UnitOfWork())
+        {
+        }
+
         /// <summary>
         /// Constructor for unit tests
         /// </summary>

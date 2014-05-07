@@ -10,6 +10,10 @@ namespace SkjaTextar.Controllers
 {
     public class MediaController : BaseController
     {
+        public MediaController() : base(new UnitOfWork())
+        { 
+        }
+        
         /// <summary>
         /// Constructor for unit tests
         /// </summary>
