@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SkjaTextar.Controllers
 {
-    public class RequestController : Controller
+    public class RequestController : BaseController
     {
         //
         // GET: /Request/
