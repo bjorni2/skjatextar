@@ -11,11 +11,11 @@
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            Flokkur
+            Yfirflokkur
         </dt>
 
         <dd>
-            Mynd
+            Kvikmynd
         </dd>
 
         <dt>
@@ -32,6 +32,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Media.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Media.ReleaseYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Media.ReleaseYear)
         </dd>
 
         <dt>
