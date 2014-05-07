@@ -81,6 +81,58 @@ namespace SkjaTextar.Controllers
 			return View(new Request());
 		}
 
+        public ActionResult CreateFor(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = _unitOfWork.RequestRepository.GetByID(id);
+                string type = model.Media.GetType().BaseType.Name;
+                switch (type)
+                {
+                    case "Movie":
+                        return View("CreateForMovie", model);
+                    case "Show":
+                        return View("CreateForShow", model);
+                    case "Clip":
+                        return View("CreateForClip", model);
+                    default:
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult CreateForMovie(int? id)
+        {
+            if(id.HasValue)
+            {
+                var model = _unitOfWork.MediaRepository.GetByID(id);
+                return View(model);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult CreateForShow(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = _unitOfWork.MediaRepository.GetByID(id);
+                return View(model);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        public ActionResult CreateForClip(int? id)
+        {
+            if (id.HasValue)
+            {
+                var model = _unitOfWork.MediaRepository.GetByID(id);
+                return View(model);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Create([Bind(Include="ID, MediaID, Language, Score")]Request request)
@@ -89,7 +141,7 @@ namespace SkjaTextar.Controllers
 			{
 				_unitOfWork.RequestRepository.Insert(request);
 				_unitOfWork.Save();
-				return RedirectToAction("Details", request.ID);
+				return RedirectToAction("Details", request);
 			}
 			return View(request);
 		}
