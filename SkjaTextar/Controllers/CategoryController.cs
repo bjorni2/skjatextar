@@ -5,19 +5,36 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using SkjaTextar.DAL;
 
 namespace SkjaTextar.Controllers
 {
     public class CategoryController : BaseController
     {
-        //
-        // GET: /Category/
+        /// <summary>
+        /// Constructor for unit tests
+        /// </summary>
+        /// <param name="unitOfWork">The Data access object</param>
+       public CategoryController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
+        
+        /// <summary>
+        /// Displays all categories and all media types
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             var model = _unitOfWork.CategoryRepository.Get().ToList();
             return View(model);
         }
 
+        /// <summary>
+        /// Displays all media of specified type and category or all media of specified type if id == 0
+        /// </summary>
+        /// <param name="id">Id of the category to display</param>
+        /// <param name="mediaType">The type of media to display</param>
+        /// <returns></returns>
         public ActionResult MediaByCategory(int? id, string mediaType)
         {
             if(id == null)

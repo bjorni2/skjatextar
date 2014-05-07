@@ -10,14 +10,19 @@ namespace SkjaTextar.Controllers
 {
     public class MediaController : BaseController
     {
-        public MediaController() : base()
-        {
-        }
-
+        /// <summary>
+        /// Constructor for unit tests
+        /// </summary>
+        /// <param name="unitOfWork">The Data access object</param>
         public MediaController(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
         }
 
+        /// <summary>
+        /// Displays information about a media object and it's translations
+        /// </summary>
+        /// <param name="id">Id of the media object to display</param>
+        /// <returns></returns>
         public ActionResult Index(int? id)
         {
             if (id.HasValue)
@@ -35,36 +40,6 @@ namespace SkjaTextar.Controllers
                     default:
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-
-        public ActionResult MovieIndex(int? id)
-        {
-            if(id.HasValue)
-            {
-                var model = _unitOfWork.MovieRepository.GetByID(id);
-                return View(model);
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-
-        public ActionResult ShowIndex(int? id)
-        {
-            if (id.HasValue)
-            {
-                var model = _unitOfWork.ShowRepository.GetByID(id);
-                return View(model);
-            }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-
-        public ActionResult ClipIndex(int? id)
-        {
-            if (id.HasValue)
-            {
-                var model = _unitOfWork.ClipRepository.GetByID(id);
-                return View(model);
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
