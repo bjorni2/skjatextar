@@ -71,7 +71,7 @@ namespace SkjaTextar.Models
 
             var movies = new List<Movie>
             {
-                new Movie{ ID = 1, CategoryID = 2, Title = "Die Hard", ReleaseYear = 1988, Active = true },
+                new Movie{ ID = 1, CategoryID = 2, Title = "Die Hard", ReleaseYear = 1988, Link = "http://www.imdb.com/title/tt0095016/?ref_=fn_al_tt_1", Active = true },
                 new Movie{ ID = 2, CategoryID = 4, Title = "Lion King", ReleaseYear = 1995, Active = false },
                 new Movie{ ID = 3, CategoryID = 3, Title = "Brokeback mountain", ReleaseYear = 2005, Active = false },
             };
@@ -90,8 +90,8 @@ namespace SkjaTextar.Models
 
             var clips = new List<Clip>
             {
-                new Clip{ ID = 8, CategoryID = 1, Title = "Nyan cat", ReleaseYear = 2009, Link = "www.youtube.com/watch?v=wZZ7oFKsKzY", Active = false },
-                new Clip{ ID = 9, CategoryID = 1, Title = "Charlie bit my finger", ReleaseYear = 2007, Link = "www.youtube.com/watch?v=_OBlgSz8sSM", Active = true }
+                new Clip{ ID = 8, CategoryID = 1, Title = "Nyan cat", ReleaseYear = 2009, Link = "//www.youtube.com/watch?v=wZZ7oFKsKzY", Active = false },
+                new Clip{ ID = 9, CategoryID = 1, Title = "Charlie bit my finger", ReleaseYear = 2007, Link = "//www.youtube.com/watch?v=_OBlgSz8sSM", Active = true }
             };
             clips.ForEach(c => context.Clips.Add(c));
             context.SaveChanges();

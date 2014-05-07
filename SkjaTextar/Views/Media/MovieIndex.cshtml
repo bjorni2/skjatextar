@@ -1,50 +1,28 @@
 ﻿@model SkjaTextar.Models.Movie
 
 @{
-    ViewBag.Title = "MovieIndex";
+    ViewBag.Title = Model.Title;
 }
 
-<h2>MovieIndex</h2>
-
-<div>
-    <h4>Movie</h4>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ReleaseYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ReleaseYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Link)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Link)
-        </dd>
-
-    </dl>
-    @foreach(var item in Model.Translations)
-    {
-        <p>@item.Language</p>
-    }
+<div class="row">
+    <h2 class="col-md-3 col-md-offset-2">@Html.DisplayFor(model => model.Title)</h2>
+    <div class="col-md-7 voffset2">
+        @Html.ActionLink("Ný þýðing", "CreateTranslation", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-2">
+        <img src="@Url.Content("~/content/placeholder.png")" alt="@Model.Title poster" />
+        <p>@Html.DisplayFor(model => model.Category.Name)</p>
+        <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
+        @Html.DisplayFor(model => model.Link)
+    </div> 
+    <div class="col-md-7">
+        @foreach (var item in Model.Translations)
+        {
+            <p>@Html.ActionLink(item.Language, "Index", "Translation", new { id = item.ID}, null)</p>
+        }
+    </div>
+</div>
+
