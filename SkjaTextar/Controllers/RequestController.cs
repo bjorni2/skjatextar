@@ -15,7 +15,7 @@ namespace SkjaTextar.Controllers
         // GET: /Request/
         public ActionResult Index()
         {
-			var model = _unitOfWork.CategoryRepository.Get().ToList().OrderByDescending(m => m.ID);
+            List<Request> model = _unitOfWork.RequestRepository.Get().OrderByDescending(m => m.ID).ToList();
 			return View(model);
         }
 

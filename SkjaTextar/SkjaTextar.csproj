@@ -276,6 +276,7 @@
     <Content Include="Views\Request\CreateForShow.cshtml" />
     <Content Include="Views\Request\CreateForMovie.cshtml" />
     <Content Include="Views\Request\CreateForClip.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Translation\CreateMovieTranslation.cshtml" />
   </ItemGroup>
   <ItemGroup>
