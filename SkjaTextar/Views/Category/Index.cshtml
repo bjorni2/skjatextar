@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="list-group">
-            <p class="list-group-item list-group-item-heading text-center h4">Kvikmyndir</p>
+            @Html.ActionLink("Kvikmyndir", "MediaByCategory", new { id = 0, mediaType = "Movie" }, new { @class = "list-group-item list-group-item-heading text-center h4"})
             @foreach(var item in Model)
             {
                 @Html.ActionLink(item.Name, "MediaByCategory", new { id = item.ID, mediaType = "Movie" }, new { @class = "list-group-item"})
@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-4">
         <div class="list-group">
-            <p class="list-group-item list-group-item-heading text-center h4">Þættir</p>
+            @Html.ActionLink("Sjónvarpsþættir", "MediaByCategory", new { id = 0, mediaType = "Show" }, new { @class = "list-group-item list-group-item-heading text-center h4" })
             @foreach (var item in Model)
             {
                 @Html.ActionLink(item.Name, "MediaByCategory", new { id = item.ID, mediaType = "Show" }, new { @class = "list-group-item" })
@@ -26,7 +26,7 @@
     </div>
     <div class="col-md-4">
         <div class="list-group">
-            <p class="list-group-item list-group-item-heading text-center h4">Myndbrot</p>
+            @Html.ActionLink("Myndbrot", "MediaByCategory", new { id = 0, mediaType = "Clip" }, new { @class = "list-group-item list-group-item-heading text-center h4" })
             @foreach (var item in Model)
             {
                 @Html.ActionLink(item.Name, "MediaByCategory", new { id = item.ID, mediaType = "Clip" }, new { @class = "list-group-item" })
