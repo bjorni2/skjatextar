@@ -75,8 +75,8 @@ namespace SkjaTextar.Controllers
         {
             if (id.HasValue)
             {
-                var model = _unitOfWork.RequestRepository.GetByID(id);
-                string type = model.Media.GetType().BaseType.Name;
+                var model = _unitOfWork.MediaRepository.GetByID(id);
+                string type = model.GetType().BaseType.Name;
                 switch (type)
                 {
                     case "Movie":
@@ -148,7 +148,7 @@ namespace SkjaTextar.Controllers
 				_unitOfWork.Save();
 				return RedirectToAction("Details", request);
 			}
-			return View(request);
+			return View(request); // þarf einhvað skoða þetta
 		}
 	}
 }
