@@ -1,0 +1,58 @@
+﻿@model SkjaTextar.Models.Movie
+@{
+    ViewBag.Title = "Create Movie";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm("CreateTranslation", "Translation"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Translation</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.ID)
+
+        <p>Kvikmynd</p>
+        <div class="col-md-2">
+        @Html.DisplayNameFor(model => model.Category.Name)
+        </div>
+        <div class="col-md-10">
+            <p>@Model.Category.Name</p>
+        </div>
+
+        <div class="col-md-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </div>
+        <div class="col-md-10">
+            <p>@Model.Title</p>
+        </div>
+
+        <div class="col-md-2">
+            @Html.DisplayNameFor(model => model.ReleaseYear)
+        </div>
+        <div class="col-md-10">
+            <p>@Model.ReleaseYear</p>
+        </div>
+
+        <div class="form-group">
+            <label for="Language" class="col-md-2">Tungumál</label>
+            <div class="col-md-10">
+                @Html.DropDownList("Language", String.Empty)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
