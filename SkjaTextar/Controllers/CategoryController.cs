@@ -18,7 +18,7 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
-        public ActionResult CategoryIndex(int? id, string mediaType)
+        public ActionResult MediaByCategory(int? id, string mediaType)
         {
             if(id == null)
             {
@@ -31,10 +31,10 @@ namespace SkjaTextar.Controllers
                     var modelMovie = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
                     return View("MovieByCategory", modelMovie);
                 case "Show":
-                    var modelShow = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
+                    var modelShow = _unitOfWork.ShowRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
                     return View("ShowByCategory", modelShow);
                 case "Clip":
-                    var modelClip = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
+                    var modelClip = _unitOfWork.ClipRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
                     return View("ClipByCategory", modelClip);
                 default:
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

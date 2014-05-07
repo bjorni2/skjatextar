@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SkjaTextar.Models.Clip>
+@{
+    ViewBag.Title = "Myndbrot - " + ViewBag.Category;
+}
+
+<h2>Myndbrot - @ViewBag.Category</h2>
+
+@foreach (var item in Model)
+{
+    <p>@Html.ActionLink(item.Title + " - " + item.ReleaseYear, "Index", "Media", new { id = item.ID }, null)</p>
+}

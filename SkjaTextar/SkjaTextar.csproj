@@ -279,6 +279,8 @@
     <Content Include="Views\Request\CreateForClip.cshtml" />
     <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Translation\CreateMovieTranslation.cshtml" />
+    <Content Include="Views\Category\ShowByCategory.cshtml" />
+    <Content Include="Views\Category\ClipByCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

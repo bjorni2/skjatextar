@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SkjaTextar.Models.Show>
+@{
+    ViewBag.Title = "Sjónvarpsþættir - " + ViewBag.Category;
+}
+
+<h2>Sjónvarpsþættir - @ViewBag.Category</h2>
+
+@foreach(var item in Model)
+{
+    <p>@Html.ActionLink(item.Title + " S" + item.Series + "E" + item.Episode, "Index", "Media", new { id = item.ID }, null)</p>
+}
