@@ -273,6 +273,9 @@
     <Content Include="Views\Translation\Index.cshtml" />
     <Content Include="Views\Translation\Create.cshtml" />
     <Content Include="Views\Translation\CreateMovie.cshtml" />
+    <Content Include="Views\Request\CreateForShow.cshtml" />
+    <Content Include="Views\Request\CreateForMovie.cshtml" />
+    <Content Include="Views\Request\CreateForClip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
