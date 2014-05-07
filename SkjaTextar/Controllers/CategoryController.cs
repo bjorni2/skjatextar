@@ -29,13 +29,13 @@ namespace SkjaTextar.Controllers
             {
                 case "Movie":
                     var modelMovie = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
-                    return View("IndexMovie", modelMovie);
+                    return View("MovieByCategory", modelMovie);
                 case "Show":
                     var modelShow = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
-                    return View("IndexShow", modelShow);
+                    return View("ShowByCategory", modelShow);
                 case "Clip":
                     var modelClip = _unitOfWork.MovieRepository.Get().Where(m => m.CategoryID == id).OrderBy(m => m.Title);
-                    return View("IndexClip", modelClip);
+                    return View("ClipByCategory", modelClip);
                 default:
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
