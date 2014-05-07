@@ -83,5 +83,53 @@ namespace SkjaTextar.Controllers
             }
             return View("Create");
         }
+
+        [Authorize]
+        public ActionResult CreateTranslation(int? id)
+        {
+            if (id.HasValue)
+            {
+                CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures & ~CultureTypes.NeutralCultures);
+                List<SelectListItem> language = new List<SelectListItem>();
+                foreach (var cul in cinfo)
+                {
+                    if (!cul.NativeName.Contains('('))
+                    {
+                        language.Add(new SelectListItem { Text = cul.NativeName, Value = cul.NativeName });
+                    }
+                }
+                ViewBag.Language = new SelectList(language, "Value", "Text");
+
+                var model = _unitOfWork.MediaRepository.GetByID(id);
+                string type = model.GetType().BaseType.Name;
+                switch (type)
+                {
+                    case "Movie":
+                        return View("CreateMovieTranslation", model);
+                    case "Show":
+                        return View("ShowIndex", model);
+                    case "Clip":
+                        return View("ClipIndex", model);
+                    default:
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateTranslation(int id, string language)
+        {
+            if(ModelState.IsValid)
+            {
+                var media = _unitOfWork.MediaRepository.GetByID(id);
+                media.Translations.Add(new Translation { Language = language });
+                _unitOfWork.MediaRepository.Update(media);
+                _unitOfWork.Save();
+            }
+            // TODO redirect to new translation
+            return RedirectToAction("index", "Home");
+        }
 	}
 }
