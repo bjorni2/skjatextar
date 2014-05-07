@@ -274,6 +274,7 @@
     <Content Include="Views\Request\CreateForShow.cshtml" />
     <Content Include="Views\Request\CreateForMovie.cshtml" />
     <Content Include="Views\Request\CreateForClip.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
