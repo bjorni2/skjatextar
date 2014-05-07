@@ -58,10 +58,10 @@ namespace SkjaTextar.Controllers
                     return View("CreateMovie", new MovieTranslationViewModel());
                 case "Show":
                     ViewBag.MediaType = mediaCat;
-                    return View("CreateShow", new Show());
+                    return View("CreateShow", new ShowTranslationViewModel());
                 case "Clip":
                     ViewBag.MediaType = mediaCat;
-                    return View("CreateClip", new Clip());
+                    return View("CreateClip", new ClipTranslationViewModel());
                 default:
                     return View(new Media());
             }
@@ -77,6 +77,40 @@ namespace SkjaTextar.Controllers
                 Movie.Translations = new List<Translation>();
                 Movie.Translations.Add(new Translation { Language = movieTranslation.Language });
                 _unitOfWork.MovieRepository.Insert(Movie);
+                _unitOfWork.Save();
+                //TODO Redirect to new translation
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Create");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateShow(ShowTranslationViewModel showTranslation)
+        {
+            if (ModelState.IsValid)
+            {
+                var Show = showTranslation.Show;
+                Show.Translations = new List<Translation>();
+                Show.Translations.Add(new Translation { Language = showTranslation.Language });
+                _unitOfWork.ShowRepository.Insert(Show);
+                _unitOfWork.Save();
+                //TODO Redirect to new translation
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Create");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateClip(ClipTranslationViewModel clipTranslation)
+        {
+            if (ModelState.IsValid)
+            {
+                var Clip = clipTranslation.Clip;
+                Clip.Translations = new List<Translation>();
+                Clip.Translations.Add(new Translation { Language = clipTranslation.Language });
+                _unitOfWork.ClipRepository.Insert(Clip);
                 _unitOfWork.Save();
                 //TODO Redirect to new translation
                 return RedirectToAction("Index", "Home");
@@ -107,9 +141,9 @@ namespace SkjaTextar.Controllers
                     case "Movie":
                         return View("CreateMovieTranslation", model);
                     case "Show":
-                        return View("ShowIndex", model);
+                        return View("CreateShowTranslation", model);
                     case "Clip":
-                        return View("ClipIndex", model);
+                        return View("CreateClipTranslation", model);
                     default:
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
