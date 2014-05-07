@@ -11,11 +11,35 @@
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.MediaID)
+            Yfirflokkur
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.MediaID)
+            Sjónvarpsþáttur
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Media.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Media.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Media.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Media.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Media.ReleaseYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Media.ReleaseYear)
         </dd>
 
         <dt>
