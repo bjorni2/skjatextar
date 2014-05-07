@@ -3,7 +3,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row top-margin">
+<div class="row voffset6">
     <div class="col-md-8 col-md-offset-2 col-sm-12">
         <div class="input-group input-group-lg">
             <input id="main-search-bar" type="text" class="form-control input-lg" placeholder="Kvikmynd, þáttur, blabla...">
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="row top-margin">
+<div class="row voffset6">
     <div class="col-md-3 col-sm-6">
         <ul class="list-group">
             <li class="list-group-item list-group-item-heading text-center h4">Virkir notendur</li>
@@ -30,30 +30,23 @@
                 <a href="@Url.Action("Index", "Translation", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.NumberOfDownloads</span></a>
             }
         </div>
-        <!--<ul class="list-group">
-            <li class="list-group-item list-group-item-heading text-center h4">Mest sótt</li>
-            //foreach (var item in Model.TopTranslations)
-            {
-                <li class="list-group-item"><span class="badge">//item.NumberOfDownloads</span>//item.Media.Title</li>
-            }
-        </ul>-->
     </div>
     <div class="col-md-3 col-sm-6">
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-heading text-center h4">Heitar beiðnir</li>
+        <div class="list-group">
+            <p class="list-group-item list-group-item-heading text-center h4">Heitar beiðnir</p>
             @foreach (var item in Model.TopRequests)
             {
-                <li class="list-group-item"><span class="badge">@item.Language</span>@item.Media.Title</li>
+                <a href="@Url.Action("Details", "Request", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.Language</span></a>
             }
-        </ul>
+        </div>
     </div>
     <div class="col-md-3 col-sm-6">
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-heading text-center h4">Nýjast</li>
+        <div class="list-group">
+            <p class="list-group-item list-group-item-heading text-center h4">Nýjast</p>
             @foreach (var item in Model.NewTranslations)
             {
-                <li class="list-group-item"><span class="badge">@item.Language</span>@item.Media.Title</li>
+                <a href="@Url.Action("Index", "Translation", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.Language</span></a>
             }
-        </ul>
+        </div>
     </div>
 </div>
