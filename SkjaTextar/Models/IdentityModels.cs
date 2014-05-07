@@ -26,8 +26,8 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            //: base("SQLserverinnokkar")
-            : base("SubTitleContext")
+            : base("SQLserverinnokkar")
+            //: base("SubTitleContext")
         {
         }
         public DbSet<Achievement> Achievements { get; set; }
@@ -37,6 +37,7 @@ namespace SkjaTextar.Models
         public DbSet<Show> Shows { get; set; }
         public DbSet<Clip> Clips { get; set; }
         public DbSet<Translation> Translations { get; set; }
+        public DbSet<TranslationSegment> TranslationSegments { get; set; }
         public DbSet<Request> Requests { get; set; }
     }
 
@@ -102,6 +103,17 @@ namespace SkjaTextar.Models
                 new Translation{ ID = 3, Language = "Íslenska", MediaID = 1, NumberOfDownloads = 17, Score = 0, Locked = false },
             };
             translations.ForEach(t => context.Translations.Add(t));
+            context.SaveChanges();
+
+            var translationSegments = new List<TranslationSegment>
+            {
+                new TranslationSegment{ ID = 1, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 2, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 3, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 4, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 5, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 }
+            };
+            translationSegments.ForEach(ts => context.TranslationSegments.Add(ts));
             context.SaveChanges();
 
             var requests = new List<Request>
