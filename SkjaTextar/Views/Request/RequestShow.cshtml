@@ -1,13 +1,13 @@
-﻿@model SkjaTextar.ViewModels.ShowTranslationViewModel
+﻿@model SkjaTextar.ViewModels.ShowRequestViewModel
 
 @{
-    ViewBag.Title = "Create Show";
+    ViewBag.Title = "Create";
 }
 
-<h2>Ný þýðing</h2>
+<h2>Beiðni</h2>
 
 
-@using (Html.BeginForm("CreateShow", "Translation"))
+@using (Html.BeginForm("CreateShow", "Request"))
 {
     @Html.AntiForgeryToken()
 
@@ -17,16 +17,11 @@
 
         <p>@ViewBag.MediaType</p>
 
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.CategoryID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="Show_CategoryID" name="Show.CategoryID">
-                    @foreach (var item in ViewBag.CategoryID)
-                    {
-                        <option value="@item.ID">@item.Name</option>
-                    }
-                </select>
+                @Html.DropDownListFor(model => model.Show.CategoryID, ViewBag.SubCategories as SelectList)
+                @Html.ValidationMessageFor(model => model.Show.CategoryID)
             </div>
         </div>
 
@@ -71,9 +66,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LanguageID, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Request.LanguageID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("LanguageID", String.Empty)
+                @Html.DropDownListFor(model => model.Request.LanguageID, ViewBag.Languages as SelectList)
+                @Html.ValidationMessageFor(model => model.Request.LanguageID)
             </div>
         </div>
 
@@ -84,6 +80,10 @@
         </div>
     </div>
 }
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

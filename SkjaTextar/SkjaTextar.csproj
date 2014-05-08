@@ -198,10 +198,12 @@
     <Compile Include="Models\TranslationVote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ClipRequestViewModel.cs" />
     <Compile Include="ViewModels\ClipTranslationViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\MediaViewModel.cs" />
+    <Compile Include="ViewModels\MovieRequestViewModel.cs" />
     <Compile Include="ViewModels\MovieTranslationViewModel.cs" />
     <Compile Include="ViewModels\RequestMediaViewModel.cs" />
     <Compile Include="ViewModels\ShowRequestViewModel.cs" />
@@ -291,6 +293,9 @@
     <Content Include="Views\Translation\CreateShow.cshtml" />
     <Content Include="Views\Translation\CreateClip.cshtml" />
     <Content Include="Views\Translation\CommentIndex.cshtml" />
+    <Content Include="Views\Request\RequestMovie.cshtml" />
+    <Content Include="Views\Request\RequestClip.cshtml" />
+    <Content Include="Views\Request\RequestShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

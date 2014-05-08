@@ -135,13 +135,22 @@ namespace SkjaTextar.Controllers
         }
 
         // This ActionResult is used to get a create templete for a request
-        public ActionResult Create()
+        public ActionResult Create(string mediaCat)
         {
-            List<SelectListItem> Categories = new List<SelectListItem>();
+            /*List<SelectListItem> Categories = new List<SelectListItem>();
             Categories.Add(new SelectListItem { Text = "Kvikmynd", Value = "Movie" });
             Categories.Add(new SelectListItem { Text = "Sjónvarpsþáttur", Value = "Show" });
             Categories.Add(new SelectListItem { Text = "Myndbrot", Value = "Clip" });
-            ViewBag.Categories = Categories;
+            ViewBag.Categories = Categories;*/
+
+            // TODO: Create check for existing media and year
+            List<SelectListItem> mediaType = new List<SelectListItem> 
+            { 
+                new SelectListItem{ Text = "Kvikmynd", Value = "Movie" },
+                new SelectListItem{ Text = "Sjónvarpsþáttur", Value = "Show" },
+                new SelectListItem{ Text = "Myndbrot", Value = "Clip" }
+            };
+            ViewBag.MediaType = new SelectList(mediaType, "Value", "Text");
 
 			var subCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name");
 			ViewBag.SubCategories = subCategories;
@@ -149,7 +158,65 @@ namespace SkjaTextar.Controllers
 			var languages = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 			ViewBag.Languages = languages;
 
-            return View(new Request());
+            switch (mediaCat)
+            {
+                case "Movie":
+                    ViewBag.MediaType = mediaCat;
+                    return View("RequestMovie", new MovieRequestViewModel());
+                case "Show":
+                    ViewBag.MediaType = mediaCat;
+                    return View("RequestShow", new ShowRequestViewModel());
+                case "Clip":
+                    ViewBag.MediaType = mediaCat;
+                    return View("RequestClip", new ClipRequestViewModel());
+                default:
+                    return View(new Request());
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateMovie(MovieRequestViewModel movieRequest)
+        {
+            if (ModelState.IsValid)
+            {              
+                _unitOfWork.MovieRepository.Insert(movieRequest.Movie);
+                _unitOfWork.RequestRepository.Insert(movieRequest.Request);
+                _unitOfWork.Save();
+                //TODO Redirect to new request
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Create");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateShow(ShowRequestViewModel showRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.ShowRepository.Insert(showRequest.Show);
+                _unitOfWork.RequestRepository.Insert(showRequest.Request);
+                _unitOfWork.Save();
+                //TODO Redirect to new request
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Create");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateClip(ClipRequestViewModel clipRequest)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.ClipRepository.Insert(clipRequest.Clip);
+                _unitOfWork.RequestRepository.Insert(clipRequest.Request);
+                _unitOfWork.Save();
+                //TODO Redirect to new request
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Create");
         }
 
         // This ActionResult is used to Post a brand new request
