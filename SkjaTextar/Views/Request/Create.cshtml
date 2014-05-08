@@ -25,10 +25,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MediaID, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Media.Category.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.MediaID)
-                @Html.ValidationMessageFor(model => model.MediaID)
+                @Html.DropDownListFor(model => model.Media.Category.Name, ViewBag.UnderCategories as SelectList)
+                @Html.ValidationMessageFor(model => model.Media.Category.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Media.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Media.Title)
+                @Html.ValidationMessageFor(model => model.Media.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Media.ReleaseYear, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Media.ReleaseYear)
+                @Html.ValidationMessageFor(model => model.Media.ReleaseYear)
             </div>
         </div>
 
@@ -37,14 +53,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Language)
                 @Html.ValidationMessageFor(model => model.Language)
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Score, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Score)
-                @Html.ValidationMessageFor(model => model.Score)
             </div>
         </div>
 

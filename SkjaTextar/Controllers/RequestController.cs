@@ -143,6 +143,8 @@ namespace SkjaTextar.Controllers
             Categories.Add(new SelectListItem { Text = "Myndbrot", Value = "Clip" });
             ViewBag.Categories = Categories;
 
+			var underCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name");
+			ViewBag.UnderCategories = underCategories;
             return View(new Request());
         }
 
