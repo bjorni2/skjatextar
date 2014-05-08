@@ -10,6 +10,7 @@
     <div class="col-md-10 col-md-offset-2">
         @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
         @Html.ActionLink("Sækja .srt skrá", "Download", "Translation", new { translationId = Model.ID, mediaId = Model.MediaID }, new { @class = "btn btn-primary active", role = "button" })
+        @Html.ActionLink("Tilkynna þýðingu", "Report", "Translation", new { translationID = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
     </div>
 </div>
 <div class="row">

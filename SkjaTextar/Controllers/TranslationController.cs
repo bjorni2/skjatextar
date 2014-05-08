@@ -242,5 +242,39 @@ namespace SkjaTextar.Controllers
             string virtualFilePath = Server.MapPath("~/SubtitleStorage/m" + mediaId + "t" + translationId + ".srt");
             return File(virtualFilePath, System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(virtualFilePath));
         }
+
+        public ActionResult Report(int? translationID)
+        {
+            if (translationID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var translation = _unitOfWork.TranslationRepository.GetByID(translationID);
+            if (translation == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = new ReportViewModel();
+            model.Translation = translation;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Report(ReportViewModel reportViewModel)
+        {
+
+            // TODO EVERYTHING!!!!
+            if (ModelState.IsValid)
+            {
+                var report = reportViewModel.Report;
+                report.TranslationID = reportViewModel.Translation.ID;
+                _unitOfWork.ReportRepository.Insert(report);
+                _unitOfWork.Save();
+            }
+            return RedirectToAction("Index", "Translation",reportViewModel.Translation.ID);
+        }
 	}
 }

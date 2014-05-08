@@ -30,13 +30,19 @@ namespace SkjaTextar.Controllers
         [HttpPost]
         public ActionResult Delete(int? id)
         {
-            if(id.HasValue)
+            if(id == null)
             {
-                _unitOfWork.ReportRepository.Delete(id);
-                _unitOfWork.Save();
-                return RedirectToAction("Index", "Admin");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var model = _unitOfWork.ReportRepository.GetByID(id);
+            if(model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            _unitOfWork.ReportRepository.Delete(id);
+            _unitOfWork.Save();
+            return RedirectToAction("Index", "Admin");            
         }
 	}
 }
