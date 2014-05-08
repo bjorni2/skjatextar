@@ -6,7 +6,7 @@
 
 <h2>Tilkynningar</h2>
 
-<table>
+<table class="table-condensed">
     <tr>
         <th>
             <p>Þýðing</p>
@@ -25,9 +25,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Translation.Media.Title)
-            <span> - </span>
-            @Html.DisplayFor(modelItem => item.Translation.Language.Name)
+            <p>@Html.ActionLink(item.Translation.Media.Title + " - " + item.Translation.Language.Name, "Index", "Translation", new { id = item.TranslationID }, null)</p>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ReportDate)
@@ -35,8 +33,12 @@
         <td>
             @Html.DisplayFor(modelItem => item.ReportText)
         </td>
-        <td>
-            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-trash"></span></button>
+        <td>           
+            @using (Html.BeginForm("Delete", "Admin"))
+            {   
+                @Html.Hidden("ID", item.ID)                        
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
+            }            
         </td>
     </tr>
 }

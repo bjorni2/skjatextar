@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SkjaTextar.Models;
 using SkjaTextar.DAL;
+using System.Net;
 
 namespace SkjaTextar.Controllers
 {
@@ -24,6 +25,18 @@ namespace SkjaTextar.Controllers
         {
 			List<Report> reportList = _unitOfWork.ReportRepository.Get().OrderByDescending(r => r.ID).ToList();
             return View(reportList);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int? id)
+        {
+            if(id.HasValue)
+            {
+                _unitOfWork.ReportRepository.Delete(id);
+                _unitOfWork.Save();
+                return RedirectToAction("Index", "Admin");
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 	}
 }
