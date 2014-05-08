@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SkjaTextar.DAL;
 using System.Net;
 using SkjaTextar.Models;
+using SkjaTextar.ViewModels;
 
 namespace SkjaTextar.Controllers
 {
@@ -30,7 +31,11 @@ namespace SkjaTextar.Controllers
 					case "Movie":
 						return View("MovieRequestDetails", model);
 					case "Show":
-						return View("ShowRequestDetails", model);
+						ShowRequestViewModel showModel = new ShowRequestViewModel();
+						showModel.Request = model;
+						var myShow = _unitOfWork.ShowRepository.GetByID(model.MediaID);
+						showModel.Show = myShow;
+						return View("ShowRequestDetails", showModel);
 					case "Clip":
 						return View("ClipRequestDetails", model);
 					default:
@@ -55,7 +60,11 @@ namespace SkjaTextar.Controllers
 			if (id.HasValue)
 			{
 				var model = _unitOfWork.RequestRepository.GetByID(id);
-				return View(model);
+				ShowRequestViewModel showModel = new ShowRequestViewModel();
+				showModel.Request = model;
+				var myShow = _unitOfWork.ShowRepository.GetByID(model.MediaID);
+				showModel.Show = myShow;
+				return View(showModel);
 			}
 			return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 		}
