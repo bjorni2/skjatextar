@@ -3,15 +3,17 @@
     ViewBag.Title = "Home Page";
 }
 
+@using (Html.BeginForm("Search", "Home"))
+{
 <div class="row voffset6">
     <div class="col-md-8 col-md-offset-2 col-sm-12">
         <div class="input-group input-group-lg">
-            <input id="main-search-bar" type="text" class="form-control input-lg" placeholder="Kvikmynd, þáttur, blabla...">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+            <input name="searchQuery" id="main-search-bar" type="text" class="form-control input-lg" placeholder="Kvikmynd, þáttur, blabla...">
+            <span class="input-group-btn"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
         </div>
     </div>
 </div>
-
+}
 <div class="row voffset6">
     <div class="col-md-3 col-sm-6">
         <ul class="list-group">

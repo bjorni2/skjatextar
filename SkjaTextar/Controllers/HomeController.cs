@@ -31,18 +31,23 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
-        public ActionResult About()
+        public ActionResult Search(string searchQuery)
         {
-            ViewBag.Message = "WAZZZZUP";
-
-            return View();
+            var model = new SearchMediaViewModel();
+            if(string.IsNullOrEmpty(searchQuery))
+            {
+                ViewBag.Count = 0;
+                return View(model);
+            }
+            var movies = _unitOfWork.MovieRepository.Get().Where(m => m.Title.Contains(searchQuery));
+            var shows = _unitOfWork.ShowRepository.Get().Where(m => m.Title.Contains(searchQuery));
+            var clips = _unitOfWork.ClipRepository.Get().Where(m => m.Title.Contains(searchQuery));
+            model.Movies = movies.ToList();
+            model.Shows = shows.ToList();
+            model.Clips = clips.ToList();
+            ViewBag.Count = movies.Count() + shows.Count() + clips.Count();
+            return View(model);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
