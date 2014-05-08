@@ -296,6 +296,7 @@
     <Content Include="Views\Request\RequestMovie.cshtml" />
     <Content Include="Views\Request\RequestClip.cshtml" />
     <Content Include="Views\Request\RequestShow.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
