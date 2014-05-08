@@ -140,7 +140,7 @@ namespace SkjaTextar.DAL
             }
         }
 
-        public IGenericRepository<Comment> LanguageRepository
+        public IGenericRepository<Comment> CommentRepository
         {
             get
             {
