@@ -148,7 +148,7 @@ namespace SkjaTextar.Models
 
             var translationSegments = new List<TranslationSegment>
             {
-                new TranslationSegment{ ID = 1, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 1, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Skrifaðu yfir druslan þín", Line2 = "Virkar þetta?", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
                 new TranslationSegment{ ID = 2, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
                 new TranslationSegment{ ID = 3, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
                 new TranslationSegment{ ID = 4, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },

@@ -8,6 +8,8 @@ using SkjaTextar.Models;
 using SkjaTextar.ViewModels;
 using System.Globalization;
 using Microsoft.AspNet.Identity;
+using System.IO;
+using SkjaTextar.Helpers;
 
 namespace SkjaTextar.Controllers
 {
@@ -223,6 +225,22 @@ namespace SkjaTextar.Controllers
             commentViewModel.Translation = _unitOfWork.TranslationRepository.GetByID(commentViewModel.Translation.ID);
             commentViewModel.Comments = commentViewModel.Translation.Comments.ToList();
             return View(commentViewModel);
+        }
+
+        public ActionResult Download(int? translationId, int? mediaId)
+        {
+            if(translationId == null || mediaId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var translation = _unitOfWork.TranslationRepository.GetByID(translationId);
+            if(translation == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            SubtitleParser.Output(translation);
+            string virtualFilePath = Server.MapPath("~/SubtitleStorage/m" + mediaId + "t" + translationId + ".srt");
+            return File(virtualFilePath, System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(virtualFilePath));
         }
 	}
 }
