@@ -18,6 +18,7 @@ namespace SkjaTextar.DAL
         private IGenericRepository<Request> _requestRepo;
         private IGenericRepository<User> _userRepo;
         private IGenericRepository<Language> _languageRepo;
+        private IGenericRepository<Comment> _commentRepo;
 
         public IGenericRepository<Achievement> AchievementRepository
         {
@@ -136,6 +137,18 @@ namespace SkjaTextar.DAL
                     this._languageRepo = new GenericRepository<Language>(_context);
                 }
                 return _languageRepo;
+            }
+        }
+
+        public IGenericRepository<Comment> CommentRepository
+        {
+            get
+            {
+                if (this._commentRepo == null)
+                {
+                    this._commentRepo = new GenericRepository<Comment>(_context);
+                }
+                return _commentRepo;
             }
         }
 

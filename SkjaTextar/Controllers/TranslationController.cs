@@ -40,16 +40,6 @@ namespace SkjaTextar.Controllers
             };
             ViewBag.MediaType = new SelectList(mediaType, "Value", "Text");
             ViewBag.CategoryID = _unitOfWork.CategoryRepository.Get().ToList();
-
-            /*CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures & ~CultureTypes.NeutralCultures);
-            List<SelectListItem> language = new List<SelectListItem>();
-            foreach(var cul in cinfo)
-            {
-                if(!cul.NativeName.Contains('('))
-                { 
-                    language.Add(new SelectListItem { Text = cul.NativeName, Value = cul.NativeName });
-                }
-            }*/
             ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 
             switch (mediaCat)
@@ -156,6 +146,61 @@ namespace SkjaTextar.Controllers
             }
             // TODO redirect to new translation
             return RedirectToAction("index", "Home");
+        }
+
+        // TODO For admins only
+        [Authorize]
+        [HttpPost]
+        public ActionResult LockTranslation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+            if(translation == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            translation.Locked = true;
+            _unitOfWork.TranslationRepository.Update(translation);
+            _unitOfWork.Save();
+            return RedirectToAction("Index", "Home");
+        }
+
+        // TODO For admins only
+        [Authorize]
+        [HttpPost]
+        public ActionResult UnLockTranslation(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+            if (translation == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            translation.Locked = false;
+            _unitOfWork.TranslationRepository.Update(translation);
+            _unitOfWork.Save();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult CommentIndex(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var model = _unitOfWork.TranslationRepository.GetByID(id);
+            if(model == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View(model.Comments);
         }
 	}
 }

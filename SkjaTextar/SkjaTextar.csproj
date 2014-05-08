@@ -289,6 +289,7 @@
     <Content Include="Views\Request\ShowRequestDetails.cshtml" />
     <Content Include="Views\Translation\CreateShow.cshtml" />
     <Content Include="Views\Translation\CreateClip.cshtml" />
+    <Content Include="Views\Translation\CommentIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
