@@ -211,6 +211,7 @@
     <Compile Include="ViewModels\TranslationMediaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\avatar.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
