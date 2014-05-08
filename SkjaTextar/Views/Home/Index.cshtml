@@ -36,7 +36,7 @@
             <p class="list-group-item list-group-item-heading text-center h4">Heitar beiðnir</p>
             @foreach (var item in Model.TopRequests)
             {
-                <a href="@Url.Action("Details", "Request", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.Language</span></a>
+                <a href="@Url.Action("Details", "Request", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.Language.Name</span></a>
             }
         </div>
     </div>

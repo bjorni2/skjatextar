@@ -143,15 +143,19 @@ namespace SkjaTextar.Controllers
             Categories.Add(new SelectListItem { Text = "Myndbrot", Value = "Clip" });
             ViewBag.Categories = Categories;
 
-			var underCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name");
-			ViewBag.UnderCategories = underCategories;
+			var subCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name");
+			ViewBag.SubCategories = subCategories;
+
+			var languages = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+			ViewBag.Languages = languages;
+
             return View(new Request());
         }
 
         // This ActionResult is used to Post a brand new request
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create([Bind(Include="ID, MediaID, Language, Score")]Request request)
+		public ActionResult Create(/*[Bind(Include="ID, MediaID, LanguageID, Score")]*/Request request)
 		{
 			if(ModelState.IsValid)
 			{
