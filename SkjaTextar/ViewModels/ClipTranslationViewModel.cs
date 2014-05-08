@@ -9,6 +9,6 @@ namespace SkjaTextar.ViewModels
     public class ClipTranslationViewModel
     {
         public Clip Clip { get; set; }
-        public string Language { get; set; }
+        public int LanguageID { get; set; }
     }
 }

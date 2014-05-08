@@ -1,0 +1,81 @@
+﻿@model SkjaTextar.ViewModels.ShowTranslationViewModel
+
+@{
+    ViewBag.Title = "Create Show";
+}
+
+<h2>Ný þýðing</h2>
+
+
+@using (Html.BeginForm("CreateShow", "Translation"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <p>@ViewBag.MediaType</p>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Show.CategoryID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="Show_CategoryID" name="Show.CategoryID">
+                    @foreach (var item in ViewBag.CategoryID)
+                    {
+                        <option value="@item.ID">@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Show.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Show.Title)
+                @Html.ValidationMessageFor(model => model.Show.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Show.Series, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Show.Series)
+                @Html.ValidationMessageFor(model => model.Show.Series)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Show.Episode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Show.Episode)
+                @Html.ValidationMessageFor(model => model.Show.Episode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Show.ReleaseYear, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Show.ReleaseYear)
+                @Html.ValidationMessageFor(model => model.Show.ReleaseYear)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.LanguageID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LanguageID", String.Empty)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

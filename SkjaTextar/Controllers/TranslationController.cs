@@ -31,6 +31,7 @@ namespace SkjaTextar.Controllers
         [Authorize]
         public ActionResult Create(string mediaCat)
         {
+            // TODO: Create check for existing media and year
             List<SelectListItem> mediaType = new List<SelectListItem> 
             { 
                 new SelectListItem{ Text = "Kvikmynd", Value = "Movie" },
@@ -40,7 +41,7 @@ namespace SkjaTextar.Controllers
             ViewBag.MediaType = new SelectList(mediaType, "Value", "Text");
             ViewBag.CategoryID = _unitOfWork.CategoryRepository.Get().ToList();
 
-            CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures & ~CultureTypes.NeutralCultures);
+            /*CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures & ~CultureTypes.NeutralCultures);
             List<SelectListItem> language = new List<SelectListItem>();
             foreach(var cul in cinfo)
             {
@@ -48,8 +49,8 @@ namespace SkjaTextar.Controllers
                 { 
                     language.Add(new SelectListItem { Text = cul.NativeName, Value = cul.NativeName });
                 }
-            }
-            ViewBag.Language = new SelectList(language, "Value", "Text");
+            }*/
+            ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 
             switch (mediaCat)
             {
@@ -75,7 +76,7 @@ namespace SkjaTextar.Controllers
             {
                 var Movie = movieTranslation.Movie;
                 Movie.Translations = new List<Translation>();
-                Movie.Translations.Add(new Translation { Language = movieTranslation.Language });
+                Movie.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
                 _unitOfWork.MovieRepository.Insert(Movie);
                 _unitOfWork.Save();
                 //TODO Redirect to new translation
@@ -92,7 +93,7 @@ namespace SkjaTextar.Controllers
             {
                 var Show = showTranslation.Show;
                 Show.Translations = new List<Translation>();
-                Show.Translations.Add(new Translation { Language = showTranslation.Language });
+                Show.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
                 _unitOfWork.ShowRepository.Insert(Show);
                 _unitOfWork.Save();
                 //TODO Redirect to new translation
@@ -109,7 +110,7 @@ namespace SkjaTextar.Controllers
             {
                 var Clip = clipTranslation.Clip;
                 Clip.Translations = new List<Translation>();
-                Clip.Translations.Add(new Translation { Language = clipTranslation.Language });
+                Clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                 _unitOfWork.ClipRepository.Insert(Clip);
                 _unitOfWork.Save();
                 //TODO Redirect to new translation
@@ -123,16 +124,7 @@ namespace SkjaTextar.Controllers
         {
             if (id.HasValue)
             {
-                CultureInfo[] cinfo = CultureInfo.GetCultures(CultureTypes.InstalledWin32Cultures & ~CultureTypes.NeutralCultures);
-                List<SelectListItem> language = new List<SelectListItem>();
-                foreach (var cul in cinfo)
-                {
-                    if (!cul.NativeName.Contains('('))
-                    {
-                        language.Add(new SelectListItem { Text = cul.NativeName, Value = cul.NativeName });
-                    }
-                }
-                ViewBag.Language = new SelectList(language, "Value", "Text");
+                ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 
                 var model = _unitOfWork.MediaRepository.GetByID(id);
                 string type = model.GetType().BaseType.Name;
@@ -153,12 +145,12 @@ namespace SkjaTextar.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateTranslation(int id, string language)
+        public ActionResult CreateTranslation(int id, int languageID)
         {
             if(ModelState.IsValid)
             {
                 var media = _unitOfWork.MediaRepository.GetByID(id);
-                media.Translations.Add(new Translation { Language = language });
+                media.Translations.Add(new Translation { LanguageID = languageID });
                 _unitOfWork.MediaRepository.Update(media);
                 _unitOfWork.Save();
             }

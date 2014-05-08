@@ -14,6 +14,7 @@ namespace SkjaTextar.DAL
         IGenericRepository<Translation> TranslationRepository { get; }
         IGenericRepository<Request> RequestRepository { get; }
         IGenericRepository<User> UserRepository { get; }
+        IGenericRepository<Language> LanguageRepository { get; }
 
         void Save();
     }
