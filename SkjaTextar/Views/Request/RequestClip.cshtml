@@ -1,0 +1,74 @@
+﻿@model SkjaTextar.ViewModels.ClipRequestViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Beiðni</h2>
+
+
+@using (Html.BeginForm("CreateClip", "Request"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <p>@ViewBag.MediaType</p>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Clip.CategoryID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Clip.CategoryID, ViewBag.SubCategories as SelectList)
+                @Html.ValidationMessageFor(model => model.Clip.CategoryID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Clip.Title, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Clip.Title)
+                @Html.ValidationMessageFor(model => model.Clip.Title)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Clip.ReleaseYear, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Clip.ReleaseYear)
+                @Html.ValidationMessageFor(model => model.Clip.ReleaseYear)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Clip.Link, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Clip.Link)
+                @Html.ValidationMessageFor(model => model.Clip.Link)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Request.LanguageID, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Request.LanguageID, ViewBag.Languages as SelectList)
+                @Html.ValidationMessageFor(model => model.Request.LanguageID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
