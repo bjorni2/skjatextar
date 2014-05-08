@@ -157,11 +157,11 @@ namespace SkjaTextar.Models
 
             var requests = new List<Request>
             {
-                new Request{ ID = 1, Language = "Finnska", Score = 32, MediaID = 2 },
-                new Request{ ID = 2, Language = "Íslenska", Score = 18, MediaID = 8 },
-                new Request{ ID = 3, Language = "Íslenska", Score = 14, MediaID = 7 },
-                new Request{ ID = 4, Language = "Enska", Score = 7, MediaID = 7 },
-                new Request{ ID = 5, Language = "Íslenska", Score = 2, MediaID = 5 }
+                new Request{ ID = 1, LanguageID = 1, Score = 32, MediaID = 2 },
+                new Request{ ID = 2, LanguageID = 2, Score = 18, MediaID = 8 },
+                new Request{ ID = 3, LanguageID = 3, Score = 14, MediaID = 7 },
+                new Request{ ID = 4, LanguageID = 4, Score = 7, MediaID = 7 },
+                new Request{ ID = 5, LanguageID = 5, Score = 2, MediaID = 5 }
             };
             requests.ForEach(r => context.Requests.Add(r));
             context.SaveChanges();

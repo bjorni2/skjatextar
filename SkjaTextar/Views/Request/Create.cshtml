@@ -16,19 +16,19 @@
         <hr />
         @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Media.Category, new { @class = "control-label col-md-2" })
+        <!--<div class="form-group">
+            Html.LabelFor(model => model.Media.Category, new { class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Media.Category, ViewBag.Categories as List<SelectListItem>)
-                @Html.ValidationMessageFor(model => model.Media.Category)
+                Html.DropDownListFor(model => model.Media.Category, ViewBag.Categories as List<SelectListItem>)
+                Html.ValidationMessageFor(model => model.Media.Category)
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Media.Category.Name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Media.CategoryID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Media.Category.Name, ViewBag.UnderCategories as SelectList)
-                @Html.ValidationMessageFor(model => model.Media.Category.Name)
+                @Html.DropDownListFor(model => model.Media.CategoryID, ViewBag.SubCategories as SelectList)
+                @Html.ValidationMessageFor(model => model.Media.CategoryID)
             </div>
         </div>
 
@@ -49,10 +49,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Language, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LanguageID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Language)
-                @Html.ValidationMessageFor(model => model.Language)
+                @Html.DropDownListFor(model => model.LanguageID, ViewBag.Languages as SelectList)
+                @Html.ValidationMessageFor(model => model.LanguageID)
             </div>
         </div>
 

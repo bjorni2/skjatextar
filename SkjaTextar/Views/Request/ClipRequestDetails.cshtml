@@ -1,13 +1,11 @@
 ﻿@model SkjaTextar.Models.Request
-
 @{
     ViewBag.Title = "ClipRequestDetails";
 }
 
-<h2>ClipRequestDetails</h2>
+<h2>Beiðni</h2>
 
 <div>
-    <h4>Request</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
@@ -43,11 +41,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Language)
+            @Html.DisplayNameFor(model => model.Language.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Language)
+            @Html.DisplayFor(model => model.Language.Name)
         </dd>
 
         <dt>
