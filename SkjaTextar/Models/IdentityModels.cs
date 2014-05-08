@@ -30,6 +30,8 @@ namespace SkjaTextar.Models
             : base("SubTitleContext")
         {
         }
+
+        public DbSet<Language> Languages { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Media> Medias { get; set; }
@@ -45,6 +47,43 @@ namespace SkjaTextar.Models
     {
         protected override void Seed(ApplicationDbContext context)
         {
+            var languages = new List<Language>
+            {
+                new Language{ ID = 1, Name = "íslenska" },
+                new Language{ ID = 2, Name = "Deutsch" },
+                new Language{ ID = 3, Name = "English" },
+                new Language{ ID = 4, Name = "español" },
+                new Language{ ID = 5, Name = "français" },
+                new Language{ ID = 6, Name = "Nederlands" },
+                new Language{ ID = 7, Name = "Português" },
+                new Language{ ID = 8, Name = "Rumantsch" },
+                new Language{ ID = 9, Name = "Türkçe" },
+                new Language{ ID = 10, Name = "dansk" },
+                new Language{ ID = 11, Name = "eesti" },
+                new Language{ ID = 12, Name = "hrvatski" },
+                new Language{ ID = 13, Name = "italiano" },
+                new Language{ ID = 14, Name = "latviešu" },
+                new Language{ ID = 15, Name = "Afrikaans" },
+                new Language{ ID = 16, Name = "lietuvių" },
+                new Language{ ID = 17, Name = "magyar" },
+                new Language{ ID = 18, Name = "norsk" },
+                new Language{ ID = 19, Name = "polski" },
+                new Language{ ID = 20, Name = "română" },
+                new Language{ ID = 21, Name = "shqipe" },
+                new Language{ ID = 22, Name = "slovenski" },
+                new Language{ ID = 23, Name = "slovenčina" },
+                new Language{ ID = 24, Name = "suomi" },
+                new Language{ ID = 25, Name = "svenska" },
+                new Language{ ID = 26, Name = "Ελληνικά" },
+                new Language{ ID = 27, Name = "Беларускі" },
+                new Language{ ID = 28, Name = "русский" },
+                new Language{ ID = 29, Name = "українська" },
+                new Language{ ID = 30, Name = "日本語" },
+                new Language{ ID = 31, Name = "한국어" },
+            };
+            languages.ForEach(l => context.Languages.Add(l));
+            context.SaveChanges();
+
             var achievements = new List<Achievement>
             {
                 new Achievement{ ID = 1, AchievementText = "1 lína þýdd" },
@@ -98,9 +137,9 @@ namespace SkjaTextar.Models
 
             var translations = new List<Translation>
             {
-                new Translation{ ID = 1, Language = "Íslenska", MediaID = 9, NumberOfDownloads = 42, Score = 0, Locked = false },
-                new Translation{ ID = 2, Language = "Pólska", MediaID = 1, NumberOfDownloads = 3, Score = 1337, Locked = true },
-                new Translation{ ID = 3, Language = "Íslenska", MediaID = 1, NumberOfDownloads = 17, Score = 0, Locked = false },
+                new Translation{ ID = 1, LanguageID = 1, MediaID = 9, NumberOfDownloads = 42, Score = 0, Locked = false },
+                new Translation{ ID = 2, LanguageID = 2, MediaID = 1, NumberOfDownloads = 3, Score = 1337, Locked = true },
+                new Translation{ ID = 3, LanguageID = 15, MediaID = 1, NumberOfDownloads = 17, Score = 0, Locked = false },
             };
             translations.ForEach(t => context.Translations.Add(t));
             context.SaveChanges();

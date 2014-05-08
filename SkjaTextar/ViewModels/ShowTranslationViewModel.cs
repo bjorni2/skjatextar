@@ -9,6 +9,6 @@ namespace SkjaTextar.ViewModels
     public class ShowTranslationViewModel
     {
         public Show Show { get; set; }
-        public string Language { get; set; }
+        public int LanguageID { get; set; }
     }
 }

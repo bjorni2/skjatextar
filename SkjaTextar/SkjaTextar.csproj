@@ -186,6 +186,7 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Clip.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Media.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -285,6 +286,8 @@
     <Content Include="Views\Category\ClipByCategory.cshtml" />
     <Content Include="Views\Translation\CreateShowTranslation.cshtml" />
     <Content Include="Views\Translation\CreateClipTranslation.cshtml" />
+    <Content Include="Views\Translation\CreateShow.cshtml" />
+    <Content Include="Views\Translation\CreateClip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,13 +1,12 @@
-﻿@model SkjaTextar.ViewModels.MovieTranslationViewModel
+﻿@model SkjaTextar.ViewModels.ClipTranslationViewModel
 
 @{
-    ViewBag.Title = "Create Movie";
+    ViewBag.Title = "Create Clip";
 }
 
 <h2>Ný þýðing</h2>
 
-
-@using (Html.BeginForm("CreateMovie", "Translation"))
+@using (Html.BeginForm("CreateClip", "Translation"))
 {
     @Html.AntiForgeryToken()
 
@@ -16,13 +15,13 @@
         @Html.ValidationSummary(true)
 
         <p>@ViewBag.MediaType</p>
-        
-        
+
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.CategoryID, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Clip.CategoryID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select id="Movie_CategoryID" name="Movie.CategoryID">
-                    @foreach(var item in ViewBag.CategoryID)
+                <select id="Clip_CategoryID" name="Clip.CategoryID">
+                    @foreach (var item in ViewBag.CategoryID)
                     {
                         <option value="@item.ID">@item.Name</option>
                     }
@@ -31,26 +30,26 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.Title, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Clip.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Movie.Title)
-                @Html.ValidationMessageFor(model => model.Movie.Title)
+                @Html.EditorFor(model => model.Clip.Title)
+                @Html.ValidationMessageFor(model => model.Clip.Title)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.ReleaseYear, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Clip.ReleaseYear, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Movie.ReleaseYear)
-                @Html.ValidationMessageFor(model => model.Movie.ReleaseYear)
+                @Html.EditorFor(model => model.Clip.ReleaseYear)
+                @Html.ValidationMessageFor(model => model.Clip.ReleaseYear)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Movie.Link, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Clip.Link, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Movie.Link)
-                @Html.ValidationMessageFor(model => model.Movie.Link)
+                @Html.EditorFor(model => model.Clip.Link)
+                @Html.ValidationMessageFor(model => model.Clip.Link)
             </div>
         </div>
 
