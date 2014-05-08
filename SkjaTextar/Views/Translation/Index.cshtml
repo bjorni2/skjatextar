@@ -3,7 +3,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Þýðing</h2>
+<div class="row">
+    <h2 class="col-md-10 col-md-offset-2">@Html.DisplayFor(model => model.Media.Title) - @Html.DisplayFor(model => model.Language.Name)</h2>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
+        @Html.ActionLink("Sækja .srt skrá", "Index", "Home", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
+    </div>
+</div>
 <div class="row">
     <div class="col-md-5 col-md-offset-2">
         @foreach(var item in Model.TranslationSegments)
