@@ -9,7 +9,7 @@ namespace SkjaTextar.Models
     {
         public int ID { get; set; }
         public int TranslationID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public bool Vote { get; set; }
 
         public Translation Translation { get; set; }

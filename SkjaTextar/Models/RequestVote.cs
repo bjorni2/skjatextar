@@ -8,7 +8,7 @@ namespace SkjaTextar.Models
     public class RequestVote
     {
         public int ID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int RequestID { get; set; }
         public bool Vote { get; set; }
         

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using SkjaTextar.Models;
 using SkjaTextar.ViewModels;
 using System.Globalization;
+using Microsoft.AspNet.Identity;
 
 namespace SkjaTextar.Controllers
 {
@@ -195,12 +196,33 @@ namespace SkjaTextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = _unitOfWork.TranslationRepository.GetByID(id);
-            if(model == null)
+            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+            if(translation == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return View(model.Comments);
+            var model = new CommentViewModel();
+            model.Translation = translation;
+            model.Comments = translation.Comments.ToList();
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CommentIndex(CommentViewModel commentViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                commentViewModel.Comment.UserID = User.Identity.GetUserId();
+                var translation = _unitOfWork.TranslationRepository.GetByID(commentViewModel.Translation.ID);
+                translation.Comments.Add(commentViewModel.Comment);
+                _unitOfWork.TranslationRepository.Update(translation);
+                _unitOfWork.Save();
+                return RedirectToAction("CommentIndex", new { id = commentViewModel.Translation.ID });
+            }
+            commentViewModel.Translation = _unitOfWork.TranslationRepository.GetByID(commentViewModel.Translation.ID);
+            commentViewModel.Comments = commentViewModel.Translation.Comments.ToList();
+            return View(commentViewModel);
         }
 	}
 }

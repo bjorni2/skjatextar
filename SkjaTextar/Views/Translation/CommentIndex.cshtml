@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SkjaTextar.Models.Comment>
+﻿@model SkjaTextar.ViewModels.CommentViewModel
 
 @{
     ViewBag.Title = "CommentIndex";
@@ -11,57 +11,37 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Translation</h4>
+        <h4>@Model.Translation.Media.Title - @Model.Translation.Language.Name</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.Translation.ID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.MediaID, "MediaID", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Comment.CommentText, "Athugasemd", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("MediaID", String.Empty)
-                @Html.ValidationMessageFor(model => model.MediaID)
+                @Html.TextAreaFor(model => model.Comment.CommentText, new { @rows = "12", @cols = "50"})
+                @Html.ValidationMessageFor(model => model.Comment.CommentText)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Senda inn" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CommentText)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TranslationID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CommentText)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TranslationID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+@foreach(var comment in Model.Comments)
+{
+    <div class="row">
+        <div class="col-md-1 col-md-offset-2">
+            <img src="@Url.Content("~/content/avatar.png")" alt="@comment.User.UserName avatar" />
+            <p>@comment.User.UserName</p>
+        </div>
+        <div class="col-md-9">
+            <p>@comment.CommentText</p>
+        </div>
+    </div>
+    <hr />
 }
-
-</table>
