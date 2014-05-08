@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SkjaTextar.Models;
+using SkjaTextar.DAL;
 
 namespace SkjaTextar.Controllers
 {
@@ -10,9 +12,18 @@ namespace SkjaTextar.Controllers
     {
         //
         // GET: /Admin/
+		public AdminController() : base()
+        {
+        }
+
+        public AdminController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
+
         public ActionResult Index()
         {
-            return View();
+			List<Report> reportList = _unitOfWork.ReportRepository.Get().OrderByDescending(r => r.ID).ToList();
+            return View(reportList);
         }
 	}
 }

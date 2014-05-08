@@ -16,7 +16,8 @@ namespace SkjaTextar.DAL
         IGenericRepository<User> UserRepository { get; }
         IGenericRepository<Language> LanguageRepository { get; }
         IGenericRepository<Comment> CommentRepository { get; }
+		IGenericRepository<Report> ReportRepository { get; }
 
         void Save();
-    }
+	}
 }

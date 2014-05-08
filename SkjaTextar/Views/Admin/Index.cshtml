@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SkjaTextar.Models.Report>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Tilkynningar</h2>
+
+<table>
+    <tr>
+        <th>
+            <p>Þýðing</p>
+        </th>
+        <th>
+            <p>Dagsetning</p>
+        </th>
+        <th>
+            <p>Lýsing</p>
+        </th>
+        <th>
+            <p>Eyða</p>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Translation.Media.Title)
+            <span> - </span>
+            @Html.DisplayFor(modelItem => item.Translation.Language.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReportText)
+        </td>
+        <td>
+            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-trash"></span></button>
+        </td>
+    </tr>
+}
+
+</table>

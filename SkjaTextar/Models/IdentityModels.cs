@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Collections.Generic;
+using System;
 
 namespace SkjaTextar.Models
 {
@@ -41,6 +42,7 @@ namespace SkjaTextar.Models
         public DbSet<Translation> Translations { get; set; }
         public DbSet<TranslationSegment> TranslationSegments { get; set; }
         public DbSet<Request> Requests { get; set; }
+		public DbSet<Report> Reports { get; set; }
     }
 
     public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
@@ -165,6 +167,16 @@ namespace SkjaTextar.Models
             };
             requests.ForEach(r => context.Requests.Add(r));
             context.SaveChanges();
+
+			var reports = new List<Report>
+			{
+				new Report{ ID = 1, ReportDate = DateTime.Parse("2014-01-10 09:15:00"), ReportText = "Gaur, hvadda paela!", TranslationID = 1},
+				new Report{ ID = 2, ReportDate = DateTime.Parse("2014-01-10 09:15:00"), ReportText = "Gaur, hvadda paela!", TranslationID = 2},
+				new Report{ ID = 3, ReportDate = DateTime.Parse("2014-01-10 09:15:00"), ReportText = "Gaur, hvadda paela!", TranslationID = 3},
+				new Report{ ID = 4, ReportDate = DateTime.Parse("2014-01-10 09:15:00"), ReportText = "Gaur, hvadda paela!", TranslationID = 3}
+			};
+			reports.ForEach(r => context.Reports.Add(r));
+			context.SaveChanges();
         }
     }
 }

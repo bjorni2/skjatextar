@@ -297,10 +297,10 @@
     <Content Include="Views\Request\RequestMovie.cshtml" />
     <Content Include="Views\Request\RequestClip.cshtml" />
     <Content Include="Views\Request\RequestShow.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Shared\Request\" />
   </ItemGroup>

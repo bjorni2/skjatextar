@@ -13,5 +13,10 @@ namespace SkjaTextar.Models
         public DateTime ReportDate { get; set; }
 
         public virtual Translation Translation { get; set; }
+
+		public Report()
+		{
+			ReportDate = DateTime.Now;
+		}
     }
 }

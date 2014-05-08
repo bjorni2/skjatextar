@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Beiðnir</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Media.Title)
+            <p>Titill</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Language.Name)
+            <p>Tungumál</p>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Score)
+            <p>Stig</p>
         </th>
         <th></th>
     </tr>
@@ -26,18 +26,14 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Media.Title)
+            <p>@Html.ActionLink(item.Media.Title, "Details", "Request", new { id = item.ID }, null)</p>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Language.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Score)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            <button><span class="glyphicon glyphicon-chevron-up"></span></button><button><span class="glyphicon glyphicon-chevron-down"></span></button>
         </td>
     </tr>
 }
