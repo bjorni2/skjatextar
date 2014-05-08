@@ -1,4 +1,4 @@
-﻿@model SkjaTextar.Models.Request
+﻿@model SkjaTextar.ViewModels.ShowRequestViewModel
 
 @{
     ViewBag.Title = "ShowRequestDetails";
@@ -7,60 +7,77 @@
 <h2>ShowRequestDetails</h2>
 
 <div>
-    <h4>Request</h4>
+    <h4>ShowRequestViewModel</h4>
 	<hr />
     <dl class="dl-horizontal">
-        <dt>
-            Yfirflokkur
-        </dt>
-
-        <dd>
-            Sjónvarpsþáttur
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Media.Category.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Media.Category.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Media.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Media.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Media.ReleaseYear)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Media.ReleaseYear)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Language)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Language)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Score)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Score)
-        </dd>
-
     </dl>
 </div>
+<div>
+    <dt>
+        Yfirflokkur
+    </dt>
+
+    <dd>
+        Sjónvarpsþáttur
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Show.Category.Name)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Show.Category.Name)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Show.Title)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Show.Title)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Show.ReleaseYear)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Show.ReleaseYear)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Show.Series)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Show.Series)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Show.Episode)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Show.Episode)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Request.Language)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Request.Language)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.Request.Score)
+    </dt>
+
+    <dd>
+        @Html.DisplayFor(model => model.Request.Score)
+    </dd>
+</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
