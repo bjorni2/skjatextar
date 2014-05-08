@@ -31,18 +31,11 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
-        public ActionResult About()
+        public ActionResult Search(string searchQuery)
         {
-            ViewBag.Message = "WAZZZZUP";
-
+            
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }
