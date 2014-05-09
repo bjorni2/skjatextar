@@ -271,25 +271,26 @@ namespace SkjaTextar.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var model = new ReportViewModel();
-            model.Translation = translation;
+            var report = new Report();
+            report.Translation = translation;
 
-            return View(model);
+            return View(report);
         }
 
         [HttpPost]
-        public ActionResult Report(ReportViewModel reportViewModel)
+        public ActionResult Report(Report Report)
         {
 
-            // TODO EVERYTHING!!!!
             if (ModelState.IsValid)
             {
-                var report = reportViewModel.Report;
-                report.TranslationID = reportViewModel.Translation.ID;
+                var report = Report;
+                report.TranslationID = Report.TranslationID;
                 _unitOfWork.ReportRepository.Insert(report);
                 _unitOfWork.Save();
+                TempData["UserMessage"] = "Tilkynningu komið áleiðis";
+                return RedirectToAction("Index", "Translation", new { id = Report.TranslationID });
             }
-            return RedirectToAction("Index", "Translation",reportViewModel.Translation.ID);
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 	}
 }

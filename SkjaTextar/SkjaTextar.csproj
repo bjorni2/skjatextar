@@ -208,7 +208,6 @@
     <Compile Include="ViewModels\MediaViewModel.cs" />
     <Compile Include="ViewModels\MovieRequestViewModel.cs" />
     <Compile Include="ViewModels\MovieTranslationViewModel.cs" />
-    <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\RequestMediaViewModel.cs" />
     <Compile Include="ViewModels\SearchMediaViewModel.cs" />
     <Compile Include="ViewModels\ShowRequestViewModel.cs" />

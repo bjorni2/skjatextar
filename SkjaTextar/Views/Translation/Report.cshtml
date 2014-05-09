@@ -1,5 +1,4 @@
-﻿@model SkjaTextar.ViewModels.ReportViewModel
-
+﻿@model SkjaTextar.Models.Report
 @{
     ViewBag.Title = "Tilkynning";
 }
@@ -14,13 +13,13 @@
         <h4>@Model.Translation.Media.Title - @Model.Translation.Language.Name</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.Hidden("Translation.ID", Model.Translation.ID)
+        @Html.Hidden("TranslationID", Model.TranslationID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Report.ReportText, "Skilaboð", new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ReportText, "Skilaboð", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Report.ReportText, new { @rows = "12", @cols = "50" })
-                @Html.ValidationMessageFor(model => model.Report.ReportText)
+                @Html.TextAreaFor(model => model.ReportText, new { @rows = "12", @cols = "50" })
+                @Html.ValidationMessageFor(model => model.ReportText)
             </div>
         </div>
 
