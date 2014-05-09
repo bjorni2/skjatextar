@@ -15,8 +15,11 @@ namespace SkjaTextar.Controllers
 {
     public class TranslationController : BaseController
     {
-        //
-        // GET: /Translation/
+        /// <summary>
+        /// Displays the index page for a translation.
+        /// </summary>
+        /// <param name="id">Id of the translation to display</param>
+        /// <returns></returns>
         public ActionResult Index(int? id)
         {
             if(id == null)
@@ -31,36 +34,40 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Return the create  translation page for specified media type, creating both the media and translation.
+        /// </summary>
+        /// <param name="mediaCat">Type of the media to create</param>
+        /// <returns></returns>
         [Authorize]
         public ActionResult Create(string mediaCat)
         {
-            // TODO: Create check for existing media and year
-            List<SelectListItem> mediaType = new List<SelectListItem> 
-            { 
-                new SelectListItem{ Text = "Kvikmynd", Value = "Movie" },
-                new SelectListItem{ Text = "Sjónvarpsþáttur", Value = "Show" },
-                new SelectListItem{ Text = "Myndbrot", Value = "Clip" }
-            };
-            ViewBag.MediaType = new SelectList(mediaType, "Value", "Text");
-            ViewBag.CategoryID = _unitOfWork.CategoryRepository.Get().ToList();
+            ViewBag.CategoryID = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name");
             ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 
+            if(mediaCat != null)
+            {
+                mediaCat = mediaCat.ToLower();
+            }
             switch (mediaCat)
             {
-                case "Movie":
-                    ViewBag.MediaType = mediaCat;
-                    return View("CreateMovie", new MovieTranslationViewModel());
-                case "Show":
-                    ViewBag.MediaType = mediaCat;
-                    return View("CreateShow", new ShowTranslationViewModel());
-                case "Clip":
-                    ViewBag.MediaType = mediaCat;
-                    return View("CreateClip", new ClipTranslationViewModel());
+                case "movie":
+                    return View("CreateMovie", new MovieTranslationViewModel { MediaType = "Kvikmynd" });
+                case "show":
+                    return View("CreateShow", new ShowTranslationViewModel { MediaType = "Sjónvarpsþáttur" });
+                case "clip":
+                    return View("CreateClip", new ClipTranslationViewModel { MediaType = "Myndbrot" });
                 default:
-                    return View(new Media());
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
+        /// <summary>
+        /// Save the movie and translation to the database.
+        /// </summary>
+        /// <param name="movieTranslation">The movie and translation to create</param>
+        /// <param name="file">Optional subtitle file to start off the translation</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult CreateMovie(MovieTranslationViewModel movieTranslation, HttpPostedFileBase file)
@@ -68,25 +75,58 @@ namespace SkjaTextar.Controllers
             if(ModelState.IsValid)
             {
                 var movie = movieTranslation.Movie;
-                movie.Translations = new List<Translation>();
-                if (file != null && file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                    file.SaveAs(path);
-                    var translation = SubtitleParser.Parse(path, "srt");
-                    translation.LanguageID = movieTranslation.LanguageID;
-                    movie.Translations.Add(translation);
+                var movieToCheckFor = _unitOfWork.MovieRepository.Get()
+                    .Where(m => m.Title == movie.Title)
+                    .Where(m => m.ReleaseYear == movie.ReleaseYear)
+                    .SingleOrDefault();
+                if(movieToCheckFor == null)
+                { 
+                    movie.Translations = new List<Translation>();
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = movieTranslation.LanguageID;
+                        movie.Translations.Add(translation);
+                    }
+                    else
+                    {
+                        movie.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
+                    }         
+                    _unitOfWork.MovieRepository.Insert(movie);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
                 }
-                else
+                else if (_unitOfWork.TranslationRepository.Get()
+                    .Where(t => t.MediaID == movieToCheckFor.ID)
+                    .Where(t => t.LanguageID == movieTranslation.LanguageID)
+                    .SingleOrDefault() == null)
                 {
-                    movie.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
-                }         
-                _unitOfWork.MovieRepository.Insert(movie);
-                _unitOfWork.Save();
-                //TODO Redirect to new translation
-                return RedirectToAction("Index", "Home");
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = movieTranslation.LanguageID;
+                        movieToCheckFor.Translations.Add(translation);
+                    }
+                    else
+                    {
+                        movieToCheckFor.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
+                    }
+                    _unitOfWork.MovieRepository.Update(movieToCheckFor);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
+                }
+                ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
             }
+            ViewBag.CategoryID = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name", movieTranslation.Movie.CategoryID);
+            ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
             return View("CreateMovie");
         }
 
@@ -97,26 +137,60 @@ namespace SkjaTextar.Controllers
             if (ModelState.IsValid)
             {
                 var show = showTranslation.Show;
-                show.Translations = new List<Translation>();
-                if (file != null && file.ContentLength > 0)
+                var showToCheckFor = _unitOfWork.ShowRepository.Get()
+                    .Where(s => s.Title == show.Title)
+                    .Where(s => s.Series == show.Series)
+                    .Where(s => s.Episode == show.Episode)
+                    .SingleOrDefault();
+                if (showToCheckFor == null)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                    file.SaveAs(path);
-                    var translation = SubtitleParser.Parse(path, "srt");
-                    translation.LanguageID = showTranslation.LanguageID;
-                    show.Translations.Add(translation);
+                    show.Translations = new List<Translation>();
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = showTranslation.LanguageID;
+                        show.Translations.Add(translation);
+                    }
+                    else
+                    {
+                        show.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
+                    }
+                    _unitOfWork.ShowRepository.Insert(show);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
                 }
-                else
+                else if (_unitOfWork.TranslationRepository.Get()
+                    .Where(t => t.MediaID == showToCheckFor.ID)
+                    .Where(t => t.LanguageID == showTranslation.LanguageID)
+                    .SingleOrDefault() == null)
                 {
-                    show.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
-                }    
-                _unitOfWork.ShowRepository.Insert(show);
-                _unitOfWork.Save();
-                //TODO Redirect to new translation
-                return RedirectToAction("Index", "Home");
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = showTranslation.LanguageID;
+                        showToCheckFor.Translations.Add(translation);
+                    }
+                    else
+                    {
+                        showToCheckFor.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
+                    }
+                    _unitOfWork.ShowRepository.Update(showToCheckFor);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
+                }
+                ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
             }
-            return View("Create");
+            ViewBag.CategoryID = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name", showTranslation.Show.CategoryID);
+            ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+            return View("CreateShow");
         }
 
         [Authorize]
@@ -126,26 +200,59 @@ namespace SkjaTextar.Controllers
             if (ModelState.IsValid)
             {
                 var clip = clipTranslation.Clip;
-                clip.Translations = new List<Translation>();
-                if (file != null && file.ContentLength > 0)
+                var clipToCheckFor = _unitOfWork.ClipRepository.Get()
+                    .Where(c => c.Title == clip.Title)
+                    .Where(c => c.ReleaseYear == clip.ReleaseYear)
+                    .SingleOrDefault();
+                if (clipToCheckFor == null)
                 {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                    file.SaveAs(path);
-                    var translation = SubtitleParser.Parse(path, "srt");
-                    translation.LanguageID = clipTranslation.LanguageID;
-                    clip.Translations.Add(translation);
+                    clip.Translations = new List<Translation>();
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = clipTranslation.LanguageID;
+                        clip.Translations.Add(translation);
+                    }
+                    else
+                    {
+                        clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
+                    }
+                    _unitOfWork.ClipRepository.Insert(clip);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
                 }
-                else
+                else if (_unitOfWork.TranslationRepository.Get()
+                    .Where(t => t.MediaID == clipToCheckFor.ID)
+                    .Where(t => t.LanguageID == clipTranslation.LanguageID)
+                    .SingleOrDefault() == null)
                 {
-                    clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
-                }    
-                _unitOfWork.ClipRepository.Insert(clip);
-                _unitOfWork.Save();
-                //TODO Redirect to new translation
-                return RedirectToAction("Index", "Home");
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = clipTranslation.LanguageID;
+                        clipToCheckFor.Translations.Add(translation);
+                    }
+                    else
+                    {
+                        clipToCheckFor.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
+                    }
+                    _unitOfWork.ClipRepository.Update(clipToCheckFor);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
+                }
+                ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
             }
-            return View("Create");
+            ViewBag.CategoryID = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name", clipTranslation.Clip.CategoryID);
+            ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+            return View("CreateClip");
         }
 
         [Authorize]
@@ -178,25 +285,48 @@ namespace SkjaTextar.Controllers
         {
             if(ModelState.IsValid)
             {
+                var translationToFind = _unitOfWork.TranslationRepository.Get()
+                    .Where(t => t.MediaID == id)
+                    .Where(t => t.LanguageID == languageID)
+                    .SingleOrDefault();
                 var media = _unitOfWork.MediaRepository.GetByID(id);
-                if (file != null && file.ContentLength > 0)
-                {
-                    var fileName = Path.GetFileName(file.FileName);
-                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                    file.SaveAs(path);
-                    var translation = SubtitleParser.Parse(path, "srt");
-                    translation.LanguageID = languageID;
-                    media.Translations.Add(translation);
+                if(translationToFind == null)
+                {    
+                    
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                        var translation = SubtitleParser.Parse(path, "srt");
+                        translation.LanguageID = languageID;
+                        media.Translations.Add(translation);
+                    }
+                    else 
+                    {
+                        media.Translations.Add(new Translation { LanguageID = languageID });
+                    }
+                    _unitOfWork.MediaRepository.Update(media);
+                    _unitOfWork.Save();
+                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
                 }
-                else 
+                ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
+                ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+                string type = media.GetType().BaseType.Name;
+                switch (type)
                 {
-                    media.Translations.Add(new Translation { LanguageID = languageID });
+                    case "Movie":
+                        return View("CreateMovieTranslation", media);
+                    case "Show":
+                        return View("CreateShowTranslation", media);
+                    case "Clip":
+                        return View("CreateClipTranslation", media);
+                    default:
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                _unitOfWork.MediaRepository.Update(media);
-                _unitOfWork.Save();
             }
-            // TODO redirect to new translation
-            return RedirectToAction("Index", "Home");
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
         // TODO For admins only

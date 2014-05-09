@@ -282,7 +282,6 @@
     <Content Include="Views\Request\ClipRequestDetails.cshtml" />
     <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Translation\Index.cshtml" />
-    <Content Include="Views\Translation\Create.cshtml" />
     <Content Include="Views\Translation\CreateMovie.cshtml" />
     <Content Include="Views\Request\CreateForShow.cshtml" />
     <Content Include="Views\Request\CreateForMovie.cshtml" />

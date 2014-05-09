@@ -1,44 +1,47 @@
 ﻿@model SkjaTextar.Models.Clip
 @{
-    ViewBag.Title = "Create Clip";
+    ViewBag.Title = "Ný þýðing";
 }
 
-<h2>Ný þýðing</h2>
+<h2>Ný þýðing - Myndbrot</h2>
 
-
+<div>
+    @if (ViewBag.Errormsg != null)
+    {
+        <h3 class="field-validation-error">@ViewBag.Errormsg</h3>
+    }
+</div>
 @using (Html.BeginForm("CreateTranslation", "Translation", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Translation</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
 
-        <p>Myndbrot</p>
-        <div class="col-md-2">
+        <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.Category.Name)
         </div>
         <div class="col-md-10">
             <p>@Model.Category.Name</p>
         </div>
 
-        <div class="col-md-2">
+        <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.Title)
         </div>
         <div class="col-md-10">
             <p>@Model.Title</p>
         </div>
 
-        <div class="col-md-2">
+        <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.ReleaseYear)
         </div>
         <div class="col-md-10">
             <p>@Model.ReleaseYear</p>
         </div>
 
-        <div class="col-md-2">
+        <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.Link)
         </div>
         <div class="col-md-10">
@@ -46,18 +49,22 @@
         </div>
 
         <div class="form-group">
-            <label for="Language" class="col-md-2">Tungumál</label>
+            <label for="Language" class="control-label col-md-2">Tungumál</label>
             <div class="col-md-10">
                 @Html.DropDownList("LanguageID", String.Empty)
             </div>
         </div>
 
-        <label for="file">Filename:</label>
-        <input type="file" name="file" id="file" />
+        <div class="form-group">
+            <label class="control-label col-md-2" for="file">Skráarheiti:</label>
+            <div class="col-md-10">
+                <input type="file" name="file" id="file" />
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Stofna þýðingu" class="btn btn-default" />
             </div>
         </div>
     </div>
