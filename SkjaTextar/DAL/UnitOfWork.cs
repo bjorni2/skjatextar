@@ -20,6 +20,7 @@ namespace SkjaTextar.DAL
         private IGenericRepository<Language> _languageRepo;
         private IGenericRepository<Comment> _commentRepo;
 		private IGenericRepository<Report> _reportRepo;
+        private IGenericRepository<RequestVote> _requestVoteRepo;
 
         public IGenericRepository<Achievement> AchievementRepository
         {
@@ -164,6 +165,18 @@ namespace SkjaTextar.DAL
 				return _reportRepo;
 			}
 		}
+
+        public IGenericRepository<RequestVote> RequestVoteRepository
+        {
+            get
+            {
+                if (this._requestVoteRepo == null)
+                {
+                    this._requestVoteRepo = new GenericRepository<RequestVote>(_context);
+                }
+                return _requestVoteRepo;
+            }
+        }
 
         public void Save()
         {
