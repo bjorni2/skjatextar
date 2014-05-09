@@ -29,12 +29,12 @@
             <p>@item.Original1</p>
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" value="@item.Line1" readonly="readonly" />
-                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
+                <span class="input-group-btn"><button class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
             </div>
             <p>@item.Original2</p>
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" value="@item.Line2" readonly="readonly" />
-                <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
+                <span class="input-group-btn"><button class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
             </div>
         }
     </div>
@@ -56,3 +56,6 @@
     </div>
 </div>
 
+@section Scripts {
+    <script src="~/Scripts/TranslationSegment.js"></script>
+}
