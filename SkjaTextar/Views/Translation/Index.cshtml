@@ -6,6 +6,14 @@
 <div class="row">
     <h2 class="col-md-10 col-md-offset-2">@Html.DisplayFor(model => model.Media.Title) - @Html.DisplayFor(model => model.Language.Name)</h2>
 </div>
+
+<div>
+    @if (TempData["UserMessage"] != null)
+    {
+        <p>@TempData["UserMessage"]</p>
+    }
+</div>
+
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
