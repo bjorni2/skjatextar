@@ -1,0 +1,12 @@
+﻿@model IEnumerable<SkjaTextar.Models.Translation>
+
+@{
+    ViewBag.Title = "Þýðingar";
+}
+
+<h2>@ViewBag.Language.Name</h2>
+
+@foreach (var item in Model)
+{
+    <p>@Html.ActionLink(item.Media.Title, "Index", "Translation", new { id = item.ID }, null)</p>
+}

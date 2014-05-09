@@ -302,6 +302,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Translation\Report.cshtml" />
+    <Content Include="Views\Translation\LanguageList.cshtml" />
+    <Content Include="Views\Translation\ByLanguage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -277,5 +277,26 @@ namespace SkjaTextar.Controllers
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
+
+        public ActionResult LanguageList()
+        {
+            var language = _unitOfWork.LanguageRepository.Get().ToList();
+            return View(language);
+        }
+
+        public ActionResult ByLanguage(int? id)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var translations = _unitOfWork.TranslationRepository.Get().Where(t => t.LanguageID == id).OrderBy(t => t.Media.Title).ToList();
+            if(translations == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
+            return View(translations);
+        }
 	}
 }
