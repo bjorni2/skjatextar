@@ -349,5 +349,27 @@ namespace SkjaTextar.Controllers
             ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
             return View(translations);
         }
+
+		[HttpPost]
+		public ActionResult UpdateLine(int? translationID, int? segmentID, string translationText, int line)
+		{
+			var translation = _unitOfWork.TranslationRepository.GetByID(translationID);
+			var segment = translation.TranslationSegments.Where(t => t.SegmentID == segmentID).Single();
+			if(line == 1)
+			{
+				segment.Line1 = translationText;
+			}
+			else if(line == 2)
+			{
+				segment.Line2 = translationText;
+			}
+			else
+			{
+				//TODO: Handle errors.
+			}
+			_unitOfWork.TranslationSegmentRepository.Update(segment);
+			_unitOfWork.Save();
+			return null;
+		}
 	}
 }

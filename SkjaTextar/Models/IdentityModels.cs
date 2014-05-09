@@ -45,7 +45,7 @@ namespace SkjaTextar.Models
 		public DbSet<Report> Reports { get; set; }
     }
 
-    public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class ApplicationInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

@@ -20,6 +20,7 @@ namespace SkjaTextar.DAL
         private IGenericRepository<Language> _languageRepo;
         private IGenericRepository<Comment> _commentRepo;
 		private IGenericRepository<Report> _reportRepo;
+		private IGenericRepository<TranslationSegment> _translationSegmentRepo;
 
         public IGenericRepository<Achievement> AchievementRepository
         {
@@ -162,6 +163,18 @@ namespace SkjaTextar.DAL
 					this._reportRepo = new GenericRepository<Report>(_context);
 				}
 				return _reportRepo;
+			}
+		}
+
+		public IGenericRepository<TranslationSegment> TranslationSegmentRepository
+		{
+			get
+			{
+				if (this._translationSegmentRepo == null)
+				{
+					this._translationSegmentRepo = new GenericRepository<TranslationSegment>(_context);
+				}
+				return _translationSegmentRepo;
 			}
 		}
 

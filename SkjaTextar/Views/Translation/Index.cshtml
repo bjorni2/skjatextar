@@ -3,6 +3,8 @@
     ViewBag.Title = "Index";
 }
 
+<div id="translationid" data-translationid="@Model.ID" class="hidden"></div>
+
 <div class="row">
     <h2 class="col-md-10 col-md-offset-2">@Html.DisplayFor(model => model.Media.Title) - @Html.DisplayFor(model => model.Language.Name)</h2>
 </div>
@@ -29,12 +31,12 @@
             <p>@item.Original1</p>
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" value="@item.Line1" readonly="readonly" />
-                <span class="input-group-btn"><button class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
+                <span class="input-group-btn"><button data-line="1" data-segmentid="@item.SegmentID" class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
             </div>
             <p>@item.Original2</p>
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" value="@item.Line2" readonly="readonly" />
-                <span class="input-group-btn"><button class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
+                <span class="input-group-btn"><button data-line="2" data-segmentid="@item.SegmentID" class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
             </div>
         }
     </div>
