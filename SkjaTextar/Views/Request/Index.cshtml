@@ -33,7 +33,19 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Score)
-            <button><span class="glyphicon glyphicon-chevron-up"></span></button><button><span class="glyphicon glyphicon-chevron-down"></span></button>
+            @using (Html.BeginForm("RequestVote", "Request"))
+            {
+                @Html.Hidden("ID", item.ID)
+                @Html.Hidden("Vote", true)
+                <button><span class="glyphicon glyphicon-chevron-up"></span></button> 
+            }
+
+            @using (Html.BeginForm("RequestVote", "Request"))
+            {
+                @Html.Hidden("ID", item.ID)
+                @Html.Hidden("Vote", false)
+                <button><span class="glyphicon glyphicon-chevron-down"></span></button>
+            }
         </td>
     </tr>
 }

@@ -7,6 +7,7 @@ using SkjaTextar.DAL;
 using System.Net;
 using SkjaTextar.Models;
 using SkjaTextar.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace SkjaTextar.Controllers
 {
@@ -232,5 +233,56 @@ namespace SkjaTextar.Controllers
 			}
 			return View(request); // þarf einhvað skoða þetta
 		}
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult RequestVote(int? id, bool vote)
+        {
+            if(id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var userID = User.Identity.GetUserId();
+            var request = _unitOfWork.RequestRepository.GetByID(id);
+            var requestVote = _unitOfWork.RequestVoteRepository.Get().Where(r => r.RequestID == id).Where(r => r.UserID == userID).SingleOrDefault();
+            if(requestVote != null)
+            {
+                if(requestVote.Vote == vote)
+                {
+                    return RedirectToAction("Index", "Request", request);
+                }
+                else
+                {
+                    if(vote == true)
+                    {
+                        request.Score += 2;
+                        requestVote.Vote = true;
+                    }
+                    else
+                    {
+                        request.Score -= 2;
+                        requestVote.Vote = false;
+                    }
+                    _unitOfWork.Save();
+                    return RedirectToAction("Index", "Request", request);
+                }
+            }
+            int requestID = id.Value;
+            var newRequestVote = new RequestVote();
+            newRequestVote.UserID = userID;
+            newRequestVote.RequestID = requestID;
+            newRequestVote.Vote = vote;
+            if(vote == true)
+            {
+                request.Score++;
+            }
+            else
+            {
+                request.Score--;
+            }
+            _unitOfWork.RequestVoteRepository.Insert(newRequestVote);
+            _unitOfWork.Save();
+            return RedirectToAction("Index", "Request", request);
+        }
 	}
 }
