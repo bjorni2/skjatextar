@@ -63,14 +63,55 @@ namespace SkjaTextar.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateMovie(MovieTranslationViewModel movieTranslation)
+        public ActionResult CreateMovie(MovieTranslationViewModel movieTranslation, HttpPostedFileBase file)
         {
             if(ModelState.IsValid)
             {
-                var Movie = movieTranslation.Movie;
-                Movie.Translations = new List<Translation>();
-                Movie.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
-                _unitOfWork.MovieRepository.Insert(Movie);
+                var movie = movieTranslation.Movie;
+                movie.Translations = new List<Translation>();
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                    file.SaveAs(path);
+                    var translation = SubtitleParser.Parse(path, "srt");
+                    translation.LanguageID = movieTranslation.LanguageID;
+                    movie.Translations.Add(translation);
+                }
+                else
+                {
+                    movie.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
+                }         
+                _unitOfWork.MovieRepository.Insert(movie);
+                _unitOfWork.Save();
+                //TODO Redirect to new translation
+                return RedirectToAction("Index", "Home");
+            }
+            return View("CreateMovie");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult CreateShow(ShowTranslationViewModel showTranslation, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var show = showTranslation.Show;
+                show.Translations = new List<Translation>();
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                    file.SaveAs(path);
+                    var translation = SubtitleParser.Parse(path, "srt");
+                    translation.LanguageID = showTranslation.LanguageID;
+                    show.Translations.Add(translation);
+                }
+                else
+                {
+                    show.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
+                }    
+                _unitOfWork.ShowRepository.Insert(show);
                 _unitOfWork.Save();
                 //TODO Redirect to new translation
                 return RedirectToAction("Index", "Home");
@@ -80,31 +121,26 @@ namespace SkjaTextar.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateShow(ShowTranslationViewModel showTranslation)
+        public ActionResult CreateClip(ClipTranslationViewModel clipTranslation, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                var Show = showTranslation.Show;
-                Show.Translations = new List<Translation>();
-                Show.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
-                _unitOfWork.ShowRepository.Insert(Show);
-                _unitOfWork.Save();
-                //TODO Redirect to new translation
-                return RedirectToAction("Index", "Home");
-            }
-            return View("Create");
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult CreateClip(ClipTranslationViewModel clipTranslation)
-        {
-            if (ModelState.IsValid)
-            {
-                var Clip = clipTranslation.Clip;
-                Clip.Translations = new List<Translation>();
-                Clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
-                _unitOfWork.ClipRepository.Insert(Clip);
+                var clip = clipTranslation.Clip;
+                clip.Translations = new List<Translation>();
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                    file.SaveAs(path);
+                    var translation = SubtitleParser.Parse(path, "srt");
+                    translation.LanguageID = clipTranslation.LanguageID;
+                    clip.Translations.Add(translation);
+                }
+                else
+                {
+                    clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
+                }    
+                _unitOfWork.ClipRepository.Insert(clip);
                 _unitOfWork.Save();
                 //TODO Redirect to new translation
                 return RedirectToAction("Index", "Home");
@@ -138,17 +174,29 @@ namespace SkjaTextar.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateTranslation(int id, int languageID)
+        public ActionResult CreateTranslation(int id, int languageID, HttpPostedFileBase file)
         {
             if(ModelState.IsValid)
             {
                 var media = _unitOfWork.MediaRepository.GetByID(id);
-                media.Translations.Add(new Translation { LanguageID = languageID });
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                    file.SaveAs(path);
+                    var translation = SubtitleParser.Parse(path, "srt");
+                    translation.LanguageID = languageID;
+                    media.Translations.Add(translation);
+                }
+                else 
+                {
+                    media.Translations.Add(new Translation { LanguageID = languageID });
+                }
                 _unitOfWork.MediaRepository.Update(media);
                 _unitOfWork.Save();
             }
             // TODO redirect to new translation
-            return RedirectToAction("index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         // TODO For admins only
@@ -238,6 +286,9 @@ namespace SkjaTextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            translation.NumberOfDownloads++;
+            _unitOfWork.TranslationRepository.Update(translation);
+            _unitOfWork.Save();
             SubtitleParser.Output(translation);
             string virtualFilePath = Server.MapPath("~/SubtitleStorage/m" + mediaId + "t" + translationId + ".srt");
             return File(virtualFilePath, System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(virtualFilePath));

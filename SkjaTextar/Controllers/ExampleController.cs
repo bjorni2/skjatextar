@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SkjaTextar.Models;
+using System.IO;
 
 namespace SkjaTextar.Controllers
 {
@@ -117,6 +118,21 @@ namespace SkjaTextar.Controllers
             Translation translation = db.Translations.Find(id);
             db.Translations.Remove(translation);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Index(HttpPostedFileBase file)
+        {
+
+            if (file.ContentLength > 0)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                file.SaveAs(path);
+            }
+
+
             return RedirectToAction("Index");
         }
 

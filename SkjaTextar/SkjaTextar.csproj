@@ -306,7 +306,7 @@
     <Content Include="Views\Translation\ByLanguage.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
     <Folder Include="SubtitleStorage\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Shared\Request\" />

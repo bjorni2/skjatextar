@@ -10,9 +10,41 @@ namespace SkjaTextar.Helpers
 {
     public class SubtitleParser
     {
-        public static Translation Parse(string path, string format)
+        public static Translation Parse(string path, string format = "srt")
         {
-            return new Translation();
+            var translation = new Translation { TranslationSegments = new List<TranslationSegment>() };
+            using (StreamReader sr = new StreamReader(path))
+            {
+                string nextLine;
+                string tmp = "";
+                while ((nextLine = sr.ReadLine()) != null)
+                {
+                    while (nextLine == "")
+                    {
+                        nextLine = sr.ReadLine();
+                    }
+                    TranslationSegment transSeg = new TranslationSegment();
+                    transSeg.SegmentID = int.Parse(nextLine);
+                    nextLine = sr.ReadLine();
+                    transSeg.Timestamp = nextLine;
+                    if((nextLine = sr.ReadLine()) != "" && nextLine != null)
+                    {
+                        transSeg.Line1 = nextLine;
+                    }
+                    while ((nextLine = sr.ReadLine()) != "" && nextLine != null)
+                    {
+                        tmp += nextLine;
+                    }
+                    if(tmp != "")
+                    {
+                        transSeg.Line2 = tmp;
+                    }
+                    translation.TranslationSegments.Add(transSeg);
+                    tmp = "";
+                }
+            }
+            
+            return translation;
         }
 
         public static void Output(Translation translation, string format = "srt")

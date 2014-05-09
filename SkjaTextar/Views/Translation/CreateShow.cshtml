@@ -7,7 +7,7 @@
 <h2>Ný þýðing</h2>
 
 
-@using (Html.BeginForm("CreateShow", "Translation"))
+@using (Html.BeginForm("CreateShow", "Translation", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -76,6 +76,9 @@
                 @Html.DropDownList("LanguageID", String.Empty)
             </div>
         </div>
+
+        <label for="file">Filename:</label>
+        <input type="file" name="file" id="file" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
