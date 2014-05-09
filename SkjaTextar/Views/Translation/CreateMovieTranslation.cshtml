@@ -6,7 +6,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm("CreateTranslation", "Translation"))
+@using (Html.BeginForm("CreateTranslation", "Translation", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -44,6 +44,9 @@
                 @Html.DropDownList("LanguageID", String.Empty)
             </div>
         </div>
+
+        <label for="file">Filename:</label>
+        <input type="file" name="file" id="file" />
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
