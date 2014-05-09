@@ -30,6 +30,7 @@ namespace SkjaTextar.Helpers
                     if((nextLine = sr.ReadLine()) != "" && nextLine != null)
                     {
                         transSeg.Line1 = nextLine;
+						transSeg.Original1 = nextLine;
                     }
                     while ((nextLine = sr.ReadLine()) != "" && nextLine != null)
                     {
@@ -38,6 +39,7 @@ namespace SkjaTextar.Helpers
                     if(tmp != "")
                     {
                         transSeg.Line2 = tmp;
+						transSeg.Original2 = tmp;
                     }
                     translation.TranslationSegments.Add(transSeg);
                     tmp = "";
