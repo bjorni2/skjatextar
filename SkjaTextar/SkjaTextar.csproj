@@ -212,6 +212,7 @@
     <Compile Include="ViewModels\MovieRequestViewModel.cs" />
     <Compile Include="ViewModels\MovieTranslationViewModel.cs" />
     <Compile Include="ViewModels\RequestMediaViewModel.cs" />
+    <Compile Include="ViewModels\RequestVoteViewModel.cs" />
     <Compile Include="ViewModels\SearchMediaViewModel.cs" />
     <Compile Include="ViewModels\ShowRequestViewModel.cs" />
     <Compile Include="ViewModels\ShowTranslationViewModel.cs" />
@@ -380,7 +381,6 @@
     <Folder Include="App_Data\uploads\" />
     <Folder Include="SubtitleStorage\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Shared\Request\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
