@@ -4,11 +4,16 @@
     ViewBag.Title = Model.Title;
 }
 
-<div class="row">
+<div class="row voffset3">
     <h2 class="col-md-3 col-md-offset-2">@Html.DisplayFor(model => model.Title)</h2>
-    <div class="col-md-7 voffset2">
-        @Html.ActionLink("Ný þýðing", "CreateTranslation", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
-    </div>
+    <div class="col-md-3 voffset2">
+        <div class="col-md-6">
+            @Html.ActionLink("Ný þýðing", "CreateTranslation", "Translation", new { id = Model.ID }, new { @class = "btn btn-lg btn-primary btn-block ", role = "button" })
+        </div>
+        <div class ="col-md-6">
+            @Html.ActionLink("Ný beiðni", "CreateForMedia", "Request", new { id = Model.ID }, new { @class = "btn btn-lg btn-primary btn-block", role = "button" })
+        </div>
+        </div>
 </div>
 
 <div class="row">
@@ -16,13 +21,20 @@
         <img src="@Url.Content("~/content/placeholder.png")" alt="@Model.Title poster" />
         <p>@Html.DisplayFor(model => model.Category.Name)</p>
         <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
-        @Html.DisplayFor(model => model.Link)
-    </div> 
-    <div class="col-md-7">
-        @foreach (var item in Model.Translations)
+        @if (Model.Link != null)
         {
-            <p>@Html.ActionLink(item.Language.Name, "Index", "Translation", new { id = item.ID}, null)</p>
+            <a href="@Model.Link">Hlekkur</a>
         }
-    </div>
+    </div> 
+        @if(Model.Translations.Count != 0)
+        { 
+        <div class="col-md-3 col-xs-6 list-group">
+            <p class="list-group-item list-group-item-heading text-center h4">Þýðingar</p>
+            @foreach (var item in Model.Translations)
+            {
+                <a href="@Url.Action("Index", "Translation", new { id = item.ID })"class="list-group-item">@item.Language.Name
+                <span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
+            }
+        </div>
+        }
 </div>
-

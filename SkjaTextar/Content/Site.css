@@ -58,6 +58,9 @@ input[type="checkbox"].input-validation-error {
     position: absolute; left: -9999px;
 }
 
+.pad-left{
+    padding-left: 5px;
+}
 
 
 .voffset  { margin-top: 2px; }

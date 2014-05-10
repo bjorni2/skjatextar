@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-7 voffset2">
-        @using (Html.BeginForm("CreateTranslation", "Translation", FormMethod.Post))
+        @using (Html.BeginForm("CreateTranslation", "Translation", FormMethod.Get))
         {
             <input type="hidden" name="ID" value="@Model.MediaID" />
             @Html.Hidden("LanguageID", Model.LanguageID)

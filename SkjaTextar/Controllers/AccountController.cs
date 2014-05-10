@@ -273,7 +273,7 @@ namespace SkjaTextar.Controllers
                     if (result.Succeeded)
                     {
                         await SignInAsync(user, isPersistent: false);
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 AddErrors(result);
