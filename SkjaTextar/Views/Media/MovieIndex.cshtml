@@ -18,11 +18,12 @@
         <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
         @Html.DisplayFor(model => model.Link)
     </div> 
-    <div class="col-md-7">
-        @foreach (var item in Model.Translations)
-        {
-            <p>@Html.ActionLink(item.Language.Name, "Index", "Translation", new { id = item.ID}, null)</p>
-        }
-    </div>
+        <div class="col-md-3 col-xs-6 list-group">
+            <p class="list-group-item list-group-item-heading text-center h4">Þýðingar</p>
+            @foreach (var item in Model.Translations)
+            {
+                <a href="@Url.Action("Index", "Translation", new { id = item.ID })"class="list-group-item">@item.Language.Name
+                <span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
+            }
+        </div>
 </div>
-

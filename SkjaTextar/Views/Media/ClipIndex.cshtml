@@ -21,7 +21,7 @@
     <div class="col-md-7">
         @foreach (var item in Model.Translations)
         {
-             <p>@Html.ActionLink(item.Language.Name, "Index", "Translation", new { id = item.ID}, null)</p>
+             <p>@Html.ActionLink(item.Language.Name, "Index", "Translation", new { id = item.ID}, null)<span>@item.NumberOfDownloads</span></p>
         }
     </div>
 </div>
