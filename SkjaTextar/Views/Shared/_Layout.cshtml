@@ -8,23 +8,121 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar yamm navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Sloppy Joe's WikiSubs", "Index", "Home", null, new { @class = "navbar-brand" })
+                <button type="button" data-toggle="collapse" data-target="#navbar-collapse-1" class="navbar-toggle"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="~/Home/Index" class="navbar-brand">Sloppy Joe's WikiSubs</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Heim", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Flokkar", "Index", "Category")</li>
-                    <li>@Html.ActionLink("Beiðnir", "Index", "Request")</li>
-                    <li>@Html.ActionLink("Þýðingar", "LanguageList", "Translation")</li>
+            <div id="navbar-collapse-1" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">                   
+                    <!-- Accordion demo -->
+                    <li class="dropdown">
+                        <a href="~/Category/Index" data-toggle="dropdown" class="dropdown-toggle">Flokkar<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <div class="yamm-content">
+                                    <div class="row">
+                                        <div id="accordion" class="panel-group">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Kvikmyndir</a></h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse">
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/1?mediaType=Movie">Gaman</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/2?mediaType=Movie">Spenna</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/3?mediaType=Movie">Drama</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/4?mediaType=Movie">Barnaefni</a></div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Sjónvarpsþættir</a></h4>
+                                                </div>
+                                                <div id="collapseTwo" class="panel-collapse collapse">
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/1?mediaType=Show">Gaman</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/2?mediaType=Show">Spenna</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/3?mediaType=Show">Drama</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/4?mediaType=Show">Barnaefni</a></div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">Myndbrot</a></h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse">
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/1?mediaType=Clip">Gaman</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/2?mediaType=Clip">Spenna</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/3?mediaType=Clip">Drama</a></div>
+                                                    <div class="panel-body"><a href="~/Category/MediaByCategory/4?mediaType=Clip">Barnaefni</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown yamm-fw">
+                        <a href="~/Translation/LanguageList" data-toggle="dropdown" class="dropdown-toggle">Þýðingar<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="grid-demo">
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/1">Íslenska</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/3">English</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/2">Deutsch</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/4">Español</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/10">Dansk</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/18">Norsk</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/25">Svenska</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/24">Suomi</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/5">Français</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/6">Nederlands</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/7">Português</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/19">Polski</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/13">Italiano</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/14">Latviešu</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/15">Afrikaans</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/16">Lietuvių</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/17">Magyar</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/9">Türkçe</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/8">Rumantsch</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/20">Română</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/21">Shqipe</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/22">Slovenski</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/23">Slovenčina</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/12">Hrvatski</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/11">Eesti</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/26">Ελληνικά</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/27">Беларускі</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/28">Pусский</a></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/32">Íslenska (heyrnarskertir)</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/29">Yкраїнська</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/30">日本語</a></div>
+                                    <div class="col-sm-3 navmargpadd"><a class="navpadd" href="~/Translation/ByLanguage/31">한국어</a></div>                                    
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- Classic dropdown -->
+                    <li class="dropdown">
+                        <a href="~/Request/Index">Beiðnir</a>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -41,5 +139,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/home.js"></script>
 </body>
 </html>
+
+

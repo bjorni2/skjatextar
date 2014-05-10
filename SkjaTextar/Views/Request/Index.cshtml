@@ -5,33 +5,34 @@
 }
 
 <h2>Beiðnir</h2>
-
-<div class="btn-group  col-sm-3 col-md-2 col-xs-12">
-    <button type="button" class="btn btn-lg btn-default btn-block dropdown-toggle" data-toggle="dropdown">
-        Ný Beiðni <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-        <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
-        <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
-        <li>@Html.ActionLink("Myndbrot", "Create", "Request", new { mediaCat = "Clip" }, null)</li>
-    </ul>
+<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3 newrequestbutton">
+    <div class="btn-group  col-sm-6 col-md-6 col-xs-12 newrequestbutton">
+        <button type="button" class="btn btn-lg btn-default btn-block dropdown-toggle newrequestbutton" data-toggle="dropdown">
+            Ný Beiðni <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
+            <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
+            <li>@Html.ActionLink("Myndbrot", "Create", "Request", new { mediaCat = "Clip" }, null)</li>
+        </ul>
+    </div>
 </div>
-
 <table class="table">
     <tr>
         <th>
-            <p>Titill</p>
+                Titill
         </th>
         <th>
-            <p>Tungumál</p>
+                Tungumál
         </th>
-        <th>
-            <p>Stig</p>
+            <th id="stig">
+                Stig
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
     <tr>
         <td>
             <p>@Html.ActionLink(item.Media.Title, "Details", "Request", new { id = item.ID }, null)</p>
@@ -39,14 +40,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.Language.Name)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Score)
+                <td id="votes">
             @using (Html.BeginForm("RequestVote", "Request"))
             {
                 @Html.Hidden("ID", item.ID)
                 @Html.Hidden("Vote", true)
                 <button><span class="glyphicon glyphicon-chevron-up"></span></button> 
             }
+
+                    @Html.DisplayFor(modelItem => item.Score)
 
             @using (Html.BeginForm("RequestVote", "Request"))
             {

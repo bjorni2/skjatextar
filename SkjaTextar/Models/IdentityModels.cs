@@ -82,6 +82,7 @@ namespace SkjaTextar.Models
                 new Language{ ID = 29, Name = "українська" },
                 new Language{ ID = 30, Name = "日本語" },
                 new Language{ ID = 31, Name = "한국어" },
+                new Language{ ID = 32, Name = "íslenska (heyrnarskertir)"}
             };
             languages.ForEach(l => context.Languages.Add(l));
             context.SaveChanges();
