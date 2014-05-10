@@ -49,5 +49,15 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
+        public ActionResult AutoComplete(string term)
+        {
+            var arr = new []
+            { 
+                new { id = "test1", value = "test1", label = "test1" }, 
+                new { id = "test2", value = "test2", label = "test2" }, 
+                new { id = "sest1", value = "sest1", label = "sest1" } 
+            };
+            return Json(arr, JsonRequestBehavior.AllowGet);
+        }
     }
 }
