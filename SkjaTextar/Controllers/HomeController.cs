@@ -49,5 +49,51 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
+
+        public JsonResult Autocomplete(string term)
+        {
+            var results = new List<Result>();
+           /* var movies = _unitOfWork.MovieRepository.Get().Where(m => m.Title.Contains(term));
+            var shows = _unitOfWork.ShowRepository.Get().Where(m => m.Title.Contains(term));
+            var clips = _unitOfWork.ClipRepository.Get().Where(m => m.Title.Contains(term));
+            foreach (var item in movies)
+            {
+                var tmp = new Result { id = item.ID, label = item.Title };
+                results.Add(tmp);
+            }
+            foreach (var item in shows)
+            {
+                var tmp = new Result { id = item.ID, label = item.Title };
+                results.Add(tmp);
+            }
+            foreach (var item in clips)
+            {
+                var tmp = new Result { id = item.ID, label = item.Title };
+                results.Add(tmp);
+            }*/
+            var media = _unitOfWork.MediaRepository.Get().Where(m => m.Title.Contains(term)).OrderBy(m => m.Title);
+            foreach (var item in media)
+            {
+                var tmp = new Result();
+                if(item.GetType().BaseType.Name == "Show")
+                {
+                    var tmpitem = item as Show;
+                    tmp = new Result { id = item.ID, label = item.Title + " S" + tmpitem.Series + "E" + tmpitem.Episode };
+                }
+                else
+                {
+                    tmp = new Result { id = item.ID, label = item.Title };                    
+                }
+                results.Add(tmp);
+            }
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
+    }
+    public class Result
+    {
+        public int id { get; set; }
+
+        public string label { get; set; }
     }
 }
