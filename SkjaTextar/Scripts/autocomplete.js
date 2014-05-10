@@ -1,24 +1,21 @@
 ﻿
 $(function () {
     $("#main-search-bar").autocomplete({
-        minLength: 0,
+        minLength: 2,
         source: "/Home/AutoComplete",
-        focus: null/*function (event, ui) {
-            $("#main-search-bar").val(ui.item.label);
-            return false;
-        }*/,
         select: function (event, ui) {
-            $("#main-search-bar").val(ui.item.label);
-            $("#project-id").val(ui.item.value);
-            $("#project-description").html(ui.item.desc);
-            $("#project-icon").attr("src", "images/" + ui.item.icon);
-
-            return false;
+            document.location = "/Media/Index/" + ui.item.id ;
+        },
+        _renderItem: function (ul, item) {
+            return $("<li>")
+            .attr("data-value", item.value)
+            .append($("<a>").text(item.label))
+            .appendTo(ul);
         }
     })
-.data("ui-autocomplete")._renderItem = function (ul, item) {
+/*.data("ui-autocomplete")._renderItem = function (ul, item) {
     return $("<li>")
-    .append("<a>" + item.label + "<br>" + item.desc + "</a>")
+    .append("<a>" + item.value + "<br>" + item.label + "</a>")
     .appendTo(ul);
-};
+};*/
 });
