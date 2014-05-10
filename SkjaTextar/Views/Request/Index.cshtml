@@ -17,47 +17,47 @@
         </ul>
     </div>
 </div>
-    <table class="table">
-        <tr>
-            <th>
+<table class="table">
+    <tr>
+        <th>
                 Titill
-            </th>
-            <th>
+        </th>
+        <th>
                 Tungumál
-            </th>
+        </th>
             <th id="stig">
                 Stig
-            </th>
-            <th></th>
-        </tr>
+        </th>
+        <th></th>
+    </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    <p>@Html.ActionLink(item.Media.Title, "Details", "Request", new { id = item.ID }, null)</p>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Language.Name)
-                </td>
+    <tr>
+        <td>
+            <p>@Html.ActionLink(item.Media.Title, "Details", "Request", new { id = item.ID }, null)</p>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Language.Name)
+        </td>
                 <td id="votes">
-                    @using (Html.BeginForm("RequestVote", "Request"))
-                    {
-                        @Html.Hidden("ID", item.ID)
-                        @Html.Hidden("Vote", true)
-                        <button><span class="glyphicon glyphicon-chevron-up"></span></button>
-                    }
+            @using (Html.BeginForm("RequestVote", "Request"))
+            {
+                @Html.Hidden("ID", item.ID)
+                @Html.Hidden("Vote", true)
+                <button><span class="glyphicon glyphicon-chevron-up"></span></button> 
+            }
 
                     @Html.DisplayFor(modelItem => item.Score)
 
-                    @using (Html.BeginForm("RequestVote", "Request"))
-                    {
-                        @Html.Hidden("ID", item.ID)
-                        @Html.Hidden("Vote", false)
-                        <button><span class="glyphicon glyphicon-chevron-down"></span></button>
-                    }
-                </td>
-            </tr>
-        }
+            @using (Html.BeginForm("RequestVote", "Request"))
+            {
+                @Html.Hidden("ID", item.ID)
+                @Html.Hidden("Vote", false)
+                <button><span class="glyphicon glyphicon-chevron-down"></span></button>
+            }
+        </td>
+    </tr>
+}
 
-    </table>
+</table>
