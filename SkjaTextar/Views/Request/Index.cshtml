@@ -5,49 +5,59 @@
 }
 
 <h2>Beiðnir</h2>
+<div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3 newrequestbutton">
+    <div class="btn-group  col-sm-6 col-md-6 col-xs-12 newrequestbutton">
+        <button type="button" class="btn btn-lg btn-default btn-block dropdown-toggle newrequestbutton" data-toggle="dropdown">
+            Ný Beiðni <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
+            <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
+            <li>@Html.ActionLink("Myndbrot", "Create", "Request", new { mediaCat = "Clip" }, null)</li>
+        </ul>
+    </div>
+</div>
+    <table class="table">
+        <tr>
+            <th>
+                Titill
+            </th>
+            <th>
+                Tungumál
+            </th>
+            <th id="stig">
+                Stig
+            </th>
+            <th></th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            <p>Titill</p>
-        </th>
-        <th>
-            <p>Tungumál</p>
-        </th>
-        <th>
-            <p>Stig</p>
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@Html.ActionLink(item.Media.Title, "Details", "Request", new { id = item.ID }, null)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Language.Name)
+                </td>
+                <td id="votes">
+                    @using (Html.BeginForm("RequestVote", "Request"))
+                    {
+                        @Html.Hidden("ID", item.ID)
+                        @Html.Hidden("Vote", true)
+                        <button><span class="glyphicon glyphicon-chevron-up"></span></button>
+                    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <p>@Html.ActionLink(item.Media.Title, "Details", "Request", new { id = item.ID }, null)</p>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Language.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Score)
-            @using (Html.BeginForm("RequestVote", "Request"))
-            {
-                @Html.Hidden("ID", item.ID)
-                @Html.Hidden("Vote", true)
-                <button><span class="glyphicon glyphicon-chevron-up"></span></button> 
-            }
+                    @Html.DisplayFor(modelItem => item.Score)
 
-            @using (Html.BeginForm("RequestVote", "Request"))
-            {
-                @Html.Hidden("ID", item.ID)
-                @Html.Hidden("Vote", false)
-                <button><span class="glyphicon glyphicon-chevron-down"></span></button>
-            }
-        </td>
-    </tr>
-}
+                    @using (Html.BeginForm("RequestVote", "Request"))
+                    {
+                        @Html.Hidden("ID", item.ID)
+                        @Html.Hidden("Vote", false)
+                        <button><span class="glyphicon glyphicon-chevron-down"></span></button>
+                    }
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>

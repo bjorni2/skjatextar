@@ -41,6 +41,20 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+#stig {
+    text-align: center;
+}
+
+#votes {
+    text-align: center;
+}
+
+.newrequestbutton {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
 .voffset2 { margin-top: 10px; }
