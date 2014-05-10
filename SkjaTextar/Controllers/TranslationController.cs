@@ -272,11 +272,18 @@ namespace SkjaTextar.Controllers
         }
 
         [Authorize]
-        public ActionResult CreateTranslation(int? id)
+        public ActionResult CreateTranslation(int? id, int? languageid)
         {
             if (id.HasValue)
             {
-                ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+                if(languageid.HasValue)
+				{
+					ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name", languageid);
+				}
+				else
+				{
+					ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+				}
 
                 var model = _unitOfWork.MediaRepository.GetByID(id);
                 string type = model.GetType().BaseType.Name;
