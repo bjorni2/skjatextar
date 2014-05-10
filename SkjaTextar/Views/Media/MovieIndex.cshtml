@@ -8,6 +8,7 @@
     <h2 class="col-md-3 col-md-offset-2">@Html.DisplayFor(model => model.Title)</h2>
     <div class="col-md-7 voffset2">
         @Html.ActionLink("Ný þýðing", "CreateTranslation", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
+        @Html.ActionLink("Ný beiðni", "CreateForMedia", "Request", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
     </div>
 </div>
 
