@@ -6,9 +6,17 @@
 
 <h2>Beiðnir</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div class="btn-group  col-sm-3 col-md-2 col-xs-12">
+    <button type="button" class="btn btn-lg btn-default btn-block dropdown-toggle" data-toggle="dropdown">
+        Ný Beiðni <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
+        <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
+        <li>@Html.ActionLink("Myndbrot", "Create", "Request", new { mediaCat = "Clip" }, null)</li>
+    </ul>
+</div>
+
 <table class="table">
     <tr>
         <th>

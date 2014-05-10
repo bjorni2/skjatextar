@@ -6,6 +6,20 @@
 
 <h2>Beiðni</h2>
 
+<div>
+    @if (ViewBag.ErrorMsg != null)
+    {
+        <h3 class="field-validation-error">@ViewBag.Errormsg</h3>
+        if (ViewBag.ReqExist != null && ViewBag.ReqExist)
+        {
+            @Html.ActionLink("Aftur á beiðnir", "Index");
+        }
+        else
+        {
+            @Html.ActionLink("Yfir á þýðingu", "Index", "Translation", new { ID = ViewBag.TranslationID }, null);
+        }
+    }
+</div>
 
 @using (Html.BeginForm("CreateShow", "Request"))
 {
