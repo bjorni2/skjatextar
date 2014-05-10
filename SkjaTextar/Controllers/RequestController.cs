@@ -99,37 +99,80 @@ namespace SkjaTextar.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        // This ActionResult is used to create a request for a specific movie
-        public ActionResult CreateForMovie(int? id)
+        public ActionResult CreateForMedia(int? Id)
         {
-            if(id.HasValue)
+            if (Id.HasValue)
             {
-                var model = _unitOfWork.MediaRepository.GetByID(id);
-                return View(model);
+                ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+                var model = _unitOfWork.MediaRepository.GetByID(Id);
+                string type = model.GetType().BaseType.Name;
+                switch (type)
+                {
+                    case "Movie":
+                        return View("CreateForMovie", model);
+                    case "Show":
+                        return View("CreateForShow", model);
+                    case "Clip":
+                        return View("CreateForClip", model);
+                    default:
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
             return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         }
 
-        // This ActionResult is used to create a request for a specific Show
-        public ActionResult CreateForShow(int? id)
+        [HttpPost]
+        public ActionResult CreateForMedia(int? Id, int? languageId)
         {
-            if (id.HasValue)
+            if(Id == null || languageId == null)
             {
-                var model = _unitOfWork.MediaRepository.GetByID(id);
-                return View(model);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        }
-
-        // This ActionResult is used to create a request for a specific Clip
-        public ActionResult CreateForClip(int? id)
-        {
-            if (id.HasValue)
+            var media = _unitOfWork.MediaRepository.Get()
+                .Where(m => m.ID == Id)
+                .SingleOrDefault();
+            if(media == null)
             {
-                var model = _unitOfWork.MediaRepository.GetByID(id);
-                return View(model);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            var translation = media.Translations
+                .Where(t => t.LanguageID == languageId)
+                .SingleOrDefault();
+            var reqExists = _unitOfWork.RequestRepository.Get()
+                .Where(r => r.MediaID == Id)
+                .Where(r => r.LanguageID == languageId)
+                .SingleOrDefault();
+            if(translation == null && reqExists == null)
+            {
+                var request = new Request { LanguageID = languageId.Value, MediaID = Id.Value };
+                _unitOfWork.RequestRepository.Insert(request);
+                _unitOfWork.Save();
+                return RedirectToAction("Index", "Request");
+            }
+            if (reqExists != null)
+            {
+                ViewBag.Errormsg = "Þessi beiðni er nú þegar til.";
+                ViewBag.ReqExist = true;
+            }
+            else
+            {
+                ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
+                ViewBag.ReqExist = false;
+                ViewBag.TranslationID = translation.ID;
+            }
+            ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+            string type = media.GetType().BaseType.Name;
+            switch (type)
+            {
+                case "Movie":
+                    return View("CreateForMovie", media);
+                case "Show":
+                    return View("CreateForShow", media);
+                case "Clip":
+                    return View("CreateForClip", media);
+                default:
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         // This ActionResult is used to get a create templete for a request

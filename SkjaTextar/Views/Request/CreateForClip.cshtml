@@ -1,17 +1,30 @@
 ﻿@model SkjaTextar.Models.Clip
 
 @{
-    ViewBag.Title = "CreateForClip";
+    ViewBag.Title = "Ný beiðni";
 }
 
-<h2>CreateForClip</h2>
+<h2>Ný beiðni - Myndbrot</h2>
 
-@using (Html.BeginForm())
+<div>
+    @if (ViewBag.ErrorMsg != null)
+    {
+        <h3 class="field-validation-error">@ViewBag.Errormsg</h3>
+        if (ViewBag.ReqExist != null && ViewBag.ReqExist)
+        {
+            @Html.ActionLink("Aftur á beiðnir", "Index");
+        }
+        else
+        {
+            @Html.ActionLink("Yfir á þýðingu", "Index", "Translation", new { ID = ViewBag.TranslationID }, null);
+        }
+    }
+</div>
+@using (Html.BeginForm("CreateForMedia", "Request", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Media</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
@@ -38,28 +51,17 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Link, new { @class = "control-label col-md-2" })
+            <label for="Language" class="control-label col-md-2">Tungumál</label>
             <div class="col-md-10">
-                <p>@Model.Link</p>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Active, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Active)
-                @Html.ValidationMessageFor(model => model.Active)
+                @Html.DropDownList("LanguageID", String.Empty)
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Stofna beiðni" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
