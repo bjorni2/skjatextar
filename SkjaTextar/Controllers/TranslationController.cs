@@ -556,5 +556,19 @@ namespace SkjaTextar.Controllers
 			_unitOfWork.Save();
 			return null;
 		}
+
+        public ActionResult AddLine(int? Id)
+        {
+            var segment = new TranslationSegment { TranslationID = Id.Value };
+            return View(segment);
+        }
+
+        [HttpPost]
+        public ActionResult AddLine(TranslationSegment segment)
+        {
+            var start = DateTime.ParseExact(segment.Timestamp.Substring(0, 12), "HH:mm:ss,fff", CultureInfo.InvariantCulture);
+
+            return null;
+        }
 	}
 }

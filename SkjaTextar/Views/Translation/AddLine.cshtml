@@ -1,0 +1,73 @@
+﻿@model SkjaTextar.Models.TranslationSegment
+
+@{
+    ViewBag.Title = "Ný lína";
+}
+
+<h2>Bæta við línu</h2>
+
+
+@using (Html.BeginForm(FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.TranslationID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Timestamp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Timestamp)
+                @Html.ValidationMessageFor(model => model.Timestamp)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Line1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Line1)
+                @Html.ValidationMessageFor(model => model.Line1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Line2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Line2)
+                @Html.ValidationMessageFor(model => model.Line2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Original1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Original1)
+                @Html.ValidationMessageFor(model => model.Original1)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Original2, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Original2)
+                @Html.ValidationMessageFor(model => model.Original2)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Stofna" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Aftur á þýðingu", "Index", new { id = Model.TranslationID } )
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

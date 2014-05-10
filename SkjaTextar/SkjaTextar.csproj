@@ -376,6 +376,7 @@
     <Content Include="Views\Translation\LanguageList.cshtml" />
     <Content Include="Views\Translation\ByLanguage.cshtml" />
     <Content Include="Views\Shared\testyamm.cshtml" />
+    <Content Include="Views\Translation\AddLine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
