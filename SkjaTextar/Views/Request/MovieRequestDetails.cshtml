@@ -4,14 +4,24 @@
     ViewBag.Title = "MovieRequestDetails";
 }
 
-<h2>MovieRequestDetails</h2>
+<h2>Beiðni</h2>
+
+<div class="row">
+    <div class="col-md-7 voffset2">
+        @using (Html.BeginForm("CreateTranslation", "Translation", FormMethod.Get))
+        {
+            <input type="hidden" name="ID" value="@Model.MediaID" />
+            @Html.Hidden("LanguageID", Model.LanguageID)
+            <button class="btn btn-primary active" type="submit">Svara beiðni</button>
+        }
+    </div>
+</div>
 
 <div>
-    <h4>Request</h4>
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            Yfirflokkur
+            Flokkur
         </dt>
 
         <dd>
@@ -19,7 +29,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Media.Category.Name)
+            Undirflokkur
         </dt>
 
         <dd>
@@ -43,7 +53,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Language.Name)
+            Tungumál
         </dt>
 
         <dd>
@@ -51,7 +61,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Score)
+            Stig
         </dt>
 
         <dd>
@@ -60,6 +70,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Aftur á beiðnir", "Index")
 </p>

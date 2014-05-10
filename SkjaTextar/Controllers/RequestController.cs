@@ -18,8 +18,11 @@ namespace SkjaTextar.Controllers
         // GET: /Request/
         public ActionResult Index()
         {
-            List<Request> model = _unitOfWork.RequestRepository.Get().OrderByDescending(m => m.ID).ToList();
-			var requestLoop = model.DistinctBy(r => r.MediaID);
+            var requestvote = new List<RequestVoteViewModel>();
+            var requests = _unitOfWork.RequestRepository.Get().OrderByDescending(m => m.ID).ToList();
+            var user = User.Identity.GetUserId();
+            
+			var requestLoop = requests.DistinctBy(r => r.MediaID);
 			foreach(var item in requestLoop)
 			{
 				var media = item.Media;
@@ -29,7 +32,24 @@ namespace SkjaTextar.Controllers
 					item.Media.Title += " S" + show.Series + "E" + show.Episode;
 				}
 			}
-			return View(model);
+
+            foreach (var item in requests)
+            {
+                var tmp = new RequestVoteViewModel();
+                tmp.Request = item;
+                var userVote = _unitOfWork.RequestVoteRepository.Get()
+                    .Where(r => r.UserID == user)
+                    .Where(r => r.RequestID == item.ID)
+                    .SingleOrDefault();
+                if(userVote != null)
+                {
+                    tmp.Vote = userVote.Vote;
+                }
+                requestvote.Add(tmp);
+            }
+			return View(requestvote);
+          
+
         }
 
 		public ActionResult Details(int? id)
@@ -299,15 +319,6 @@ namespace SkjaTextar.Controllers
 			ViewBag.SubCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name", clipRequest.Clip.CategoryID);
 			ViewBag.Languages = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 			return View("RequestClip");
-            /*if (ModelState.IsValid)
-            {
-                _unitOfWork.ClipRepository.Insert(clipRequest.Clip);
-                _unitOfWork.RequestRepository.Insert(clipRequest.Request);
-                _unitOfWork.Save();
-                //TODO Redirect to new request
-                return RedirectToAction("Index", "Home");
-            }
-            return View("Create");*/
         }
 
         [Authorize]
