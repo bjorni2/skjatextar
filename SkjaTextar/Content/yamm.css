@@ -61,3 +61,22 @@
     display: block;
   }
 }
+
+.grid-demo {
+padding: 10px 30px;
+}
+
+.joi {
+    margin: 0;
+    padding: 0;
+}
+
+.navmargpadd {
+    margin: 0;
+    padding: 0;
+}
+
+.navpadd {
+    display: block;
+    padding: 10px;
+}
