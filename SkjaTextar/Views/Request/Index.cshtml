@@ -41,7 +41,7 @@
             @Html.DisplayFor(modelItem => item.Request.Language.Name)
         </td>
                 <td id="votes">
-            @using (Html.BeginForm("RequestVote", "Request"))
+            @using (Html.BeginForm("RequestVote", "Request", FormMethod.Post))
             {
                 @Html.Hidden("ID", item.Request.ID)
                 @Html.Hidden("Vote", true)

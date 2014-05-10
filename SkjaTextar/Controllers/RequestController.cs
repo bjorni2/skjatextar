@@ -336,7 +336,7 @@ namespace SkjaTextar.Controllers
             {
                 if(requestVote.Vote == vote)
                 {
-                    return RedirectToAction("Index", "Request", request);
+                    return RedirectToAction("Index", "Request");
                 }
                 else
                 {
@@ -351,7 +351,7 @@ namespace SkjaTextar.Controllers
                         requestVote.Vote = false;
                     }
                     _unitOfWork.Save();
-                    return RedirectToAction("Index", "Request", request);
+                    return RedirectToAction("Index", "Request");
                 }
             }
             int requestID = id.Value;
@@ -369,7 +369,7 @@ namespace SkjaTextar.Controllers
             }
             _unitOfWork.RequestVoteRepository.Insert(newRequestVote);
             _unitOfWork.Save();
-            return RedirectToAction("Index", "Request", request);
+            return RedirectToAction("Index", "Request");
         }
 	}
 }

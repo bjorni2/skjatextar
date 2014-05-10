@@ -70,6 +70,11 @@ namespace SkjaTextar.Controllers
 				.SingleOrDefault();
 			if(request != null)
 			{
+                var requestVotes = _unitOfWork.RequestVoteRepository.Get().Where(r => r.RequestID == request.ID);
+                foreach(var vote in requestVotes)
+                {
+                    _unitOfWork.RequestVoteRepository.Delete(vote);
+                }
 				_unitOfWork.RequestRepository.Delete(request);
 				_unitOfWork.Save();
 			}
