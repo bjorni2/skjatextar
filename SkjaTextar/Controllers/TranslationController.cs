@@ -109,6 +109,9 @@ namespace SkjaTextar.Controllers
                         movie.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
                     }
                     _unitOfWork.MovieRepository.Insert(movie);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
                     return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
@@ -132,6 +135,9 @@ namespace SkjaTextar.Controllers
                         movieToCheckFor.Translations.Add(new Translation { LanguageID = movieTranslation.LanguageID });
                     }
                     _unitOfWork.MovieRepository.Update(movieToCheckFor);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
 					HasRequest(movieToCheckFor.ID, movieTranslation.LanguageID);
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
@@ -173,6 +179,9 @@ namespace SkjaTextar.Controllers
                         show.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
                     }
                     _unitOfWork.ShowRepository.Insert(show);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
                     return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
@@ -196,6 +205,9 @@ namespace SkjaTextar.Controllers
                         showToCheckFor.Translations.Add(new Translation { LanguageID = showTranslation.LanguageID });
                     }
                     _unitOfWork.ShowRepository.Update(showToCheckFor);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
 					HasRequest(showToCheckFor.ID, showTranslation.LanguageID);
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
@@ -236,6 +248,9 @@ namespace SkjaTextar.Controllers
                         clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                     }
                     _unitOfWork.ClipRepository.Insert(clip);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
                     return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
@@ -259,6 +274,9 @@ namespace SkjaTextar.Controllers
                         clipToCheckFor.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                     }
                     _unitOfWork.ClipRepository.Update(clipToCheckFor);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
 					HasRequest(clipToCheckFor.ID, clipTranslation.LanguageID);
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
@@ -330,6 +348,9 @@ namespace SkjaTextar.Controllers
                         media.Translations.Add(new Translation { LanguageID = languageID });
                     }
                     _unitOfWork.MediaRepository.Update(media);
+                    var userid = User.Identity.GetUserId();
+                    var user = _unitOfWork.UserRepository.GetByID(userid);
+                    user.NewTranslations++;
                     _unitOfWork.Save();
 					HasRequest(id, languageID);
                     var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
@@ -522,6 +543,12 @@ namespace SkjaTextar.Controllers
 				//TODO: Handle errors.
 			}
 			_unitOfWork.TranslationSegmentRepository.Update(segment);
+            string userid = User.Identity.GetUserId();
+            if(userid != null)
+            {
+                var user = _unitOfWork.UserRepository.GetByID(userid);
+                user.Edits++;
+            }
 			_unitOfWork.Save();
 			return null;
 		}
