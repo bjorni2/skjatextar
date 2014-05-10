@@ -299,15 +299,6 @@ namespace SkjaTextar.Controllers
 			ViewBag.SubCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name", clipRequest.Clip.CategoryID);
 			ViewBag.Languages = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
 			return View("RequestClip");
-            /*if (ModelState.IsValid)
-            {
-                _unitOfWork.ClipRepository.Insert(clipRequest.Clip);
-                _unitOfWork.RequestRepository.Insert(clipRequest.Request);
-                _unitOfWork.Save();
-                //TODO Redirect to new request
-                return RedirectToAction("Index", "Home");
-            }
-            return View("Create");*/
         }
 
         [Authorize]
