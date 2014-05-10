@@ -70,6 +70,11 @@ namespace SkjaTextar.Controllers
 				.SingleOrDefault();
 			if(request != null)
 			{
+                var requestVotes = _unitOfWork.RequestVoteRepository.Get().Where(r => r.RequestID == request.ID);
+                foreach(var vote in requestVotes)
+                {
+                    _unitOfWork.RequestVoteRepository.Delete(vote);
+                }
 				_unitOfWork.RequestRepository.Delete(request);
 				_unitOfWork.Save();
 			}
@@ -464,9 +469,8 @@ namespace SkjaTextar.Controllers
             translation.NumberOfDownloads++;
             _unitOfWork.TranslationRepository.Update(translation);
             _unitOfWork.Save();
-            SubtitleParser.Output(translation);
-            string virtualFilePath = Server.MapPath("~/SubtitleStorage/m" + mediaId + "t" + translationId + ".srt");
-            return File(virtualFilePath, System.Net.Mime.MediaTypeNames.Application.Octet, Path.GetFileName(virtualFilePath));
+            string fileName = translation.Media.Title + "(" + translation.Media.ReleaseYear + ")_" + translation.Language.Name + ".srt";
+            return File(SubtitleParser.Output(translation).ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
         public ActionResult Report(int? translationID)
