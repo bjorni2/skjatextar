@@ -498,6 +498,8 @@ namespace SkjaTextar.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+			ViewBag.TranslationID = translationID;
+
             var report = new Report();
             report.Translation = translation;
 
