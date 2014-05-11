@@ -17,16 +17,16 @@
         </ul>
     </div>
 </div>
-<table class="table">
+<table class="table voffset2">
     <tr>
         <th>
-                Titill
+                @Html.ActionLink("Titill", "Index", new { sortOrder = ViewBag.TitleSortParm })
         </th>
         <th>
-                Tungumál
+                @Html.ActionLink("Tungumál", "Index", new { sortOrder = ViewBag.LanguageSortParm })
         </th>
             <th id="stig">
-                Stig
+                @Html.ActionLink("Stig", "Index", new { sortOrder = ViewBag.ScoreSortParm })
         </th>
         <th></th>
     </tr>

@@ -21,7 +21,7 @@
             <button type="button" class="btn btn-lg btn-default btn-block dropdown-toggle" data-toggle="dropdown">
                 Ný Beiðni <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu col-xs-12"  role="menu">
                 <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
                 <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
                 <li>@Html.ActionLink("Myndbrot", "Create", "Request", new { mediaCat = "Clip" }, null)</li>
@@ -31,7 +31,7 @@
             <button type="button" class="btn btn-lg btn-default dropdown-toggle btn-block" data-toggle="dropdown">
                 Ný þýðing <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
+            <ul class="dropdown-menu col-xs-12" role="menu">
                 <li>@Html.ActionLink("Kvikmynd", "Create", "Translation", new { mediaCat = "Movie" }, null)</li>
                 <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Translation", new { mediaCat = "Show" }, null)</li>
                 <li>@Html.ActionLink("Myndbrot", "Create", "Translation", new { mediaCat = "Clip" }, null)</li>
@@ -55,7 +55,7 @@
             <p class="list-group-item list-group-item-heading text-center h4">Mest sótt</p>
             @foreach (var item in Model.TopTranslations)
             {
-                <a href="@Url.Action("Index", "Translation", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
+                <a href="@Url.Action("Index", "Media", new { id = item.MediaID })" class="list-group-item">@item.Media.Title<span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
             }
         </div>
     </div>
