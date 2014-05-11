@@ -570,7 +570,7 @@ namespace SkjaTextar.Controllers
 			_unitOfWork.Save();
 			return null;
 		}
-
+        [Authorize]
         public ActionResult AddLine(int? Id)
         {
             var segment = new TranslationSegment { TranslationID = Id.Value };
