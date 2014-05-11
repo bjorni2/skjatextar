@@ -15,10 +15,14 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <iframe width="560" height="315" src="@Model.Link" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-3 col-md-offset-2">
-        <img src="@Url.Content("~/content/placeholder.png")" alt="@Model.Title poster" />
+        
         <p>@Html.DisplayFor(model => model.Category.Name)</p>
         <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
         <a href="@Model.Link">Hlekkur</a>

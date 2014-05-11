@@ -3,9 +3,9 @@
 @{
     ViewBag.Title = Model.Title;
 }
-
+<div id="mediatype" data-mediatype="movie"></div>
 <div class="row voffset3">
-    <h2 class="col-md-3 col-md-offset-2">@Html.DisplayFor(model => model.Title)</h2>
+    <h2 id="mediatitle" data-title="@Html.DisplayFor(model => model.Title)" class="col-md-3 col-md-offset-2">@Html.DisplayFor(model => model.Title)</h2>
     <div class="col-md-3 voffset2">
         <div class="col-md-6">
             @Html.ActionLink("Ný þýðing", "CreateTranslation", "Translation", new { id = Model.ID }, new { @class = "btn btn-lg btn-primary btn-block ", role = "button" })
@@ -18,9 +18,9 @@
 
 <div class="row">
     <div class="col-md-3 col-md-offset-2">
-        <img src="@Url.Content("~/content/placeholder.png")" alt="@Model.Title poster" />
+        <div id="poster"></div>
         <p>@Html.DisplayFor(model => model.Category.Name)</p>
-        <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
+        <p id="relyear" data-year="@Html.DisplayFor(model => model.ReleaseYear)">@Html.DisplayFor(model => model.ReleaseYear)</p>
         @if (Model.Link != null)
         {
             <a href="@Model.Link">Hlekkur</a>
@@ -38,3 +38,6 @@
         </div>
         }
 </div>
+@section Scripts {  
+    <script src="~/Scripts/movieposter.js"></script>
+}

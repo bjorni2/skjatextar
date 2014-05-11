@@ -122,18 +122,18 @@ namespace SkjaTextar.Models
 
             var shows = new List<Show>
             {
-                new Show{ ID = 4, CategoryID = 4, Title = "Svampur Sveinsson", Series = 2, Episode = 13, ReleaseYear = 2009, Active = false },
-                new Show{ ID = 5, CategoryID = 4, Title = "Svampur Sveinsson", Series = 2, Episode = 14, ReleaseYear = 2009, Active = false },
+                new Show{ ID = 4, CategoryID = 4, Title = "Spongebob Squarepants", Series = 2, Episode = 13, ReleaseYear = 1999, Active = false },
+                new Show{ ID = 5, CategoryID = 4, Title = "Spongebob Squarepants", Series = 2, Episode = 14, ReleaseYear = 2009, Active = false },
                 new Show{ ID = 6, CategoryID = 3, Title = "House of cards", Series = 1, Episode = 3, ReleaseYear = 2013, Active = false },
-                new Show{ ID = 7, CategoryID = 1, Title = "How i met your mother", Series = 7, Episode = 13, ReleaseYear = 2011, Active = false },
+                new Show{ ID = 7, CategoryID = 1, Title = "How i met your mother", Series = 7, Episode = 13, ReleaseYear = 2005, Active = false },
             };
             shows.ForEach(s => context.Shows.Add(s));
             context.SaveChanges();
 
             var clips = new List<Clip>
             {
-                new Clip{ ID = 8, CategoryID = 1, Title = "Nyan cat", ReleaseYear = 2009, Link = "//www.youtube.com/watch?v=wZZ7oFKsKzY", Active = false },
-                new Clip{ ID = 9, CategoryID = 1, Title = "Charlie bit my finger", ReleaseYear = 2007, Link = "//www.youtube.com/watch?v=_OBlgSz8sSM", Active = true }
+                new Clip{ ID = 8, CategoryID = 1, Title = "Nyan cat", ReleaseYear = 2009, Link = "https://www.youtube.com/embed/wZZ7oFKsKzY", Active = false },
+                new Clip{ ID = 9, CategoryID = 1, Title = "Charlie bit my finger", ReleaseYear = 2007, Link = "https://www.youtube.com/embed/_OBlgSz8sSM", Active = true }
             };
             clips.ForEach(c => context.Clips.Add(c));
             context.SaveChanges();
