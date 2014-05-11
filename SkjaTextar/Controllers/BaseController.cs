@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SkjaTextar.Exceptions;
+using SkjaTextar.Helpers;
 
 namespace SkjaTextar.Controllers
 {
@@ -29,7 +30,7 @@ namespace SkjaTextar.Controllers
             base.OnException(fc);
             Exception ex = fc.Exception;
 
-            //Logger.Instance.LogException(ex);
+            Logger.Instance.LogException(ex);
         }
 
         protected override void Dispose(bool disposing)

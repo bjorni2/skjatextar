@@ -192,6 +192,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AchievementCheck.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\SearchResult.cs" />
     <Compile Include="Helpers\SubtitleParser.cs" />
     <Compile Include="Helpers\Translate.cs" />
