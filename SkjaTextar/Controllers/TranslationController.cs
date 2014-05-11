@@ -75,6 +75,11 @@ namespace SkjaTextar.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mediaID"></param>
+        /// <param name="languageID"></param>
 		public void HasRequest(int mediaID, int languageID)
 		{
 			var request = _unitOfWork.RequestRepository.Get()
