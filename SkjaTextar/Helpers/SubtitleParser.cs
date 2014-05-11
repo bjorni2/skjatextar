@@ -24,6 +24,10 @@ namespace SkjaTextar.Helpers
                         nextLine = sr.ReadLine();
                     }
                     TranslationSegment transSeg = new TranslationSegment();
+					if(int.Parse(nextLine) == 9999)
+					{
+						return translation;
+					}
                     transSeg.SegmentID = int.Parse(nextLine);
                     nextLine = sr.ReadLine();
                     transSeg.Timestamp = nextLine;
@@ -77,7 +81,7 @@ namespace SkjaTextar.Helpers
             // Couldn't get that to work
             MemoryStream ms = new MemoryStream();
             StreamWriter sw = new StreamWriter(ms);
-            foreach (var segment in translation.TranslationSegments)
+            foreach (var segment in translation.TranslationSegments.OrderBy(ts => ts.SegmentID))
             {
                 sw.WriteLine(segment.SegmentID.ToString());
                 sw.WriteLine(segment.Timestamp);

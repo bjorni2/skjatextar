@@ -1,12 +1,14 @@
-﻿@model SkjaTextar.Models.Translation
+﻿@model PagedList.IPagedList<SkjaTextar.Models.TranslationSegment>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
     ViewBag.Title = "Index";
 }
 
-<div id="translationid" data-translationid="@Model.ID" class="hidden"></div>
+<div id="translationid" data-translationid="@ViewBag.TranslationID" class="hidden"></div>
 
 <div class="row">
-    <h2 class="col-md-10 col-md-offset-2">@Html.DisplayFor(model => model.Media.Title) - @Html.DisplayFor(model => model.Language.Name)</h2>
+    <h2 class="col-md-10">@Html.ActionLink(ViewBag.MediaTitle as string, "Index", "Media", new { ID = ViewBag.MediaID }, null) - @ViewBag.LanguageName</h2>
 </div>
 
 <div>
@@ -17,16 +19,21 @@
 </div>
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-2">
-        @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
-        @Html.ActionLink("Sækja .srt skrá", "Download", "Translation", new { translationId = Model.ID, mediaId = Model.MediaID }, new { @class = "btn btn-primary active", role = "button" })
-        @Html.ActionLink("Tilkynna þýðingu", "Report", "Translation", new { translationID = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
-        @Html.ActionLink("Ný lína", "AddLine", "Translation", new { ID = Model.ID }, new { @class = "btn btn-primary active", role = "button" })
+    <div class="col-md-10">
+        @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = ViewBag.TranslationID }, new { @class = "btn btn-primary active", role = "button" })
+        @Html.ActionLink("Sækja .srt skrá", "Download", "Translation", new { translationId = ViewBag.TranslationID, mediaId = ViewBag.MediaID }, new { @class = "btn btn-primary active", role = "button" })
+        @Html.ActionLink("Tilkynna þýðingu", "Report", "Translation", new { translationID = ViewBag.TranslationID }, new { @class = "btn btn-primary active", role = "button" })
+        @Html.ActionLink("Ný lína", "AddLine", "Translation", new { ID = ViewBag.TranslationID }, new { @class = "btn btn-primary active", role = "button" })
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5 col-md-offset-2">
-        @foreach(var item in Model.TranslationSegments)
+    <div class="col-md-10">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID }))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        @foreach(var item in Model)
         {
             <p class="voffset5">@item.Timestamp</p>
             <p>@item.Original1</p>
@@ -41,23 +48,12 @@
             </div>
         }
     </div>
-    <div class="col-md-3 col-md-offset-2">
-        <ul>
-            <li class="active">
-                <a href="#000000">00:00:00</a>
-            </li>
-            <li>
-                <a href="#001500">00:15:00</a>
-            </li>
-            <li>
-                <a href="#003000">00:30:00</a>
-            </li>
-            <li>
-                <a href="#004500">00:45:00</a>
-            </li>
-        </ul>
-    </div>
 </div>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID }))
+
 
 @section Scripts {
     <script src="~/Scripts/TranslationSegment.js"></script>

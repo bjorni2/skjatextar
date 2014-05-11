@@ -10,6 +10,7 @@ using System.Globalization;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using SkjaTextar.Helpers;
+using PagedList;
 
 namespace SkjaTextar.Controllers
 {
@@ -20,19 +21,29 @@ namespace SkjaTextar.Controllers
         /// </summary>
         /// <param name="id">Id of the translation to display</param>
         /// <returns></returns>
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? page)
         {
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = _unitOfWork.TranslationRepository.GetByID(id);
-            if (model == null)
+            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+			
+            if (translation == null)
             {
                 return HttpNotFound();
             }
-            model.TranslationSegments = model.TranslationSegments.OrderBy(ts => ts.SegmentID).ToList();
-            return View(model);
+
+			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID);
+
+			ViewBag.TranslationID = translation.ID;
+			ViewBag.MediaTitle = translation.Media.Title;
+			ViewBag.LanguageName = translation.Language.Name;
+			ViewBag.MediaID = translation.MediaID;
+
+			int pageSize = 50;
+			int pageNumber = (page ?? 1);
+			return View(model.ToPagedList(pageNumber, pageSize));
         }
 
         /// <summary>
