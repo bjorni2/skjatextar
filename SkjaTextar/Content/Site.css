@@ -66,6 +66,20 @@ input[type="checkbox"].input-validation-error {
     font-weight: bold;
 }
 
+body{
+    background-image: url("/content/space.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-color: black;
+}
+
+.navbar-inverse{
+    background-color: #020B44;
+}
+
+.body-content{
+    background-color: white;
+}
 
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }

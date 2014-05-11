@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace SkjaTextar.Controllers
 {
+    [HandleError]
     public class BaseController : Controller
     {
         protected IUnitOfWork _unitOfWork;
@@ -19,6 +20,15 @@ namespace SkjaTextar.Controllers
         public BaseController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        protected override void OnException(ExceptionContext fc)
+        {
+            // Call the base class implementation:
+            base.OnException(fc);
+            Exception ex = fc.Exception;
+
+            //Logger.Instance.LogException(ex);
         }
 
         protected override void Dispose(bool disposing)
