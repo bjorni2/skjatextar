@@ -200,7 +200,6 @@ namespace SkjaTextar.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult CreateMovie(MovieRequestViewModel movieRequest)
         {
@@ -254,7 +253,6 @@ namespace SkjaTextar.Controllers
 			return View("RequestMovie");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult CreateShow(ShowRequestViewModel showRequest)
         {
@@ -310,7 +308,6 @@ namespace SkjaTextar.Controllers
 			return View("RequestShow");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult CreateClip(ClipRequestViewModel clipRequest)
         {
