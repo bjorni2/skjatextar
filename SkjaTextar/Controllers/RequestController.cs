@@ -16,13 +16,39 @@ namespace SkjaTextar.Controllers
     {
         //
         // GET: /Request/
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+			ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+			ViewBag.LanguageSortParm = sortOrder == "Lang" ? "lang_desc" : "Lang";
+			ViewBag.ScoreSortParm = sortOrder == "Score" ?  "Score" : "score_desc";
+
             var requestvote = new List<RequestVoteViewModel>();
-            var requests = _unitOfWork.RequestRepository.Get().OrderByDescending(m => m.ID).ToList();
+            var requests = _unitOfWork.RequestRepository.Get();
             var user = User.Identity.GetUserId();
-            
-			var requestLoop = requests.DistinctBy(r => r.MediaID);
+
+			switch (sortOrder)
+			{
+				case "title_desc":
+					requests = requests.OrderByDescending(r => r.Media.Title);
+					break;
+				case "Lang":
+					requests = requests.OrderBy(r => r.Language.Name);
+					break;
+				case "lang_desc":
+					requests = requests.OrderByDescending(r => r.Language.Name);
+					break;
+				case "Score":
+					requests = requests.OrderBy(r => r.Score);
+					break;
+				case "score_desc":
+					requests = requests.OrderByDescending(r => r.Score);
+					break;
+				default:
+					requests = requests.OrderBy(s => s.Media.Title);
+					break;
+			}
+			var req = requests.ToList();
+			var requestLoop = req.DistinctBy(r => r.MediaID);
 			foreach(var item in requestLoop)
 			{
 				var media = item.Media;
@@ -33,7 +59,7 @@ namespace SkjaTextar.Controllers
 				}
 			}
 
-            foreach (var item in requests)
+            foreach (var item in req)
             {
                 var tmp = new RequestVoteViewModel();
                 tmp.Request = item;
