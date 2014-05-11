@@ -81,6 +81,22 @@ body{
     background-color: white;
 }
 
+.btn-primary {
+  color: #fff;
+  background-color: rgb(80, 111, 165);
+  border-color: #357ebd;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: rgb(2, 36, 106);
+  border-color: #285e8e;
+}
+
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
 .voffset2 { margin-top: 10px; }
