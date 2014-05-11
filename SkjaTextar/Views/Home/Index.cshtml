@@ -55,7 +55,7 @@
             <p class="list-group-item list-group-item-heading text-center h4">Mest sótt</p>
             @foreach (var item in Model.TopTranslations)
             {
-                <a href="@Url.Action("Index", "Translation", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
+                <a href="@Url.Action("Index", "Media", new { id = item.MediaID })" class="list-group-item">@item.Media.Title<span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
             }
         </div>
     </div>

@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using System.IO;
 using SkjaTextar.Helpers;
 using PagedList;
+using MoreLinq;
 
 namespace SkjaTextar.Controllers
 {
@@ -539,6 +540,18 @@ namespace SkjaTextar.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            var translationLoop = translations.DistinctBy(r => r.MediaID);
+            foreach (var item in translationLoop)
+            {
+                var media = item.Media;
+                if (media.GetType().BaseType.Name == "Show")
+                {
+                    Show show = media as Show;
+                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                }
+            }
+
             ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
             return View(translations);
         }
