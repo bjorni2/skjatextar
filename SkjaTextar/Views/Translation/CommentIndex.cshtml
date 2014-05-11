@@ -37,10 +37,13 @@
     <div class="row">
         <div class="col-md-1 col-md-offset-2">
             <img src="@Url.Content("~/content/avatar.png")" alt="@comment.User.UserName avatar" />
-            <p>@comment.User.UserName</p>
+            <p>
+                @comment.User.UserName
+            </p>
+            <p><span>Stig: </span>@comment.User.Score</p>
         </div>
-        <div class="col-md-9">
-            <p>@comment.CommentText</p>
+        <div class="col-md-6">
+            <p> @comment.CommentText</p>
         </div>
     </div>
     <hr />
