@@ -12,6 +12,7 @@ using System.IO;
 using SkjaTextar.Helpers;
 using PagedList;
 using MoreLinq;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Controllers
 {
@@ -26,13 +27,13 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				throw new MissingParameterException();
             }
             var translation = _unitOfWork.TranslationRepository.GetByID(id);
 			
             if (translation == null)
             {
-                return HttpNotFound();
+                throw new DataNotFoundException();
             }
 
 			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID);
@@ -71,7 +72,7 @@ namespace SkjaTextar.Controllers
                 case "clip":
                     return View("CreateClip", new ClipTranslationViewModel { MediaType = "Myndbrot" });
                 default:
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    throw new MissingParameterException();
             }
         }
 
@@ -327,20 +328,24 @@ namespace SkjaTextar.Controllers
 				}
 
                 var model = _unitOfWork.MediaRepository.GetByID(id);
-                string type = model.GetType().BaseType.Name;
-                switch (type)
-                {
-                    case "Movie":
-                        return View("CreateMovieTranslation", model);
-                    case "Show":
-                        return View("CreateShowTranslation", model);
-                    case "Clip":
-                        return View("CreateClipTranslation", model);
-                    default:
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+				if(model != null)
+				{
+					string type = model.GetType().BaseType.Name;
+					switch (type)
+					{
+						case "Movie":
+							return View("CreateMovieTranslation", model);
+						case "Show":
+							return View("CreateShowTranslation", model);
+						case "Clip":
+							return View("CreateClipTranslation", model);
+						default:
+							throw new ApplicationException();
+					}
+				}
+				throw new DataNotFoundException();
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            throw new MissingParameterException();
         }
 
         [Authorize]
@@ -355,8 +360,7 @@ namespace SkjaTextar.Controllers
                     .SingleOrDefault();
                 var media = _unitOfWork.MediaRepository.GetByID(id);
                 if(translationToFind == null)
-                {    
-                    
+                {      
                     if (file != null && file.ContentLength > 0)
                     {
                         var fileName = Path.GetFileName(file.FileName);
@@ -391,10 +395,10 @@ namespace SkjaTextar.Controllers
                     case "Clip":
                         return View("CreateClipTranslation", media);
                     default:
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                        throw new ApplicationException();
                 }
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            throw new MissingParameterException();
         }
 
         // TODO For admins only
@@ -404,12 +408,12 @@ namespace SkjaTextar.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				throw new MissingParameterException();
             }
             var translation = _unitOfWork.TranslationRepository.GetByID(id);
             if(translation == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
             translation.Locked = true;
             _unitOfWork.TranslationRepository.Update(translation);
@@ -424,12 +428,12 @@ namespace SkjaTextar.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
             var translation = _unitOfWork.TranslationRepository.GetByID(id);
             if (translation == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
             translation.Locked = false;
             _unitOfWork.TranslationRepository.Update(translation);
@@ -442,12 +446,12 @@ namespace SkjaTextar.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
             var translation = _unitOfWork.TranslationRepository.GetByID(id);
             if(translation == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
             var model = new CommentViewModel();
             model.Translation = translation;
@@ -477,12 +481,12 @@ namespace SkjaTextar.Controllers
         {
             if(translationId == null || mediaId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
             var translation = _unitOfWork.TranslationRepository.GetByID(translationId);
             if(translation == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
             translation.NumberOfDownloads++;
             _unitOfWork.TranslationRepository.Update(translation);
@@ -495,13 +499,13 @@ namespace SkjaTextar.Controllers
         {
             if (translationID == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
 
             var translation = _unitOfWork.TranslationRepository.GetByID(translationID);
             if (translation == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
 
 			ViewBag.TranslationID = translationID;
@@ -525,7 +529,7 @@ namespace SkjaTextar.Controllers
                 TempData["UserMessage"] = "Tilkynningu komið áleiðis";
                 return RedirectToAction("Index", "Translation", new { id = Report.TranslationID });
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            throw new DataNotFoundException();
         }
 
         public ActionResult LanguageList()
@@ -538,12 +542,12 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
             var translations = _unitOfWork.TranslationRepository.Get().Where(t => t.LanguageID == id).OrderBy(t => t.Media.Title).ToList();
             if(translations == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
 
             var translationLoop = translations.DistinctBy(r => r.MediaID);

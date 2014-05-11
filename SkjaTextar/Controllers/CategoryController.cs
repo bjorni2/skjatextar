@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using SkjaTextar.DAL;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Controllers
 {
@@ -43,7 +44,7 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
             if(id == 0)
             {
@@ -78,7 +79,7 @@ namespace SkjaTextar.Controllers
                     }
                     return View("ClipByCategory", modelClip.Where(m => m.CategoryID == id).OrderBy(m => m.Title));
                 default:
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    throw new MissingParameterException();
             }
         }
 	}

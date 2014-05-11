@@ -8,6 +8,7 @@ using SkjaTextar.Models;
 using SkjaTextar.ViewModels;
 using SkjaTextar.DAL;
 using SkjaTextar.Helpers;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Controllers
 {
@@ -54,24 +55,6 @@ namespace SkjaTextar.Controllers
         public JsonResult Autocomplete(string term)
         {
             var results = new List<SearchResult>();
-           /* var movies = _unitOfWork.MovieRepository.Get().Where(m => m.Title.Contains(term));
-            var shows = _unitOfWork.ShowRepository.Get().Where(m => m.Title.Contains(term));
-            var clips = _unitOfWork.ClipRepository.Get().Where(m => m.Title.Contains(term));
-            foreach (var item in movies)
-            {
-                var tmp = new Result { id = item.ID, label = item.Title };
-                results.Add(tmp);
-            }
-            foreach (var item in shows)
-            {
-                var tmp = new Result { id = item.ID, label = item.Title };
-                results.Add(tmp);
-            }
-            foreach (var item in clips)
-            {
-                var tmp = new Result { id = item.ID, label = item.Title };
-                results.Add(tmp);
-            }*/
             var media = _unitOfWork.MediaRepository.Get().Where(m => m.Title.Contains(term)).OrderBy(m => m.Title);
             foreach (var item in media)
             {

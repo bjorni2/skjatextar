@@ -186,10 +186,13 @@
     <Compile Include="DAL\IGenericRepository.cs" />
     <Compile Include="DAL\IUnitOfWork.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
+    <Compile Include="Exceptions\DataNotFoundException.cs" />
+    <Compile Include="Exceptions\MissingParameterException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AchievementCheck.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\SearchResult.cs" />
     <Compile Include="Helpers\SubtitleParser.cs" />
     <Compile Include="Helpers\Translate.cs" />
