@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using SkjaTextar.Models;
 using SkjaTextar.DAL;
 using System.Net;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Controllers
 {
@@ -32,17 +33,17 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
 
             var model = _unitOfWork.ReportRepository.GetByID(id);
             if(model == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
             _unitOfWork.ReportRepository.Delete(id);
             _unitOfWork.Save();
-            return RedirectToAction("Index", "Admin");            
+            return RedirectToAction("Index", "Admin");
         }
 	}
 }

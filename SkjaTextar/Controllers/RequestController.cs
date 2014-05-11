@@ -9,6 +9,7 @@ using SkjaTextar.Models;
 using SkjaTextar.ViewModels;
 using Microsoft.AspNet.Identity;
 using MoreLinq;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Controllers
 {
@@ -83,24 +84,28 @@ namespace SkjaTextar.Controllers
 			if(id.HasValue)
 			{
 				var model = _unitOfWork.RequestRepository.GetByID(id);
-				string type = model.Media.GetType().BaseType.Name;
-				switch (type)
+				if(model != null)
 				{
-					case "Movie":
-						return View("MovieRequestDetails", model);
-					case "Show":
-						ShowRequestViewModel showModel = new ShowRequestViewModel();
-						showModel.Request = model;
-						var myShow = _unitOfWork.ShowRepository.GetByID(model.MediaID);
-						showModel.Show = myShow;
-						return View("ShowRequestDetails", showModel);
-					case "Clip":
-						return View("ClipRequestDetails", model);
-					default:
-						return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+					string type = model.Media.GetType().BaseType.Name;
+					switch (type)
+					{
+						case "Movie":
+							return View("MovieRequestDetails", model);
+						case "Show":
+							ShowRequestViewModel showModel = new ShowRequestViewModel();
+							showModel.Request = model;
+							var myShow = _unitOfWork.ShowRepository.GetByID(model.MediaID);
+							showModel.Show = myShow;
+							return View("ShowRequestDetails", showModel);
+						case "Clip":
+							return View("ClipRequestDetails", model);
+						default:
+							throw new ApplicationException();
+					}
 				}
+				throw new DataNotFoundException();
 			}
-			return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			throw new MissingParameterException();
 		}
 
         // This ActionResult is used to decide what view to use when creating a request for a specific media
@@ -109,20 +114,24 @@ namespace SkjaTextar.Controllers
             if (id.HasValue)
             {
                 var model = _unitOfWork.MediaRepository.GetByID(id);
-                string type = model.GetType().BaseType.Name;
-                switch (type)
-                {
-                    case "Movie":
-                        return View("CreateForMovie", model);
-                    case "Show":
-                        return View("CreateForShow", model);
-                    case "Clip":
-                        return View("CreateForClip", model);
-                    default:
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+				if(model != null)
+				{
+					string type = model.GetType().BaseType.Name;
+					switch (type)
+					{
+						case "Movie":
+							return View("CreateForMovie", model);
+						case "Show":
+							return View("CreateForShow", model);
+						case "Clip":
+							return View("CreateForClip", model);
+						default:
+							throw new ApplicationException();
+					}
+				}
+				throw new DataNotFoundException();
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            throw new MissingParameterException();
         }
 
         public ActionResult CreateForMedia(int? Id)
@@ -131,20 +140,24 @@ namespace SkjaTextar.Controllers
             {
                 ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
                 var model = _unitOfWork.MediaRepository.GetByID(Id);
-                string type = model.GetType().BaseType.Name;
-                switch (type)
-                {
-                    case "Movie":
-                        return View("CreateForMovie", model);
-                    case "Show":
-                        return View("CreateForShow", model);
-                    case "Clip":
-                        return View("CreateForClip", model);
-                    default:
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+				if(model != null)
+				{
+					string type = model.GetType().BaseType.Name;
+					switch (type)
+					{
+						case "Movie":
+							return View("CreateForMovie", model);
+						case "Show":
+							return View("CreateForShow", model);
+						case "Clip":
+							return View("CreateForClip", model);
+						default:
+							throw new ApplicationException();
+					}
+				}
+				throw new DataNotFoundException();
             }
-            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            throw new MissingParameterException();
         }
 
         [HttpPost]
@@ -152,14 +165,14 @@ namespace SkjaTextar.Controllers
         {
             if(Id == null || languageId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new MissingParameterException();
             }
             var media = _unitOfWork.MediaRepository.Get()
                 .Where(m => m.ID == Id)
                 .SingleOrDefault();
             if(media == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                throw new DataNotFoundException();
             }
             var translation = media.Translations
                 .Where(t => t.LanguageID == languageId)
@@ -197,7 +210,7 @@ namespace SkjaTextar.Controllers
                 case "Clip":
                     return View("CreateForClip", media);
                 default:
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    throw new ApplicationException();
             }
         }
 
@@ -393,7 +406,7 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				throw new MissingParameterException();
             }
             var userID = User.Identity.GetUserId();
             var request = _unitOfWork.RequestRepository.GetByID(id);
