@@ -10,6 +10,7 @@ using System.Globalization;
 using Microsoft.AspNet.Identity;
 using System.IO;
 using SkjaTextar.Helpers;
+using PagedList;
 
 namespace SkjaTextar.Controllers
 {
@@ -20,18 +21,29 @@ namespace SkjaTextar.Controllers
         /// </summary>
         /// <param name="id">Id of the translation to display</param>
         /// <returns></returns>
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? page)
         {
             if(id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var model = _unitOfWork.TranslationRepository.GetByID(id);
-            if (model == null)
+            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+			
+            if (translation == null)
             {
                 return HttpNotFound();
             }
-            return View(model);
+
+			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID);
+
+			ViewBag.TranslationID = translation.ID;
+			ViewBag.MediaTitle = translation.Media.Title;
+			ViewBag.LanguageName = translation.Language.Name;
+			ViewBag.MediaID = translation.MediaID;
+
+			int pageSize = 50;
+			int pageNumber = (page ?? 1);
+			return View(model.ToPagedList(pageNumber, pageSize));
         }
 
         /// <summary>
@@ -486,6 +498,8 @@ namespace SkjaTextar.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
+			ViewBag.TranslationID = translationID;
+
             var report = new Report();
             report.Translation = translation;
 
@@ -563,12 +577,44 @@ namespace SkjaTextar.Controllers
             return View(segment);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult AddLine(TranslationSegment segment)
         {
-            var start = DateTime.ParseExact(segment.Timestamp.Substring(0, 12), "HH:mm:ss,fff", CultureInfo.InvariantCulture);
+            if (ModelState.IsValid)
+            {
+                string startTime = segment.Timestamp.Substring(0, 12);
+                int insertPos = 1;
+                var segments = _unitOfWork.TranslationSegmentRepository.Get()
+                    .Where(ts => ts.TranslationID == segment.TranslationID)
+                    .OrderBy(ts => ts.SegmentID)
+                    .ToList();
 
-            return null;
+                // Find the insert position
+                for (int i = 0; i < segments.Count; i++)
+                {
+                    string tmp = segments.ElementAt(i).Timestamp.Substring(0, 12);
+                    if (string.Compare(tmp, startTime) > 0)
+                    {
+                        insertPos = segments.ElementAt(i).SegmentID;
+                        break;
+                    }
+                    insertPos = segments.ElementAt(i).SegmentID + 1;
+                }
+
+                // increment segmentId on all segments with segmentId greater than the new segment
+                for (int i = insertPos; i <= segments.Count; i++)
+                {
+                    segments.ElementAt(i - 1).SegmentID++;
+                }
+
+                // Insert the new segment
+                segment.SegmentID = insertPos;
+                _unitOfWork.TranslationSegmentRepository.Insert(segment);
+                _unitOfWork.Save();
+                return RedirectToAction("Index", new { id = segment.TranslationID });
+            }
+            return View(segment);
         }
 	}
 }

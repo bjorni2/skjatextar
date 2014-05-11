@@ -150,10 +150,10 @@ namespace SkjaTextar.Models
             var translationSegments = new List<TranslationSegment>
             {
                 new TranslationSegment{ ID = 1, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 1, Line1 = "Skrifaðu yfir druslan þín", Line2 = "Virkar þetta?", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
-                new TranslationSegment{ ID = 2, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 2, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
-                new TranslationSegment{ ID = 3, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 3, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
-                new TranslationSegment{ ID = 4, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 4, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
-                new TranslationSegment{ ID = 5, Timestamp = "00:01:32,777 --> 00:01:35,878", SegmentID = 5, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 }
+                new TranslationSegment{ ID = 2, Timestamp = "00:03:32,777 --> 00:03:35,878", SegmentID = 2, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 3, Timestamp = "00:22:32,777 --> 00:22:35,878", SegmentID = 3, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 4, Timestamp = "00:33:32,777 --> 00:33:35,878", SegmentID = 4, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 },
+                new TranslationSegment{ ID = 5, Timestamp = "22:56:32,777 --> 22:56:35,878", SegmentID = 5, Line1 = "Blabla", Line2 = "FADklsdajf", Original1 = "Blalblaasdf", Original2 = "asdfsad", TranslationID = 2 }
             };
             translationSegments.ForEach(ts => context.TranslationSegments.Add(ts));
             context.SaveChanges();

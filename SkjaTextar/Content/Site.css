@@ -62,6 +62,10 @@ input[type="checkbox"].input-validation-error {
     padding-left: 5px;
 }
 
+.category{
+    font-weight: bold;
+}
+
 
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
