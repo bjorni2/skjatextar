@@ -6,6 +6,7 @@
         if(button.hasClass("glyphicon-edit")) {
             button.removeClass("glyphicon-edit").addClass("glyphicon-floppy-disk");
             input.removeAttr("readonly");
+            input.focus();
         }
         else {
             button.removeClass("glyphicon-floppy-disk").addClass("glyphicon-edit");
@@ -19,4 +20,10 @@
         }
         
     });
+});
+
+$(document).keypress(function (e) {
+    if (e.which == 13) {
+         $(':focus').siblings().first().children().first().trigger( "click" );
+    }
 });
