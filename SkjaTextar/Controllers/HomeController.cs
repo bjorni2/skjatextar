@@ -7,6 +7,7 @@ using System.Data.Entity;
 using SkjaTextar.Models;
 using SkjaTextar.ViewModels;
 using SkjaTextar.DAL;
+using SkjaTextar.Helpers;
 
 namespace SkjaTextar.Controllers
 {
@@ -52,7 +53,7 @@ namespace SkjaTextar.Controllers
 
         public JsonResult Autocomplete(string term)
         {
-            var results = new List<Result>();
+            var results = new List<SearchResult>();
            /* var movies = _unitOfWork.MovieRepository.Get().Where(m => m.Title.Contains(term));
             var shows = _unitOfWork.ShowRepository.Get().Where(m => m.Title.Contains(term));
             var clips = _unitOfWork.ClipRepository.Get().Where(m => m.Title.Contains(term));
@@ -74,26 +75,20 @@ namespace SkjaTextar.Controllers
             var media = _unitOfWork.MediaRepository.Get().Where(m => m.Title.Contains(term)).OrderBy(m => m.Title);
             foreach (var item in media)
             {
-                var tmp = new Result();
+                var tmp = new SearchResult();
                 if(item.GetType().BaseType.Name == "Show")
                 {
                     var tmpitem = item as Show;
-                    tmp = new Result { id = item.ID, label = item.Title + " S" + tmpitem.Series + "E" + tmpitem.Episode };
+                    tmp = new SearchResult { id = item.ID, label = item.Title + " S" + tmpitem.Series + "E" + tmpitem.Episode };
                 }
                 else
                 {
-                    tmp = new Result { id = item.ID, label = item.Title };                    
+                    tmp = new SearchResult { id = item.ID, label = item.Title };                    
                 }
                 results.Add(tmp);
             }
             return Json(results, JsonRequestBehavior.AllowGet);
         }
 
-    }
-    public class Result
-    {
-        public int id { get; set; }
-
-        public string label { get; set; }
     }
 }
