@@ -20,7 +20,7 @@ namespace SkjaTextar.Controllers
         {
 			ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
 			ViewBag.LanguageSortParm = sortOrder == "Lang" ? "lang_desc" : "Lang";
-			ViewBag.ScoreSortParm = sortOrder == "Score" ?  "Score" : "score_desc";
+            ViewBag.ScoreSortParm = sortOrder == "score_desc" ? "Score" : "score_desc";
 
             var requestvote = new List<RequestVoteViewModel>();
             var requests = _unitOfWork.RequestRepository.Get();
