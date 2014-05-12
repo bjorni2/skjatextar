@@ -381,7 +381,6 @@
     <Content Include="Views\Category\MovieByCategory.cshtml" />
     <Content Include="Views\Request\MovieRequestDetails.cshtml" />
     <Content Include="Views\Request\ClipRequestDetails.cshtml" />
-    <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Translation\Index.cshtml" />
     <Content Include="Views\Translation\CreateMovie.cshtml" />
     <Content Include="Views\Request\CreateForShow.cshtml" />
@@ -405,7 +404,6 @@
     <Content Include="Views\Translation\Report.cshtml" />
     <Content Include="Views\Translation\LanguageList.cshtml" />
     <Content Include="Views\Translation\ByLanguage.cshtml" />
-    <Content Include="Views\Shared\testyamm.cshtml" />
     <Content Include="Views\Translation\AddLine.cshtml" />
     <Content Include="Service References\TranslatorService\SkjaTextar.TranslatorService.GetTranslationsResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
