@@ -565,19 +565,29 @@ namespace SkjaTextar.Controllers
                 throw new DataNotFoundException();
             }
 
-            var translationLoop = translations.DistinctBy(r => r.MediaID);
-            foreach (var item in translationLoop)
+            var model = new SearchMediaViewModel();
+            foreach (var item in translations)
             {
-                var media = item.Media;
-                if (media.GetType().BaseType.Name == "Show")
+                string type = item.Media.GetType().BaseType.Name;
+                switch (type)
                 {
-                    Show show = media as Show;
-                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                    case "Movie":
+                        model.Movies.Add(item.Media as Movie);
+                        break;
+                    case "Show":
+                        model.Shows.Add(item.Media as Show);
+                        break;
+                    case "Clip":
+                        model.Clips.Add(item.Media as Clip);
+                        break;
+                    default:
+                        throw new ApplicationException();
                 }
             }
-
+            
+           
             ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
-            return View(translations);
+            return View(model);
         }
 
 		[HttpPost]

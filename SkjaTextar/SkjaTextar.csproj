@@ -389,7 +389,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Translation\Report.cshtml" />
-    <Content Include="Views\Translation\LanguageList.cshtml" />
     <Content Include="Views\Translation\ByLanguage.cshtml" />
     <Content Include="Views\Shared\testyamm.cshtml" />
     <Content Include="Views\Translation\AddLine.cshtml" />
