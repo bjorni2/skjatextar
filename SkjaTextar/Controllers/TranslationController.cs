@@ -590,6 +590,7 @@ namespace SkjaTextar.Controllers
             
            
             ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
+			ViewBag.LanguageID = id;
             return View(model);
         }
 
