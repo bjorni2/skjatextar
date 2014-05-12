@@ -224,6 +224,7 @@
     <Compile Include="ViewModels\RequestMediaViewModel.cs" />
     <Compile Include="ViewModels\RequestVoteViewModel.cs" />
     <Compile Include="ViewModels\SearchMediaViewModel.cs" />
+    <Compile Include="ViewModels\SegmentViewModel.cs" />
     <Compile Include="ViewModels\ShowRequestViewModel.cs" />
     <Compile Include="ViewModels\ShowTranslationViewModel.cs" />
     <Compile Include="ViewModels\TranslationMediaViewModel.cs" />

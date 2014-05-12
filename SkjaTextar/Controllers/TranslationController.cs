@@ -610,17 +610,17 @@ namespace SkjaTextar.Controllers
         [Authorize]
         public ActionResult AddLine(int? Id)
         {
-            var segment = new TranslationSegment { TranslationID = Id.Value };
+            var segment = new SegmentViewModel { TranslationID = Id.Value };
             return View(segment);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddLine(TranslationSegment segment)
+        public ActionResult AddLine(SegmentViewModel segment)
         {
             if (ModelState.IsValid)
             {
-                string startTime = segment.Timestamp.Substring(0, 12);
+                string startTime = segment.TimestampStart;
                 int insertPos = 1;
                 var segments = _unitOfWork.TranslationSegmentRepository.Get()
                     .Where(ts => ts.TranslationID == segment.TranslationID)
@@ -646,8 +646,17 @@ namespace SkjaTextar.Controllers
                 }
 
                 // Insert the new segment
-                segment.SegmentID = insertPos;
-                _unitOfWork.TranslationSegmentRepository.Insert(segment);
+                var translationSegment = new TranslationSegment
+                {
+                    Line1 = segment.Line1,
+                    Line2 = segment.Line2,
+                    Original1 = segment.Original1,
+                    Original2 = segment.Original2,
+                    TranslationID = segment.TranslationID,
+                    Timestamp = segment.TimestampStart + " --> " + segment.TimestampEnd,
+                    SegmentID = insertPos
+                };
+                _unitOfWork.TranslationSegmentRepository.Insert(translationSegment);
                 _unitOfWork.Save();
                 return RedirectToAction("Index", new { id = segment.TranslationID });
             }
