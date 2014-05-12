@@ -14,7 +14,7 @@
 <div>
     @if (TempData["UserMessage"] != null)
     {
-        <p>@TempData["UserMessage"]</p>
+        <p class="alert-success col-md-offset-3 col-md-2">@TempData["UserMessage"]</p>
     }
 </div>
 
@@ -41,6 +41,7 @@
                 <input type="text" class="form-control" value="@item.Line1" readonly="readonly" />
                 <span class="input-group-btn"><button data-line="1" data-segmentid="@item.SegmentID" class="btn btn-default edit" type="button"><span class="glyphicon glyphicon-edit"></span></button></span>
             </div>
+            <p></p>
             <p>@item.Original2</p>
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control" value="@item.Line2" readonly="readonly" />
@@ -50,10 +51,11 @@
     </div>
 </div>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<div class="col-md-offset-3">
+    Síða @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) af @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID }))
-
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID }))
+</div>
 
 @section Scripts {
     <script src="~/Scripts/TranslationSegment.js"></script>

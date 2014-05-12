@@ -3,7 +3,7 @@
     ViewBag.Title = "Ný þýðing";
 }
 
-<h2>Ný þýðing - Myndbrot</h2>
+<h2 class="col-md-offset-1">Ný þýðing - Myndbrot</h2>
 
 <div>
     @if (ViewBag.Errormsg != null)
@@ -19,57 +19,50 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.ID)
-
         <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.Category.Name)
         </div>
         <div class="col-md-10">
             <p>@Model.Category.Name</p>
         </div>
-
         <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.Title)
         </div>
         <div class="col-md-10">
             <p>@Model.Title</p>
         </div>
-
         <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.ReleaseYear)
         </div>
         <div class="col-md-10">
             <p>@Model.ReleaseYear</p>
         </div>
-
         <div class="control-label col-md-2">
             @Html.DisplayNameFor(model => model.Link)
         </div>
         <div class="col-md-10">
             <p>@Model.Link</p>
         </div>
-
         <div class="form-group">
             <label for="Language" class="control-label col-md-2">Tungumál</label>
             <div class="col-md-10">
                 @Html.DropDownList("LanguageID", String.Empty)
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label col-md-2" for="file">Skráarheiti:</label>
             <div class="col-md-10">
                 <input type="file" name="file" id="file" />
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Stofna þýðingu" class="btn btn-default" />
+                <input id="upload" type="submit" value="Stofna þýðingu" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/confirmNoSrt.js"></script>
 }
