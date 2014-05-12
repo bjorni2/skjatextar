@@ -19,7 +19,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TimestampStart, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimestampStart)
+                <input class="text-box single-line valid" data-val="true" data-val-regex="Tímastimpill þarf að vera á forminu &quot;00:00:00,000&quot;." data-val-regex-pattern="^\d\d:[0-5]\d:[0-5]\d,\d\d\d$" id="TimestampStart" name="TimestampStart" type="text" placeholder="00:00:00,000">
                 @Html.ValidationMessageFor(model => model.TimestampStart)
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TimestampEnd, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TimestampEnd)
+                <input class="text-box single-line valid" data-val="true" data-val-regex="Tímastimpill þarf að vera á forminu &quot;00:00:00,000&quot;." data-val-regex-pattern="^\d\d:[0-5]\d:[0-5]\d,\d\d\d$" id="TimestampEnd" name="TimestampEnd" type="text" placeholder="00:00:00,000">
                 @Html.ValidationMessageFor(model => model.TimestampEnd)
             </div>
         </div>
