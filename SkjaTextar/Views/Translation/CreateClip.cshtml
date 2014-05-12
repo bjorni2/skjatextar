@@ -19,14 +19,12 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Clip.CategoryID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Clip.CategoryID, ViewBag.CategoryID as SelectList)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Clip.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -34,7 +32,6 @@
                 @Html.ValidationMessageFor(model => model.Clip.Title)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Clip.ReleaseYear, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -42,7 +39,6 @@
                 @Html.ValidationMessageFor(model => model.Clip.ReleaseYear)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Clip.Link, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -50,29 +46,26 @@
                 @Html.ValidationMessageFor(model => model.Clip.Link)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.LanguageID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("LanguageID", String.Empty)
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label col-md-2" for="file">Skráarheiti:</label>
             <div class="col-md-10">
                 <input type="file" name="file" id="file" />
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Stofna þýðingu" class="btn btn-default" />
+                <input id="upload" type="submit" value="Stofna þýðingu" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/confirmNoSrt.js"></script>
 }
