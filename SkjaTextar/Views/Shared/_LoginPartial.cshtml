@@ -1,16 +1,17 @@
 ﻿@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Halló " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Útskrá</a></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Halló " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Útskrá</a></li>
+        </ul>
     }
 }
 else
@@ -19,3 +20,13 @@ else
         <li>@Html.ActionLink("Innskrá", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+<ul>
+    <li>
+        <form class="navbar-form navbar-right" role="search" method="post" action="/Home/Search">
+            <div class="form-group">
+                <input name="searchQuery" type="text" class="form-control" placeholder="Leita">
+            </div>
+            <span class="form-group"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
+        </form>
+    </li>
+</ul>

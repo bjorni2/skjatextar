@@ -27,8 +27,8 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            //: base("SQLserverinnokkar")
-            : base("SubTitleContext")
+            : base("SQLserverinnokkar")
+            //: base("SubTitleContext")
         {
         }
 
@@ -45,7 +45,7 @@ namespace SkjaTextar.Models
 		public DbSet<Report> Reports { get; set; }
     }
 
-    public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    /*public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
@@ -179,5 +179,5 @@ namespace SkjaTextar.Models
 			reports.ForEach(r => context.Reports.Add(r));
 			context.SaveChanges();
         }
-    }
+    }*/
 }

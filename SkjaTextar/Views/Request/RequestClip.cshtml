@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Beiðni</h2>
+<h2 class="col-md-offset-1">Beiðni</h2>
 
 <div>
     @if (ViewBag.ErrorMsg != null)
@@ -28,8 +28,6 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
-
-        <p>@ViewBag.MediaType</p>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Clip.CategoryID, new { @class = "control-label col-md-2" })
@@ -79,8 +77,8 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div class="col-md-offset-1">
+    @Html.ActionLink("Aftur á beiðnir", "Index")
 </div>
 
 @section Scripts {
