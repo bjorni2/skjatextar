@@ -16,15 +16,31 @@ namespace SkjaTextar.Controllers
 {
     public class RequestController : BaseController
     {
-        //
-        // GET: /Request/
+        public RequestController() : base(new UnitOfWork())
+        { 
+        }
+        
+        /// <summary>
+        /// Constructor for unit tests
+        /// </summary>
+        /// <param name="unitOfWork">The Data access object</param>
+        public RequestController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
+
+        /// <summary>
+        /// Displays a table of all the requests on the site.
+        /// </summary>
+        /// <param name="sortOrder">The order in which the requests are sorted</param>
+        /// <returns></returns>
         public ActionResult Index(string sortOrder)
         {
-			ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+			// for toggling asc/desc sort order on columns
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
 			ViewBag.LanguageSortParm = sortOrder == "Lang" ? "lang_desc" : "Lang";
             ViewBag.ScoreSortParm = sortOrder == "score_desc" ? "Score" : "score_desc";
 
-            var requestvote = new List<RequestVoteViewModel>();
+            var model = new List<RequestVoteViewModel>();
             var requests = _unitOfWork.RequestRepository.Get();
             var user = User.Identity.GetUserId();
 
@@ -49,9 +65,12 @@ namespace SkjaTextar.Controllers
 					requests = requests.OrderBy(s => s.Media.Title);
 					break;
 			}
-			var req = requests.ToList();
-			var requestLoop = req.DistinctBy(r => r.MediaID);
-			foreach(var item in requestLoop)
+
+			var requestList = requests.ToList();
+
+            // Loops through all distinct media items in requestList
+            // to add series and episode number to shows.
+			foreach(var item in requestList.DistinctBy(r => r.MediaID))
 			{
 				var media = item.Media;
 				if(media.GetType().BaseType.Name == "Show")
@@ -61,7 +80,7 @@ namespace SkjaTextar.Controllers
 				}
 			}
 
-            foreach (var item in req)
+            foreach (var item in requestList)
             {
                 var tmp = new RequestVoteViewModel();
                 tmp.Request = item;
@@ -73,13 +92,16 @@ namespace SkjaTextar.Controllers
                 {
                     tmp.Vote = userVote.Vote;
                 }
-                requestvote.Add(tmp);
+                model.Add(tmp);
             }
-			return View(requestvote);
-          
-
+			return View(model);
         }
 
+        /// <summary>
+        /// Displays a details page for request, different depending on the type of media
+        /// </summary>
+        /// <param name="id">The id of the request</param>
+        /// <returns></returns>
 		public ActionResult Details(int? id)
 		{
 			if(id.HasValue)
@@ -109,8 +131,12 @@ namespace SkjaTextar.Controllers
 			throw new MissingParameterException();
 		}
 
-        // This ActionResult is used to decide what view to use when creating a request for a specific media
-        public ActionResult CreateFor(int? id)
+        /// <summary>
+        /// Unused?
+        /// </summary>
+        /// <param name="id">The id of the media for the request</param>
+        /// <returns></returns>
+       /* public ActionResult CreateFor(int? id)
         {
             if (id.HasValue)
             {
@@ -133,8 +159,13 @@ namespace SkjaTextar.Controllers
 				throw new DataNotFoundException();
             }
             throw new MissingParameterException();
-        }
+        }*/
 
+        /// <summary>
+        /// Displays the appropriate view depending on the type of media the request is being made for
+        /// </summary>
+        /// <param name="Id">The id of the media for the request</param>
+        /// <returns></returns>
         public ActionResult CreateForMedia(int? Id)
         {
             if (Id.HasValue)
@@ -161,6 +192,13 @@ namespace SkjaTextar.Controllers
             throw new MissingParameterException();
         }
 
+
+        /// <summary>
+        /// Creates a new request for existing media
+        /// </summary>
+        /// <param name="Id">The id of the media to create the request for</param>
+        /// <param name="languageId">The id of the language being requested</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult CreateForMedia(int? Id, int? languageId)
         {
@@ -215,7 +253,12 @@ namespace SkjaTextar.Controllers
             }
         }
 
-        // This ActionResult is used to get a create templete for a request
+        /// <summary>
+        /// Displays the appropriate view for the specified media type
+        /// and builds the selectLists for choosing the category and language
+        /// </summary>
+        /// <param name="mediaCat">The media type</param>
+        /// <returns></returns>
         public ActionResult Create(string mediaCat)
         {
 			var subCategories = new SelectList(_unitOfWork.CategoryRepository.Get(), "ID", "Name");

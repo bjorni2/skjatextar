@@ -13,7 +13,7 @@ namespace SkjaTextar.Helpers
         public static Translation Parse(string path, string format = "srt")
         {
             var translation = new Translation { TranslationSegments = new List<TranslationSegment>() };
-            using (StreamReader sr = new StreamReader(path))
+            using (StreamReader sr = new StreamReader(path, Encoding.UTF8))
             {
                 string nextLine;
                 string tmp = "";

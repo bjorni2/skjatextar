@@ -127,7 +127,7 @@ body{
   background-color: transparent;
 }
 .navbar-inverse .navbar-toggle {
-  border-color: #333;
+  border-color: #999;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
@@ -237,8 +237,28 @@ a.list-group-item:focus {
   background-color: rgb(2, 36, 106);
 }
 
+#thydingardrop {
+    width: 42em;
+}
 
-.voffset-12 { margin-top: -12px; }
+#thydingarhead {
+  color: #428bca;
+}
+
+#navbartext li > a{
+    color: white;
+}
+
+
+#navbartext li > p > strong{
+    color: white;
+}
+
+#navbartext li > p > strong > a{
+    color: white;
+}
+
+
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
 .voffset2 { margin-top: 10px; }

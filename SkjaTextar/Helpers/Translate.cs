@@ -14,9 +14,11 @@ using SkjaTextar.Models;
 
 namespace SkjaTextar.Helpers
 {
+    // Code from:
+    // http://msdn.microsoft.com/en-us/library/ff512435.aspx
     public class Translate
     {
-        public void TranslateText(Translation trans, string to, string from = "en")
+        public static void TranslateText(Translation trans, string to, string from = "en")
         {
             AdmAccessToken admToken;
             string headerValue;
@@ -41,40 +43,12 @@ namespace SkjaTextar.Helpers
                     }
                 }
             }
-            catch (WebException e)
+            catch (Exception)
             {
-                /*ProcessWebException(e);
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);*/
-            }
-            catch (Exception ex)
-            {
-                /*Console.WriteLine(ex.Message);
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);*/
             }
         }
 
-
-        private static void ProcessWebException(WebException e)
-        {
-            Console.WriteLine("{0}", e.ToString());
-            // Obtain detailed error information
-            string strResponse = string.Empty;
-            using (HttpWebResponse response = (HttpWebResponse)e.Response)
-            {
-                using (Stream responseStream = response.GetResponseStream())
-                {
-                    using (StreamReader sr = new StreamReader(responseStream, System.Text.Encoding.ASCII))
-                    {
-                        strResponse = sr.ReadToEnd();
-                    }
-                }
-            }
-            Console.WriteLine("Http status code={0}, error message={1}", e.Status, strResponse);
-        }
-
-        private String TranslateMethod(string authToken, string toTranslate, string to, string from = "en")
+        private static String TranslateMethod(string authToken, string toTranslate, string to, string from = "en")
         {
             // Add TranslatorService as a service reference, Address:http://api.microsofttranslator.com/V2/Soap.svc
             TranslatorService.LanguageServiceClient client = new TranslatorService.LanguageServiceClient();
@@ -150,19 +124,15 @@ namespace SkjaTextar.Helpers
             {
                 RenewAccessToken();
             }
-            catch (Exception ex)
-            {
-                //Console.WriteLine(string.Format("Failed renewing access token. Details: {0}", ex.Message));
-            }
             finally
             {
                 try
                 {
                     accessTokenRenewer.Change(TimeSpan.FromMinutes(RefreshTokenDuration), TimeSpan.FromMilliseconds(-1));
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    //Console.WriteLine(string.Format("Failed to reschedule the timer to renew access token. Details: {0}", ex.Message));
+                    
                 }
             }
         }

@@ -17,11 +17,15 @@ namespace SkjaTextar.ViewModels
         public string Original1 { get; set; }
         [DisplayName("Upprunaleg lína 2")]
         public string Original2 { get; set; }
+        [DisplayName("Birta frá")]
         [RegularExpression(@"^\d\d:[0-5]\d:[0-5]\d,\d\d\d$",
          ErrorMessage = "Tímastimpill þarf að vera á forminu \"00:00:00,000\".")]
+		[Required(ErrorMessage="Nauðsynlegt er að fylla út í tímastimpil.")]		
         public string TimestampStart { get; set; }
+        [DisplayName("Birta til")]
         [RegularExpression(@"^\d\d:[0-5]\d:[0-5]\d,\d\d\d$",
          ErrorMessage = "Tímastimpill þarf að vera á forminu \"00:00:00,000\".")]
+		[Required(ErrorMessage = "Nauðsynlegt er að fylla út í tímastimpil.")]
         public string TimestampEnd { get; set; }
         public int TranslationID { get; set; }
     }
