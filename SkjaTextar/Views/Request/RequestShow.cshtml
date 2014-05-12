@@ -29,8 +29,6 @@
         <hr />
         @Html.ValidationSummary(true)
 
-        <p>@ViewBag.MediaType</p>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.CategoryID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -96,7 +94,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Aftur á beiðnir", "Index")
 </div>
 
 @section Scripts {
