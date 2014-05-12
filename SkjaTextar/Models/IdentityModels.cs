@@ -29,6 +29,7 @@ namespace SkjaTextar.Models
         public ApplicationDbContext()
             : base("SQLserverinnokkar")
             //: base("SubTitleContext")
+            //:base("RUSQLServer")
         {
         }
 

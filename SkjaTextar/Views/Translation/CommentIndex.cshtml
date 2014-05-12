@@ -4,14 +4,15 @@
     ViewBag.Title = "CommentIndex";
 }
 
-<h2>Umræður</h2>
+<h2 class="col-md-offset-2">Umræður</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>@Model.Translation.Media.Title - @Model.Translation.Language.Name</h4>
+        <h4 class="col-md-offset-2">@Html.ActionLink(Model.Translation.Media.Title as string + " - " +  Model.Translation.Language.Name as string,
+        "Index" , "Translation" , new { ID = Model.Translation.ID }, null)</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Translation.ID)

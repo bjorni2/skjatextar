@@ -3,9 +3,9 @@
     ViewBag.Title = "Sjónvarpsþættir - " + ViewBag.Category;
 }
 
-<h2>Sjónvarpsþættir - @ViewBag.Category</h2>
-
-@foreach(var item in Model)
+<h2 class="col-md-offset-1">Sjónvarpsþættir - @ViewBag.Category</h2>
+<hr />
+@foreach (var item in Model)
 {
-    <p>@Html.ActionLink(item.Title + " S" + item.Series + "E" + item.Episode, "Index", "Media", new { id = item.ID }, null)</p>
+    <p class="biggertext col-md-offset-1">@Html.ActionLink(item.Title + " S" + item.Series + "E" + item.Episode, "Index", "Media", new { id = item.ID }, null)</p>
 }
