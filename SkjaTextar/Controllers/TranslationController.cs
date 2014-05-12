@@ -772,7 +772,8 @@ namespace SkjaTextar.Controllers
                     to = "kr";
                     break;
                 default:
-                    break;
+                    TempData["UserMessage"] = "Tungumál þessarar þýðingar er ekki stutt af þýðingavél";
+                    return RedirectToAction("Index", new { id = translationId });
             }
             Translate.TranslateText(translation, to);
             _unitOfWork.Save();
