@@ -12,8 +12,6 @@ namespace SkjaTextar.Controllers
 {
     public class AdminController : BaseController
     {
-        //
-        // GET: /Admin/
 		public AdminController() : base()
         {
         }
@@ -22,12 +20,21 @@ namespace SkjaTextar.Controllers
         {
         }
 
+        /// <summary>
+        /// Displays reports from users in a table.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
 			List<Report> reportList = _unitOfWork.ReportRepository.Get().OrderByDescending(r => r.ID).ToList();
             return View(reportList);
         }
 
+        /// <summary>
+        /// Deletes a report from the database.
+        /// </summary>
+        /// <param name="id">The id of the report to delete</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Delete(int? id)
         {

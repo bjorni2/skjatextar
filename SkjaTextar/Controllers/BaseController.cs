@@ -9,9 +9,14 @@ using SkjaTextar.Helpers;
 
 namespace SkjaTextar.Controllers
 {
+    /// <summary>
+    /// Base controller for the application.
+    /// All other controllers inherit this controller
+    /// </summary>
     [HandleError]
     public class BaseController : Controller
     {
+        // _unitOfWork handles data flow to/from the database through repositories
         protected IUnitOfWork _unitOfWork;
 
         public BaseController() : this(new UnitOfWork())
@@ -19,11 +24,19 @@ namespace SkjaTextar.Controllers
 
         }
 
+        /// <summary>
+        /// Constructor for Unit Testing controllers
+        /// </summary>
+        /// <param name="unitOfWork"></param>
         public BaseController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Runs when errors are thrown in controllers
+        /// </summary>
+        /// <param name="fc"></param>
         protected override void OnException(ExceptionContext fc)
         {
             // Call the base class implementation:

@@ -23,6 +23,10 @@ namespace SkjaTextar.Controllers
         {
         }
 
+        /// <summary>
+        /// Displays the sites home page with top lists for active users, most downloaded translations, latest translations and the top requests
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             var model = new HomeViewModel();
@@ -33,6 +37,11 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Displays a search result page with all media items containing a substring "searchQuery".
+        /// </summary>
+        /// <param name="searchQuery">The substring to search for in media titles</param>
+        /// <returns></returns>
         public ActionResult Search(string searchQuery)
         {
             var model = new SearchMediaViewModel();
@@ -51,7 +60,11 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
-
+        /// <summary>
+        /// Returns an json object containing all media items containing a substring "term".
+        /// </summary>
+        /// <param name="term">the substring to search for</param>
+        /// <returns></returns>
         public JsonResult Autocomplete(string term)
         {
             var results = new List<SearchResult>();
