@@ -128,14 +128,14 @@ namespace SkjaTextar.Tests.Controllers
             // this search should return no results
             var resultWithG = controller.Search("G");
             var viewresult3 = (ViewResult)resultWithG;
-            SearchMediaViewModel model3 = viewresult1.Model as SearchMediaViewModel;
-            Assert.IsTrue(model2.Movies.Count == 0 && model2.Shows.Count == 0 && model2.Clips.Count == 0);
+            SearchMediaViewModel model3 = viewresult3.Model as SearchMediaViewModel;
+            Assert.IsTrue(model3.Movies.Count == 0 && model3.Shows.Count == 0 && model3.Clips.Count == 0);
             
             // this should also return no results
             var resultWithNull = controller.Search("");
             var viewresult4 = (ViewResult)resultWithNull;
-            SearchMediaViewModel model4 = viewresult1.Model as SearchMediaViewModel;
-            Assert.IsTrue(model2.Movies.Count == 0 && model2.Shows.Count == 0 && model2.Clips.Count == 0);
+            SearchMediaViewModel model4 = viewresult4.Model as SearchMediaViewModel;
+            Assert.IsTrue(model4.Movies.Count == 0 && model4.Shows.Count == 0 && model4.Clips.Count == 0);
 
         }
     }
