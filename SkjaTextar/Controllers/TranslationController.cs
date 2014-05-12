@@ -581,6 +581,7 @@ namespace SkjaTextar.Controllers
         }
 
 		[HttpPost]
+		[ValidateInput(false)]
 		public ActionResult UpdateLine(int? translationID, int? segmentID, string translationText, int line)
 		{
 			var translation = _unitOfWork.TranslationRepository.GetByID(translationID);
