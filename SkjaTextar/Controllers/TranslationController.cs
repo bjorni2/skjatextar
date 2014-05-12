@@ -41,6 +41,7 @@ namespace SkjaTextar.Controllers
 			ViewBag.TranslationID = translation.ID;
 			ViewBag.MediaTitle = translation.Media.Title;
 			ViewBag.LanguageName = translation.Language.Name;
+            ViewBag.LanguageId = translation.LanguageID;
 			ViewBag.MediaID = translation.MediaID;
 
 			int pageSize = 50;
@@ -661,6 +662,19 @@ namespace SkjaTextar.Controllers
                 return RedirectToAction("Index", new { id = segment.TranslationID });
             }
             return View(segment);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AutoTranslate(int? translationId, int? languageId)
+        {
+            var translation = _unitOfWork.TranslationRepository.Get()
+                .Where(t => t.ID == translationId)
+                .SingleOrDefault();
+            var translate2 = new Translate();
+            translate2.TranslateText(translation, "da");
+            _unitOfWork.Save();
+            return RedirectToAction("Index", new { id = translationId });
         }
 	}
 }
