@@ -3,7 +3,7 @@
     ViewBag.Title = "Um beiðni";
 }
 
-<h2>Beiðni</h2>
+<h2 class="col-xs-offset-1">Beiðni</h2>
 
 <div class="row">
     <div class="col-md-7 voffset2">
@@ -11,7 +11,7 @@
         {
             <input type="hidden" name="ID" value="@Model.MediaID" />
             @Html.Hidden("LanguageID", Model.LanguageID)
-            <button class="btn btn-primary" type="submit">Svara beiðni</button>
+            <button class="btn btn-primary col-xs-offset-2" type="submit">Svara beiðni</button>
         }
     </div>
 </div>
@@ -69,6 +69,10 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Aftur á beiðnir", "Index")
-</p>
+<div class="col-md-11 col-md-offset-1">
+    <iframe width="560" height="315" src="@Model.Media.Link" frameborder="0" allowfullscreen></iframe>
+</div>
+    <p class="col-xs-offset-1">
+        @Html.ActionLink("Aftur á beiðnir", "Index")
+    </p>
+

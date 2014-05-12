@@ -9,7 +9,7 @@ namespace SkjaTextar.Models
 {
     public class Clip : Media
     {
-        [Required]
+        [Required(ErrorMessage = "Þú verður að setja inn hlekk fyrir myndbrotið")]
         [DisplayName("Hlekkur")]
         public override string Link { get; set; }
     }

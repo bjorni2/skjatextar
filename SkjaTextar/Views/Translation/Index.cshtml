@@ -26,6 +26,12 @@
         @Html.ActionLink("Ný lína", "AddLine", "Translation", new { ID = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
     </div>
 </div>
+@using (Html.BeginForm("AutoTranslate", "Translation", FormMethod.Post))
+{
+    @Html.Hidden("translationId", ViewBag.TranslationID as string)
+    @Html.Hidden("languageId", ViewBag.LanguageId as string)
+    <button class="btn-success"><span class="glyphicon glyphicon-chevron-up"></span></button>
+}
 <div class="row">
     <div class="col-md-9 col-md-offset-3">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID }))

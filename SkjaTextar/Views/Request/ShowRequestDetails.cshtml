@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Um beiðni";
 }
-
-<h2>Beiðni</h2>
+<div id="mediatype" data-mediatype="tv"></div>
+<h2 class="col-xs-offset-1">Beiðni</h2>
 
 <div class="row">
     <div class="col-md-7 voffset2">
@@ -12,79 +12,85 @@
         {
             <input type="hidden" name="ID" value="@Model.Request.MediaID" />
             @Html.Hidden("LanguageID", Model.Request.LanguageID)
-            <button class="btn btn-primary" type="submit">Svara beiðni</button>
+            <button class="btn btn-primary col-xs-offset-2" type="submit">Svara beiðni</button>
         }
     </div>
 </div>
+<hr />
+<div class="row">
+    <div class="col-sm-5 col-md-4">
 
-<div>
-	<hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Flokkur
-        </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                Flokkur
+            </dt>
 
-        <dd>
-            Sjónvarpsþáttur
-        </dd>
+            <dd>
+                Sjónvarpsþáttur
+            </dd>
 
-        <dt>
-            Undirflokkur
-        </dt>
+            <dt>
+                Undirflokkur
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Show.Category.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Show.Category.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Show.Title)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Show.Title)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Show.Title)
-        </dd>
+            <dd id="mediatitle" data-title="@Html.DisplayFor(model => model.Show.Title)">
+                @Html.DisplayFor(model => model.Show.Title)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Show.ReleaseYear)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Show.ReleaseYear)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Show.ReleaseYear)
-        </dd>
+            <dd id="relyear" data-year="@Html.DisplayFor(model => model.Show.ReleaseYear)">
+                @Html.DisplayFor(model => model.Show.ReleaseYear)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Show.Series)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Show.Series)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Show.Series)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Show.Series)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Show.Episode)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Show.Episode)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Show.Episode)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Show.Episode)
+            </dd>
 
-        <dt>
-            Tungumál
-        </dt>
+            <dt>
+                Tungumál
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Request.Language.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Request.Language.Name)
+            </dd>
 
-        <dt>
-            Stig
-        </dt>
+            <dt>
+                Stig
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Request.Score)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Request.Score)
+            </dd>
+        </dl>
+    </div>
+    <div id="poster" class="col-sm-7 col-md-8"></div>
 </div>
-<p>
-    @Html.ActionLink("Aftur á beiðnir", "Index")
-</p>
+    <p class="col-xs-offset-1">
+        @Html.ActionLink("Aftur á beiðnir", "Index")
+    </p>
+@section Scripts {
+    <script src="~/Scripts/movieposter.js"></script>
+}

@@ -13,6 +13,7 @@ using SkjaTextar.Helpers;
 using PagedList;
 using MoreLinq;
 using SkjaTextar.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace SkjaTextar.Controllers
 {
@@ -41,6 +42,7 @@ namespace SkjaTextar.Controllers
 			ViewBag.TranslationID = translation.ID;
 			ViewBag.MediaTitle = translation.Media.Title;
 			ViewBag.LanguageName = translation.Language.Name;
+            ViewBag.LanguageId = translation.LanguageID;
 			ViewBag.MediaID = translation.MediaID;
 
 			int pageSize = 50;
@@ -271,6 +273,7 @@ namespace SkjaTextar.Controllers
                     {
                         clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                     }
+					clip.Link = "//www.youtube.com/embed/" + YoutubeParser.parseLink(clip.Link);
                     _unitOfWork.ClipRepository.Insert(clip);
                     var userid = User.Identity.GetUserId();
                     var user = _unitOfWork.UserRepository.GetByID(userid);
@@ -565,22 +568,33 @@ namespace SkjaTextar.Controllers
                 throw new DataNotFoundException();
             }
 
-            var translationLoop = translations.DistinctBy(r => r.MediaID);
-            foreach (var item in translationLoop)
+            var model = new SearchMediaViewModel();
+            foreach (var item in translations)
             {
-                var media = item.Media;
-                if (media.GetType().BaseType.Name == "Show")
+                string type = item.Media.GetType().BaseType.Name;
+                switch (type)
                 {
-                    Show show = media as Show;
-                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                    case "Movie":
+                        model.Movies.Add(item.Media as Movie);
+                        break;
+                    case "Show":
+                        model.Shows.Add(item.Media as Show);
+                        break;
+                    case "Clip":
+                        model.Clips.Add(item.Media as Clip);
+                        break;
+                    default:
+                        throw new ApplicationException();
                 }
             }
-
+            
+           
             ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
-            return View(translations);
+            return View(model);
         }
 
 		[HttpPost]
+		[ValidateInput(false)]
 		public ActionResult UpdateLine(int? translationID, int? segmentID, string translationText, int line)
 		{
 			var translation = _unitOfWork.TranslationRepository.GetByID(translationID);
@@ -661,6 +675,19 @@ namespace SkjaTextar.Controllers
                 return RedirectToAction("Index", new { id = segment.TranslationID });
             }
             return View(segment);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AutoTranslate(int? translationId, int? languageId)
+        {
+            var translation = _unitOfWork.TranslationRepository.Get()
+                .Where(t => t.ID == translationId)
+                .SingleOrDefault();
+            var translate2 = new Translate();
+            translate2.TranslateText(translation, "da");
+            _unitOfWork.Save();
+            return RedirectToAction("Index", new { id = translationId });
         }
 	}
 }

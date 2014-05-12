@@ -3,19 +3,24 @@
 @{
     ViewBag.Title = "Leitarniðurstöður";
 }
-
-<h2>@ViewBag.Count  Niðurstöður</h2>
-<h4>Kvikmyndir</h4>
-@foreach (var item in Model.Movies) {
-    <p>@Html.ActionLink(item.Title + " - " + item.ReleaseYear, "Index", "Media", new { id = item.ID }, null)</p>
-}
-<h4>Sjónvarpsþættir</h4>
-@foreach (var item in Model.Shows)
-{
-    <p>@Html.ActionLink(item.Title + " - S" + item.Series + "E" + item.Episode, "Index", "Media", new { id = item.ID }, null)</p>
-}
-<h4>Myndbrot</h4>
-@foreach (var item in Model.Clips)
-{
-    <p>@Html.ActionLink(item.Title + " - " + item.ReleaseYear, "Index", "Media", new { id = item.ID }, null)</p>
-}
+<div class="col-xs-offset-1">
+    <h2>@ViewBag.Count  Niðurstöður</h2>
+</div>
+<hr />
+<div class="col-xs-offset-1">
+    <h4>Kvikmyndir</h4>
+    @foreach (var item in Model.Movies)
+    {
+        <p>@Html.ActionLink(item.Title + " - " + item.ReleaseYear, "Index", "Media", new { id = item.ID }, null)</p>
+    }
+    <h4>Sjónvarpsþættir</h4>
+    @foreach (var item in Model.Shows)
+    {
+        <p>@Html.ActionLink(item.Title + " - S" + item.Series + "E" + item.Episode, "Index", "Media", new { id = item.ID }, null)</p>
+    }
+    <h4>Myndbrot</h4>
+    @foreach (var item in Model.Clips)
+    {
+        <p>@Html.ActionLink(item.Title + " - " + item.ReleaseYear, "Index", "Media", new { id = item.ID }, null)</p>
+    }
+</div>

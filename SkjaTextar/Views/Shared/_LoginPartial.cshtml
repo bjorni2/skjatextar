@@ -7,8 +7,8 @@
         @Html.AntiForgeryToken()
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                @Html.ActionLink("Halló " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            <li class="hidden-sm">
+                @Html.ActionLink(User.Identity.GetUserName(), "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Útskrá</a></li>
         </ul>
@@ -26,7 +26,7 @@ else
             <div class="form-group">
                 <input name="searchQuery" type="text" class="form-control" placeholder="Leita">
             </div>
-            <span class="form-group"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
+            <span  class="form-group hidden-xs"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
         </form>
     </li>
 </ul>
