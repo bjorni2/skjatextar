@@ -5,6 +5,9 @@
 }
 
 <h2 class="text-danger">Villa kom upp við úrvinnslu fyrirspurnarinnar.</h2>
-<h3>@Model.ActionName</h3>
-@Model.Exception.HResult
+@if (Model.Exception.HResult == -2147467261)
+{
+    <h3 class="text-danger">Villa við lestur .srt skráar</h3>
+}
+
 

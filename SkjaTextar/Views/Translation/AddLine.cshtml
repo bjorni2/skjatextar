@@ -1,4 +1,4 @@
-﻿@model SkjaTextar.Models.TranslationSegment
+﻿@model SkjaTextar.ViewModels.SegmentViewModel
 
 @{
     ViewBag.Title = "Ný lína";
@@ -17,10 +17,18 @@
         @Html.HiddenFor(model => model.TranslationID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Timestamp, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TimestampStart, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Timestamp)
-                @Html.ValidationMessageFor(model => model.Timestamp)
+                @Html.EditorFor(model => model.TimestampStart)
+                @Html.ValidationMessageFor(model => model.TimestampStart)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TimestampEnd, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TimestampEnd)
+                @Html.ValidationMessageFor(model => model.TimestampEnd)
             </div>
         </div>
 

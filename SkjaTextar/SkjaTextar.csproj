@@ -224,6 +224,7 @@
     <Compile Include="ViewModels\RequestMediaViewModel.cs" />
     <Compile Include="ViewModels\RequestVoteViewModel.cs" />
     <Compile Include="ViewModels\SearchMediaViewModel.cs" />
+    <Compile Include="ViewModels\SegmentViewModel.cs" />
     <Compile Include="ViewModels\ShowRequestViewModel.cs" />
     <Compile Include="ViewModels\ShowTranslationViewModel.cs" />
     <Compile Include="ViewModels\TranslationMediaViewModel.cs" />
@@ -314,6 +315,7 @@
     <Content Include="Scripts\autocomplete.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\confirmNoSrt.js" />
     <Content Include="Scripts\home.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

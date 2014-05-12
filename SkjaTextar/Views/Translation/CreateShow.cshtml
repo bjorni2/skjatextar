@@ -19,14 +19,12 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.CategoryID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.Show.CategoryID, ViewBag.CategoryID as SelectList)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -34,7 +32,6 @@
                 @Html.ValidationMessageFor(model => model.Show.Title)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.Series, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -42,7 +39,6 @@
                 @Html.ValidationMessageFor(model => model.Show.Series)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.Episode, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -50,7 +46,6 @@
                 @Html.ValidationMessageFor(model => model.Show.Episode)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.ReleaseYear, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -58,7 +53,6 @@
                 @Html.ValidationMessageFor(model => model.Show.ReleaseYear)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Show.Link, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -66,7 +60,6 @@
                 @Html.ValidationMessageFor(model => model.Show.Link)
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.LanguageID, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -74,22 +67,20 @@
                 @Html.ValidationMessageFor(model => model.LanguageID)
             </div>
         </div>
-
         <div class="form-group">
             <label class="control-label col-md-2" for="file">Skráarheiti:</label>
             <div class="col-md-10">
                 <input type="file" name="file" id="file" />
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Stofna þýðingu" class="btn btn-default" />
+                <input id="upload" type="submit" value="Stofna þýðingu" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/confirmNoSrt.js"></script>
 }

@@ -350,42 +350,15 @@ namespace SkjaTextar.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult CreateTranslation(int id, int languageID, HttpPostedFileBase file)
+        public ActionResult CreateTranslation(int? id, int? languageID, HttpPostedFileBase file)
         {
-            if(ModelState.IsValid)
+            var media = _unitOfWork.MediaRepository.GetByID(id);
+            string type = "";
+            if(languageID == null)
             {
-                var translationToFind = _unitOfWork.TranslationRepository.Get()
-                    .Where(t => t.MediaID == id)
-                    .Where(t => t.LanguageID == languageID)
-                    .SingleOrDefault();
-                var media = _unitOfWork.MediaRepository.GetByID(id);
-                if(translationToFind == null)
-                {      
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        var fileName = Path.GetFileName(file.FileName);
-                        var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                        file.SaveAs(path);
-                        var translation = SubtitleParser.Parse(path, "srt");
-                        translation.LanguageID = languageID;
-                        media.Translations.Add(translation);
-                    }
-                    else 
-                    {
-                        media.Translations.Add(new Translation { LanguageID = languageID });
-                    }
-                    _unitOfWork.MediaRepository.Update(media);
-                    var userid = User.Identity.GetUserId();
-                    var user = _unitOfWork.UserRepository.GetByID(userid);
-                    user.NewTranslations++;
-                    _unitOfWork.Save();
-					HasRequest(id, languageID);
-                    var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
-                    return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
-                }
-                ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
+                ViewBag.Errormsg = "Tungumál verður að vera valið.";
                 ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
-                string type = media.GetType().BaseType.Name;
+                type = media.GetType().BaseType.Name;
                 switch (type)
                 {
                     case "Movie":
@@ -398,7 +371,49 @@ namespace SkjaTextar.Controllers
                         throw new ApplicationException();
                 }
             }
-            throw new MissingParameterException();
+            var translationToFind = _unitOfWork.TranslationRepository.Get()
+                .Where(t => t.MediaID == id)
+                .Where(t => t.LanguageID == languageID)
+                .SingleOrDefault();
+            
+            if(translationToFind == null)
+            {      
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                    file.SaveAs(path);
+                    var translation = SubtitleParser.Parse(path, "srt");
+                    translation.LanguageID = languageID.Value;
+                    media.Translations.Add(translation);
+                }
+                else 
+                {
+                    media.Translations.Add(new Translation { LanguageID = languageID.Value });
+                }
+                _unitOfWork.MediaRepository.Update(media);
+                var userid = User.Identity.GetUserId();
+                var user = _unitOfWork.UserRepository.GetByID(userid);
+                user.NewTranslations++;
+                _unitOfWork.Save();
+				HasRequest(id.Value, languageID.Value);
+                var newTranslation = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).First();
+                return RedirectToAction("Index", "Translation", new { id = newTranslation.ID });
+            }
+            ViewBag.Errormsg = "Þessi þýðing er nú þegar til.";
+            ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+            type = media.GetType().BaseType.Name;
+            switch (type)
+            {
+                case "Movie":
+                    return View("CreateMovieTranslation", media);
+                case "Show":
+                    return View("CreateShowTranslation", media);
+                case "Clip":
+                    return View("CreateClipTranslation", media);
+                default:
+                    throw new ApplicationException();
+            }
         }
 
         // TODO For admins only
@@ -595,17 +610,17 @@ namespace SkjaTextar.Controllers
         [Authorize]
         public ActionResult AddLine(int? Id)
         {
-            var segment = new TranslationSegment { TranslationID = Id.Value };
+            var segment = new SegmentViewModel { TranslationID = Id.Value };
             return View(segment);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult AddLine(TranslationSegment segment)
+        public ActionResult AddLine(SegmentViewModel segment)
         {
             if (ModelState.IsValid)
             {
-                string startTime = segment.Timestamp.Substring(0, 12);
+                string startTime = segment.TimestampStart;
                 int insertPos = 1;
                 var segments = _unitOfWork.TranslationSegmentRepository.Get()
                     .Where(ts => ts.TranslationID == segment.TranslationID)
@@ -631,8 +646,17 @@ namespace SkjaTextar.Controllers
                 }
 
                 // Insert the new segment
-                segment.SegmentID = insertPos;
-                _unitOfWork.TranslationSegmentRepository.Insert(segment);
+                var translationSegment = new TranslationSegment
+                {
+                    Line1 = segment.Line1,
+                    Line2 = segment.Line2,
+                    Original1 = segment.Original1,
+                    Original2 = segment.Original2,
+                    TranslationID = segment.TranslationID,
+                    Timestamp = segment.TimestampStart + " --> " + segment.TimestampEnd,
+                    SegmentID = insertPos
+                };
+                _unitOfWork.TranslationSegmentRepository.Insert(translationSegment);
                 _unitOfWork.Save();
                 return RedirectToAction("Index", new { id = segment.TranslationID });
             }
