@@ -13,6 +13,7 @@ using SkjaTextar.Helpers;
 using PagedList;
 using MoreLinq;
 using SkjaTextar.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace SkjaTextar.Controllers
 {
@@ -41,6 +42,7 @@ namespace SkjaTextar.Controllers
 			ViewBag.TranslationID = translation.ID;
 			ViewBag.MediaTitle = translation.Media.Title;
 			ViewBag.LanguageName = translation.Language.Name;
+            ViewBag.LanguageId = translation.LanguageID;
 			ViewBag.MediaID = translation.MediaID;
 
 			int pageSize = 50;
@@ -271,6 +273,7 @@ namespace SkjaTextar.Controllers
                     {
                         clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                     }
+					clip.Link = "//www.youtube.com/embed/" + YoutubeParser.parseLink(clip.Link);
                     _unitOfWork.ClipRepository.Insert(clip);
                     var userid = User.Identity.GetUserId();
                     var user = _unitOfWork.UserRepository.GetByID(userid);
@@ -591,6 +594,7 @@ namespace SkjaTextar.Controllers
         }
 
 		[HttpPost]
+		[ValidateInput(false)]
 		public ActionResult UpdateLine(int? translationID, int? segmentID, string translationText, int line)
 		{
 			var translation = _unitOfWork.TranslationRepository.GetByID(translationID);
@@ -671,6 +675,19 @@ namespace SkjaTextar.Controllers
                 return RedirectToAction("Index", new { id = segment.TranslationID });
             }
             return View(segment);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AutoTranslate(int? translationId, int? languageId)
+        {
+            var translation = _unitOfWork.TranslationRepository.Get()
+                .Where(t => t.ID == translationId)
+                .SingleOrDefault();
+            var translate2 = new Translate();
+            translate2.TranslateText(translation, "da");
+            _unitOfWork.Save();
+            return RedirectToAction("Index", new { id = translationId });
         }
 	}
 }

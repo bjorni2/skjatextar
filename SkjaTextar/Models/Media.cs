@@ -10,13 +10,13 @@ namespace SkjaTextar.Models
     public class Media
     {
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Þú verður að slá inn titil")]
         [DisplayName("Titill")]
         public string Title { get; set; }
         [Required]
         [DisplayName("Flokkur")]
         public int CategoryID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Þú verður að slá inn ártal")]
         [DisplayName("Útgáfuár")]
         public int ReleaseYear { get; set; }
         [DisplayName("Hlekkur")]

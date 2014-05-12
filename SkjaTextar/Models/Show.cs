@@ -9,10 +9,10 @@ namespace SkjaTextar.Models
 {
     public class Show : Media
     {
-        [Required]
+        [Required(ErrorMessage = "Þú verður að slá inn númer seríu")]
         [DisplayName("Sería")]
         public int Series { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Þú verður að slá inn númer þáttar")]
         [DisplayName("Þáttur")]
         public int Episode { get; set; }
     }

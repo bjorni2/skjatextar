@@ -76,6 +76,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -196,6 +198,7 @@
     <Compile Include="Helpers\SearchResult.cs" />
     <Compile Include="Helpers\SubtitleParser.cs" />
     <Compile Include="Helpers\Translate.cs" />
+    <Compile Include="Helpers\YoutubeParser.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Achievement.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -213,6 +216,11 @@
     <Compile Include="Models\TranslationSegment.cs" />
     <Compile Include="Models\TranslationVote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\TranslatorService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ClipRequestViewModel.cs" />
     <Compile Include="ViewModels\ClipTranslationViewModel.cs" />
@@ -332,6 +340,12 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\TranslationSegment.js" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Service References\TranslatorService\configuration91.svcinfo" />
+    <None Include="Service References\TranslatorService\configuration.svcinfo" />
+    <None Include="Service References\TranslatorService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -367,7 +381,6 @@
     <Content Include="Views\Category\MovieByCategory.cshtml" />
     <Content Include="Views\Request\MovieRequestDetails.cshtml" />
     <Content Include="Views\Request\ClipRequestDetails.cshtml" />
-    <Content Include="Views\Request\Create.cshtml" />
     <Content Include="Views\Translation\Index.cshtml" />
     <Content Include="Views\Translation\CreateMovie.cshtml" />
     <Content Include="Views\Request\CreateForShow.cshtml" />
@@ -390,8 +403,30 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Translation\Report.cshtml" />
     <Content Include="Views\Translation\ByLanguage.cshtml" />
-    <Content Include="Views\Shared\testyamm.cshtml" />
     <Content Include="Views\Translation\AddLine.cshtml" />
+    <Content Include="Service References\TranslatorService\SkjaTextar.TranslatorService.GetTranslationsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TranslatorService\SkjaTextar.TranslatorService.TranslateArray2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\TranslatorService\SkjaTextar.TranslatorService.TranslateArrayResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\TranslatorService\soap.wsdl" />
+    <None Include="Service References\TranslatorService\soap.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TranslatorService\soap1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TranslatorService\soap2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TranslatorService\soap3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\TranslatorService\SoapService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
@@ -401,6 +436,12 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TranslatorService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
