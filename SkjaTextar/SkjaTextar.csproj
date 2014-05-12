@@ -198,6 +198,7 @@
     <Compile Include="Helpers\SearchResult.cs" />
     <Compile Include="Helpers\SubtitleParser.cs" />
     <Compile Include="Helpers\Translate.cs" />
+    <Compile Include="Helpers\YoutubeParser.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Achievement.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -401,7 +402,6 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Translation\Report.cshtml" />
-    <Content Include="Views\Translation\LanguageList.cshtml" />
     <Content Include="Views\Translation\ByLanguage.cshtml" />
     <Content Include="Views\Translation\AddLine.cshtml" />
     <Content Include="Service References\TranslatorService\SkjaTextar.TranslatorService.GetTranslationsResponse.datasource">

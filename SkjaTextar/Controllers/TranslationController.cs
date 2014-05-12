@@ -13,6 +13,7 @@ using SkjaTextar.Helpers;
 using PagedList;
 using MoreLinq;
 using SkjaTextar.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace SkjaTextar.Controllers
 {
@@ -272,6 +273,7 @@ namespace SkjaTextar.Controllers
                     {
                         clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                     }
+					clip.Link = "//www.youtube.com/embed/" + YoutubeParser.parseLink(clip.Link);
                     _unitOfWork.ClipRepository.Insert(clip);
                     var userid = User.Identity.GetUserId();
                     var user = _unitOfWork.UserRepository.GetByID(userid);
@@ -566,19 +568,30 @@ namespace SkjaTextar.Controllers
                 throw new DataNotFoundException();
             }
 
-            var translationLoop = translations.DistinctBy(r => r.MediaID);
-            foreach (var item in translationLoop)
+            var model = new SearchMediaViewModel();
+            foreach (var item in translations)
             {
-                var media = item.Media;
-                if (media.GetType().BaseType.Name == "Show")
+                string type = item.Media.GetType().BaseType.Name;
+                switch (type)
                 {
-                    Show show = media as Show;
-                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                    case "Movie":
+                        model.Movies.Add(item.Media as Movie);
+                        break;
+                    case "Show":
+                        model.Shows.Add(item.Media as Show);
+                        break;
+                    case "Clip":
+                        model.Clips.Add(item.Media as Clip);
+                        break;
+                    default:
+                        throw new ApplicationException();
                 }
             }
-
+            
+           
             ViewBag.Language = _unitOfWork.LanguageRepository.GetByID(id);
-            return View(translations);
+			ViewBag.LanguageID = id;
+            return View(model);
         }
 
 		[HttpPost]
@@ -672,8 +685,98 @@ namespace SkjaTextar.Controllers
             var translation = _unitOfWork.TranslationRepository.Get()
                 .Where(t => t.ID == translationId)
                 .SingleOrDefault();
-            var translate2 = new Translate();
-            translate2.TranslateText(translation, "da");
+            string to = string.Empty;
+            switch (languageId)
+            {
+                case 2:
+                    to = "de";
+                    break;
+                case 3:
+                    to = "en";
+                    break;
+                case 4:
+                    to = "es";
+                    break;
+                case 5:
+                    to = "fr";
+                    break;
+                case 6:
+                    to = "nl";
+                    break;
+                case 7:
+                    to = "pt";
+                    break;
+                case 9:
+                    to = "tr";
+                    break;
+                case 10:
+                    to = "da";
+                    break;
+                case 11:
+                    to = "ee";
+                    break;
+                case 12:
+                    to = "hr";
+                    break;
+                case 13:
+                    to = "it";
+                    break;
+                case 14:
+                    to = "lv";
+                    break;
+                case 16:
+                    to = "lt";
+                    break;
+                case 17:
+                    to = "hu";
+                    break;
+                case 18:
+                    to = "no";
+                    break;
+                case 19:
+                    to = "pl";
+                    break;
+                case 20:
+                    to = "ro";
+                    break;
+                case 21:
+                    to = "al";
+                    break;
+                case 22:
+                    to = "si";
+                    break;
+                case 23:
+                    to = "sk";
+                    break;
+                case 24:
+                    to = "fi";
+                    break;
+                case 25:
+                    to = "se";
+                    break;
+                case 26:
+                    to = "gr";
+                    break;
+                case 27:
+                    to = "by";
+                    break;
+                case 28:
+                    to = "ru";
+                    break;
+                case 29:
+                    to = "ua";
+                    break;
+                case 30:
+                    to = "jp";
+                    break;
+                case 31:
+                    to = "kr";
+                    break;
+                default:
+                    TempData["UserMessage"] = "Tungumál þessarar þýðingar er ekki stutt af þýðingavél";
+                    return RedirectToAction("Index", new { id = translationId });
+            }
+            Translate.TranslateText(translation, to);
             _unitOfWork.Save();
             return RedirectToAction("Index", new { id = translationId });
         }

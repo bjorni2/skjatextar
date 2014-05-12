@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = ViewBag.MediaTitle + " - " + ViewBag.LanguageName;
 }
 
 <div id="translationid" data-translationid="@ViewBag.TranslationID" class="hidden"></div>

@@ -1,12 +1,25 @@
-﻿@model IEnumerable<SkjaTextar.Models.Translation>
+﻿@model SkjaTextar.ViewModels.SearchMediaViewModel
 
 @{
     ViewBag.Title = "Þýðingar";
 }
 
-<h2>@ViewBag.Language.Name</h2>
-
-@foreach (var item in Model)
-{
-    <p>@Html.ActionLink(item.Media.Title, "Index", "Translation", new { id = item.ID }, null)</p>
-}
+<h1 class="col-xs-offset-1">Þýðingar - @ViewBag.Language.Name</h1>
+<hr />
+<div class="col-xs-offset-1">
+    <h3>Kvikmyndir</h3>
+    @foreach (var item in Model.Movies)
+    {
+        <p class="biggertext">@Html.ActionLink(item.Title, "Index", "Translation", new { id = item.Translations.Where(t => t.LanguageID == ViewBag.LanguageID).Single().ID }, null)</p>
+    }
+    <h3>Sjónvarpsþættir</h3>
+    @foreach (var item in Model.Shows)
+    {
+        <p class="biggertext">@Html.ActionLink(item.Title + " S" + item.Series + "E" + item.Episode, "Index", "Translation", new { id = item.Translations.Where(t => t.LanguageID == ViewBag.LanguageID).Single().ID }, null)</p>
+    }
+    <h3>Myndbrot</h3>
+    @foreach (var item in Model.Clips)
+    {
+        <p class="biggertext">@Html.ActionLink(item.Title, "Index", "Translation", new { id = item.Translations.Where(t => t.LanguageID == ViewBag.LanguageID).Single().ID }, null)</p>
+    }
+</div>
