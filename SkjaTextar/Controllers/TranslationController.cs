@@ -13,6 +13,7 @@ using SkjaTextar.Helpers;
 using PagedList;
 using MoreLinq;
 using SkjaTextar.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace SkjaTextar.Controllers
 {
@@ -272,6 +273,7 @@ namespace SkjaTextar.Controllers
                     {
                         clip.Translations.Add(new Translation { LanguageID = clipTranslation.LanguageID });
                     }
+					clip.Link = "//www.youtube.com/embed/" + YoutubeParser.parseLink(clip.Link);
                     _unitOfWork.ClipRepository.Insert(clip);
                     var userid = User.Identity.GetUserId();
                     var user = _unitOfWork.UserRepository.GetByID(userid);

@@ -198,6 +198,7 @@
     <Compile Include="Helpers\SearchResult.cs" />
     <Compile Include="Helpers\SubtitleParser.cs" />
     <Compile Include="Helpers\Translate.cs" />
+    <Compile Include="Helpers\YoutubeParser.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Achievement.cs" />
     <Compile Include="Models\Comment.cs" />

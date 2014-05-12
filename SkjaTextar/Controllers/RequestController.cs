@@ -10,6 +10,7 @@ using SkjaTextar.ViewModels;
 using Microsoft.AspNet.Identity;
 using MoreLinq;
 using SkjaTextar.Exceptions;
+using SkjaTextar.Helpers;
 
 namespace SkjaTextar.Controllers
 {
@@ -361,6 +362,7 @@ namespace SkjaTextar.Controllers
 					.SingleOrDefault();
 				if (clipToCheckFor == null)
 				{
+					clipRequest.Clip.Link = "//www.youtube.com/embed/" + YoutubeParser.parseLink(clipRequest.Clip.Link);
 					_unitOfWork.ClipRepository.Insert(clipRequest.Clip);
 					_unitOfWork.RequestRepository.Insert(clipRequest.Request);
 					_unitOfWork.Save();
