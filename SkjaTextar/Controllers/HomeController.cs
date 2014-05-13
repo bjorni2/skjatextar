@@ -9,6 +9,7 @@ using SkjaTextar.ViewModels;
 using SkjaTextar.DAL;
 using SkjaTextar.Helpers;
 using SkjaTextar.Exceptions;
+using MoreLinq;
 
 namespace SkjaTextar.Controllers
 {
@@ -31,9 +32,40 @@ namespace SkjaTextar.Controllers
         {
             var model = new HomeViewModel();
             model.ActiveUsers = _unitOfWork.UserRepository.Get().ToList().OrderByDescending(u => u.Score).Take(5).ToList();
+
             model.TopTranslations = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.NumberOfDownloads).Take(5).Include(t => t.Media).ToList();
+            foreach (var item in model.TopTranslations.DistinctBy(m => m.MediaID))
+            {
+                var media = item.Media;
+                if (media.GetType().BaseType.Name == "Show")
+                {
+                    Show show = media as Show;
+                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                }
+            }
+
             model.NewTranslations = _unitOfWork.TranslationRepository.Get().OrderByDescending(t => t.ID).Take(5).Include(t => t.Media).ToList();
+            foreach (var item in model.NewTranslations.DistinctBy(m => m.MediaID))
+            {
+                var media = item.Media;
+                if (media.GetType().BaseType.Name == "Show")
+                {
+                    Show show = media as Show;
+                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                }
+            }
+
             model.TopRequests = _unitOfWork.RequestRepository.Get().OrderByDescending(r => r.Score).Take(5).Include(r => r.Media).ToList();
+            foreach (var item in model.TopRequests.DistinctBy(m => m.MediaID))
+            {
+                var media = item.Media;
+                if (media.GetType().BaseType.Name == "Show")
+                {
+                    Show show = media as Show;
+                    item.Media.Title += " S" + show.Series + "E" + show.Episode;
+                }
+            }
+
             return View(model);
         }
 
