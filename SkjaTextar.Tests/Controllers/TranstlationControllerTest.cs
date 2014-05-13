@@ -51,7 +51,35 @@ namespace SkjaTextar.Tests.Controllers
             var viewResult = (ViewResult)result;
             PagedList<TranslationSegment> model = viewResult.Model as PagedList<TranslationSegment>;
             Assert.IsTrue(model.Count == 3);
+        }
+        [TestMethod]
+        public void TestAddLine()
+        {
+            //Arrange
+            var segment = new SegmentViewModel
+            {
+                Line1 = "Dummy",
+                Line2 = "Dummy",
+                Original1 = "Dummy",
+                Original2 = "Dummy",
+                TranslationID = 1,
+                TimestampEnd = "00:06:30,000",
+                TimestampStart = "00:06:10,000",
+            };
+            var mockUnitOfWork = new MockUnitOfWork();
+            for ( int i = 0; i < 3; i++ )
+            {
+                var reposegment = new TranslationSegment();
+                mockUnitOfWork.TranslationSegmentRepository.Insert(reposegment);
+            };
 
+            
+            var controller = new TranslationController(mockUnitOfWork);
+            int countbefore = mockUnitOfWork.TranslationSegmentRepository.Get().ToList().Count;
+            var result = controller.AddLine(segment);
+            // Act
+            Assert.IsTrue(mockUnitOfWork.TranslationSegmentRepository.Get().ToList().Count == countbefore + 1);
         }
     }
+    
 }
