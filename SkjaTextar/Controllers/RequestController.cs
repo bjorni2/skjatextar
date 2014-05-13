@@ -111,7 +111,9 @@ namespace SkjaTextar.Controllers
 		{
 			if(id.HasValue)
 			{
-				var model = _unitOfWork.RequestRepository.GetByID(id);
+				var model = _unitOfWork.RequestRepository.Get()
+					.Where(r => r.ID == id)
+					.SingleOrDefault();
 				if(model != null)
 				{
 					string type = model.Media.GetType().BaseType.Name;
@@ -135,36 +137,6 @@ namespace SkjaTextar.Controllers
 			}
 			throw new MissingParameterException();
 		}
-
-        /// <summary>
-        /// Unused?
-        /// </summary>
-        /// <param name="id">The id of the media for the request</param>
-        /// <returns></returns>
-       /* public ActionResult CreateFor(int? id)
-        {
-            if (id.HasValue)
-            {
-                var model = _unitOfWork.MediaRepository.GetByID(id);
-				if(model != null)
-				{
-					string type = model.GetType().BaseType.Name;
-					switch (type)
-					{
-						case "Movie":
-							return View("CreateForMovie", model);
-						case "Show":
-							return View("CreateForShow", model);
-						case "Clip":
-							return View("CreateForClip", model);
-						default:
-							throw new ApplicationException();
-					}
-				}
-				throw new DataNotFoundException();
-            }
-            throw new MissingParameterException();
-        }*/
 
         /// <summary>
         /// Displays the appropriate view depending on the type of media the request is being made for
