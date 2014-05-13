@@ -115,8 +115,6 @@ namespace SkjaTextar.Tests.Mocks
                 }
                 return _translationRepo;
             }
-            //get { throw new NotImplementedException(); }
-
         }
 
         public IGenericRepository<Models.Request> RequestRepository
@@ -205,7 +203,7 @@ namespace SkjaTextar.Tests.Mocks
 
         public void Save()
         {
-            throw new NotImplementedException();
+
         }
 
         public void Dispose()

@@ -36,8 +36,8 @@ namespace SkjaTextar.Tests.Mocks
 
         public virtual TEntity GetByID(object id)
         {
-            throw new NotImplementedException();
-            //return _list.Find(id);
+			throw new NotImplementedException();
+            //return _list.(id);
         }
 
         public virtual void Insert(TEntity entity)

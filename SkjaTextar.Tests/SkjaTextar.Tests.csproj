@@ -104,6 +104,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="Controllers\TranstlationControllerTest.cs" />
+    <Compile Include="Controllers\RequestControllerTest.cs" />
+    <Compile Include="Controllers\MediaControllerTest.cs" />
+    <Compile Include="Controllers\CategoryControllerTest.cs" />
     <Compile Include="Mocks\MockGenericRepository.cs" />
     <Compile Include="Mocks\MockUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

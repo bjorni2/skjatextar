@@ -14,11 +14,24 @@ using PagedList;
 using MoreLinq;
 using SkjaTextar.Exceptions;
 using System.Text.RegularExpressions;
+using SkjaTextar.DAL;
 
 namespace SkjaTextar.Controllers
 {
     public class TranslationController : BaseController
     {
+         public TranslationController() : base(new UnitOfWork())
+        { 
+        }
+        
+        /// <summary>
+        /// Constructor for unit tests
+        /// </summary>
+        /// <param name="unitOfWork">The Data access object</param>
+        public TranslationController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
+        
         /// <summary>
         /// Displays the index page for a translation.
         /// </summary>
@@ -30,14 +43,14 @@ namespace SkjaTextar.Controllers
             {
 				throw new MissingParameterException();
             }
-            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+            var translation = _unitOfWork.TranslationRepository.Get().Where(t => t.ID == id).SingleOrDefault();
 			
             if (translation == null)
             {
                 throw new DataNotFoundException();
             }
 
-			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID);
+			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID).ToList();
 
 			ViewBag.TranslationID = translation.ID;
 			ViewBag.MediaTitle = translation.Media.Title;
