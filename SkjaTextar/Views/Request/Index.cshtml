@@ -19,8 +19,15 @@
         </ul>
     </div>
 </div>
+<div>
+    @if (TempData["UserMessage"] != null)
+    {
+        <p class="alert-success col-sm-offset-1 col-md-2">@TempData["UserMessage"]</p>
+    }
+</div>
+
 <div class="row voffset3">
-    <table class="table-responsive table-striped table-condensed col-md-10 col-md-offset-1">
+    <table class="table-responsive table-condensed col-md-10 col-md-offset-1">
         <tr>
             <th class="biggertext">
                 @Html.ActionLink("Titill", "Index", new { sortOrder = ViewBag.TitleSortParm })

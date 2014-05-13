@@ -225,6 +225,7 @@ namespace SkjaTextar.Controllers
                 var request = new Request { LanguageID = languageId.Value, MediaID = Id.Value };
                 _unitOfWork.RequestRepository.Insert(request);
                 _unitOfWork.Save();
+                TempData["UserMessage"] = "Beiðnin var stofnuð";
                 return RedirectToAction("Index", "Request");
             }
             if (reqExists != null)
@@ -300,6 +301,7 @@ namespace SkjaTextar.Controllers
 					_unitOfWork.MovieRepository.Insert(movieRequest.Movie);
 					_unitOfWork.RequestRepository.Insert(movieRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				else if ((translation = _unitOfWork.TranslationRepository.Get()
@@ -316,6 +318,7 @@ namespace SkjaTextar.Controllers
 					request.MediaID = movieToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				movieRequest.Movie = movieToCheckFor;
@@ -355,6 +358,7 @@ namespace SkjaTextar.Controllers
 					_unitOfWork.ShowRepository.Insert(showRequest.Show);
 					_unitOfWork.RequestRepository.Insert(showRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				else if ((translation = _unitOfWork.TranslationRepository.Get()
@@ -371,6 +375,7 @@ namespace SkjaTextar.Controllers
 					request.MediaID = showToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				showRequest.Show = showToCheckFor;
@@ -409,6 +414,7 @@ namespace SkjaTextar.Controllers
 					_unitOfWork.ClipRepository.Insert(clipRequest.Clip);
 					_unitOfWork.RequestRepository.Insert(clipRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				else if ((translation = _unitOfWork.TranslationRepository.Get()
@@ -425,6 +431,7 @@ namespace SkjaTextar.Controllers
 					request.MediaID = clipToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				clipRequest.Clip = clipToCheckFor;
