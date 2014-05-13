@@ -27,8 +27,8 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            : base("SQLserverinnokkar")
-            //: base("SubTitleContext")
+            //: base("SQLserverinnokkar")
+            : base("SubTitleContext")
             //:base("RUSQLServer")
         {
         }
