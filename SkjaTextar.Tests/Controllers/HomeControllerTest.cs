@@ -175,22 +175,25 @@ namespace SkjaTextar.Tests.Controllers
                     Title = "the hero" + i.ToString(),
                 });
 
-            // Act
             var controller = new HomeController(mockUnitOfWork);
 
+            // Act
+            var resultWithThe_h = controller.Autocomplete("the h");
+            var resultWithThe_c = controller.Autocomplete("the c");
+            var resultWithThe = controller.Autocomplete("the");
+            var resultWithThe_f = controller.Autocomplete("the f");
             // Asset
             // the Autocomplete method is only used when two or more
             // letters have been typed in the search box so it is
             // need less with one letter or the empty string
 
             // this search should return 6 results
-            var resultWithThe_h = controller.Autocomplete("the h");
+
             var jsonresult1 = (JsonResult)resultWithThe_h;
             List<SearchResult> model1 = jsonresult1.Data as List<SearchResult>;
             Assert.IsTrue(model1.Count == 6);
 
             // this search should only return 3 results
-            var resultWithThe_c = controller.Autocomplete("the c");
             var jsonresult2 = (JsonResult)resultWithThe_c;
             List<SearchResult> model2 = jsonresult2.Data as List<SearchResult>;
             Assert.IsTrue(model2.Count == 3);
@@ -198,7 +201,7 @@ namespace SkjaTextar.Tests.Controllers
             // this search should return 9 reults. Since we have
             // that many results it is convienient also to test 
             // the alphabetical order of the Titles.
-            var resultWithThe = controller.Autocomplete("the");
+
             var viewresult3 = (JsonResult)resultWithThe;
             List<SearchResult> model3 = viewresult3.Data as List<SearchResult>;
             Assert.IsTrue(model3.Count == 9);
@@ -209,7 +212,7 @@ namespace SkjaTextar.Tests.Controllers
             }
 
             // this search should return no results
-            var resultWithThe_f = controller.Autocomplete("the f");
+
             var viewresult4 = (JsonResult)resultWithThe_f;
             List<SearchResult> model4 = viewresult4.Data as List<SearchResult>;
             Assert.IsTrue(model4.Count == 0);
