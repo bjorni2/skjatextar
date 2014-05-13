@@ -9,8 +9,8 @@ namespace SkjaTextar.Models
 {
     public class Clip : Media
     {
-        [Required(ErrorMessage = "Þú verður að setja inn hlekk fyrir myndbrotið")]
-        [DisplayName("Hlekkur")]
+        [Required(ErrorMessage = "Þú verður að setja inn Youtube hlekk fyrir myndbrotið")]
+        [DisplayName("Youtube hlekkur")]
         public override string Link { get; set; }
     }
 }
