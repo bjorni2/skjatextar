@@ -42,7 +42,12 @@ namespace SkjaTextar.Controllers
 
             var model = new List<RequestVoteViewModel>();
             var requests = _unitOfWork.RequestRepository.Get();
-            var user = User.Identity.GetUserId();
+			string user = "";
+			try
+			{
+				user = User.Identity.GetUserId();
+			}
+			catch { }
 
 			switch (sortOrder)
 			{
@@ -98,7 +103,7 @@ namespace SkjaTextar.Controllers
         }
 
         /// <summary>
-        /// Displays a details page for request, different depending on the type of media
+        /// Displays a details page for request, different view depending on the type of media
         /// </summary>
         /// <param name="id">The id of the request</param>
         /// <returns></returns>
@@ -220,11 +225,15 @@ namespace SkjaTextar.Controllers
                 .Where(r => r.MediaID == Id)
                 .Where(r => r.LanguageID == languageId)
                 .SingleOrDefault();
+
+            // Make sure no translation or request exists for this media with 
+            // this language before we create the new request.
             if(translation == null && reqExists == null)
             {
                 var request = new Request { LanguageID = languageId.Value, MediaID = Id.Value };
                 _unitOfWork.RequestRepository.Insert(request);
                 _unitOfWork.Save();
+                TempData["UserMessage"] = "Beiðnin var stofnuð";
                 return RedirectToAction("Index", "Request");
             }
             if (reqExists != null)
@@ -238,7 +247,9 @@ namespace SkjaTextar.Controllers
                 ViewBag.ReqExist = false;
                 ViewBag.TranslationID = translation.ID;
             }
+
             ViewBag.LanguageID = new SelectList(_unitOfWork.LanguageRepository.Get(), "ID", "Name");
+            // Return different view depending on media type
             string type = media.GetType().BaseType.Name;
             switch (type)
             {
@@ -283,6 +294,11 @@ namespace SkjaTextar.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a new movie and a new request for that movie.
+        /// </summary>
+        /// <param name="movieRequest">Holds the Movie and Request object to create</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult CreateMovie(MovieRequestViewModel movieRequest)
         {
@@ -291,17 +307,22 @@ namespace SkjaTextar.Controllers
 				var movie = movieRequest.Movie;
 				Translation translation;
 				Request req = null;
+
+                // Check if the movie the user is trying to create a request for already exists.
 				var movieToCheckFor = _unitOfWork.MovieRepository.Get()
 					.Where(m => m.Title == movie.Title)
 					.Where(m => m.ReleaseYear == movie.ReleaseYear)
 					.SingleOrDefault();
+                // If the movie doesn't exists, insert the movie and request to the database.
 				if (movieToCheckFor == null)
 				{
 					_unitOfWork.MovieRepository.Insert(movieRequest.Movie);
 					_unitOfWork.RequestRepository.Insert(movieRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
+                // If the movie exists we need to check if it already has the translation or the request
 				else if ((translation = _unitOfWork.TranslationRepository.Get()
 					.Where(t => t.MediaID == movieToCheckFor.ID)
 					.Where(t => t.LanguageID == movieRequest.Request.LanguageID)
@@ -311,11 +332,11 @@ namespace SkjaTextar.Controllers
 					.Where(r => r.LanguageID == movieRequest.Request.LanguageID)
 					.SingleOrDefault()) == null)
 				{
-
-					var request = movieRequest.Request;
-					request.MediaID = movieToCheckFor.ID;
-					_unitOfWork.RequestRepository.Insert(request);
+                    // If not we insert the request.
+					movieRequest.Request.MediaID = movieToCheckFor.ID;
+					_unitOfWork.RequestRepository.Insert(movieRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				movieRequest.Movie = movieToCheckFor;
@@ -336,6 +357,11 @@ namespace SkjaTextar.Controllers
 			return View("RequestMovie");
         }
 
+        /// <summary>
+        /// Creates a new show and a new request for that movie.
+        /// </summary>
+        /// <param name="movieRequest">Holds the show and Request object to create</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult CreateShow(ShowRequestViewModel showRequest)
         {
@@ -344,19 +370,24 @@ namespace SkjaTextar.Controllers
 				var show = showRequest.Show;
 				Translation translation;
 				Request req = null;
+
+                // Check if the show the user is trying to create a request for already exists.
 				var showToCheckFor = _unitOfWork.ShowRepository.Get()
 					.Where(s => s.Title == show.Title)
 					.Where(s => s.ReleaseYear == show.ReleaseYear)
 					.Where(s => s.Series == show.Series)
 					.Where(s => s.Episode == show.Episode)
 					.SingleOrDefault();
+                // If the show doesn't exists, insert the show and request to the database.
 				if (showToCheckFor == null)
 				{
 					_unitOfWork.ShowRepository.Insert(showRequest.Show);
 					_unitOfWork.RequestRepository.Insert(showRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
+                // If the show exists we need to check if it already has the translation or the request
 				else if ((translation = _unitOfWork.TranslationRepository.Get()
 					.Where(t => t.MediaID == showToCheckFor.ID)
 					.Where(t => t.LanguageID == showRequest.Request.LanguageID)
@@ -366,11 +397,11 @@ namespace SkjaTextar.Controllers
 					.Where(r => r.LanguageID == showRequest.Request.LanguageID)
 					.SingleOrDefault()) == null)
 				{
-
-					var request = showRequest.Request;
-					request.MediaID = showToCheckFor.ID;
-					_unitOfWork.RequestRepository.Insert(request);
+                    // If not we insert the request.
+                    showRequest.Request.MediaID = showToCheckFor.ID;
+					_unitOfWork.RequestRepository.Insert(showRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				showRequest.Show = showToCheckFor;
@@ -399,18 +430,23 @@ namespace SkjaTextar.Controllers
 				var clip = clipRequest.Clip;
 				Translation translation;
 				Request req = null;
+
+                // Check if the clip the user is trying to create a request for already exists.
 				var clipToCheckFor = _unitOfWork.ClipRepository.Get()
 					.Where(c => c.Title == clip.Title)
 					.Where(c => c.ReleaseYear == clip.ReleaseYear)
 					.SingleOrDefault();
+                // If the clip doesn't exists, insert the clip and request to the database.
 				if (clipToCheckFor == null)
 				{
 					clipRequest.Clip.Link = "//www.youtube.com/embed/" + YoutubeParser.parseLink(clipRequest.Clip.Link);
 					_unitOfWork.ClipRepository.Insert(clipRequest.Clip);
 					_unitOfWork.RequestRepository.Insert(clipRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
+                // If the clip exists we need to check if it already has the translation or the reques
 				else if ((translation = _unitOfWork.TranslationRepository.Get()
 					.Where(t => t.MediaID == clipToCheckFor.ID)
 					.Where(t => t.LanguageID == clipRequest.Request.LanguageID)
@@ -420,11 +456,12 @@ namespace SkjaTextar.Controllers
 					.Where(r => r.LanguageID == clipRequest.Request.LanguageID)
 					.SingleOrDefault()) == null)
 				{
-
+                    // If not we insert the request.
 					var request = clipRequest.Request;
 					request.MediaID = clipToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				clipRequest.Clip = clipToCheckFor;
@@ -445,23 +482,37 @@ namespace SkjaTextar.Controllers
 			return View("RequestClip");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">The id of the request being voted for</param>
+        /// <param name="vote">The vote, true for up, false for down</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
-        public ActionResult RequestVote(int? id, bool vote)
+        public ActionResult RequestVote(int? id, bool? vote)
         {
-            if(id == null)
+            if(id == null || vote == null)
             {
 				throw new MissingParameterException();
             }
+
             var userID = User.Identity.GetUserId();
             var request = _unitOfWork.RequestRepository.GetByID(id);
-            var requestVote = _unitOfWork.RequestVoteRepository.Get().Where(r => r.RequestID == id).Where(r => r.UserID == userID).SingleOrDefault();
+            var requestVote = _unitOfWork.RequestVoteRepository.Get()
+                .Where(r => r.RequestID == id)
+                .Where(r => r.UserID == userID)
+                .SingleOrDefault();
+            // Check if the user has already voted for this request
             if(requestVote != null)
             {
+                // If the existing vote is the same as the one being cast
+                // we return without doing any changes.
                 if(requestVote.Vote == vote)
                 {
                     return RedirectToAction("Index", "Request");
                 }
+                // Otherwise we increase/decrease the score counter for the request
                 else
                 {
                     if(vote == true)
@@ -478,11 +529,14 @@ namespace SkjaTextar.Controllers
                     return RedirectToAction("Index", "Request");
                 }
             }
-            int requestID = id.Value;
-            var newRequestVote = new RequestVote();
-            newRequestVote.UserID = userID;
-            newRequestVote.RequestID = requestID;
-            newRequestVote.Vote = vote;
+
+            // Create a new vote
+            var newRequestVote = new RequestVote 
+            { 
+                UserID = userID,
+                RequestID = id.Value,
+                Vote = vote.Value,
+            };
             if(vote == true)
             {
                 request.Score++;
