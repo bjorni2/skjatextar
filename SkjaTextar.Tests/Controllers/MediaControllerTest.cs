@@ -5,6 +5,7 @@ using SkjaTextar.Models;
 using SkjaTextar.Controllers;
 using System.Web.Mvc;
 using SkjaTextar.ViewModels;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Tests.Controllers
 {
@@ -14,40 +15,30 @@ namespace SkjaTextar.Tests.Controllers
         [TestMethod]
         public void ReturnsCorrectMedia()
         {
-            //Arrange
+            // Arrange
             var mockUnitOfWork = new MockUnitOfWork();
-            for (int i = 1; i < 3; i++)
-            {
-                mockUnitOfWork.MediaRepository.Insert(new Movie
-                {
-                    ID = i,
-                });
-            }
-            for (int i = 3; i < 5; i++)
-            {
-                mockUnitOfWork.ShowRepository.Insert(new Show
-                {
-                    ID = i,
-                });
-            }
-            for (int i = 5; i < 7; i++)
-            {
-                mockUnitOfWork.MediaRepository.Insert(new Clip
-                {
-                    ID = i,
-                });
-            }
 
+            // Act
             var controller = new MediaController(mockUnitOfWork);
 
+            // Assert
+            try
+            {
+                var result = controller.Index(null);
+            }
+            catch(Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
+            }
 
-            //Act
-            var result = controller.Index(null);
-
-            //Assert
-            var viewresult = (ViewResult)result;
-            var test = viewresult.GetType();
-            var blabla = "blabla";
+            try
+            {
+                var result = controller.Index(99);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(DataNotFoundException));
+            }
         }
     }
 }
