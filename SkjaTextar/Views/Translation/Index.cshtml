@@ -19,23 +19,22 @@
 </div>
 
 <div class="row">
-    <div class=" row col-md-4 col-sm-6 col-md-offset-3">
+    <div class=" row col-sm-6 col-md-offset-3">
         @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
         @Html.ActionLink("Tilkynna þýðingu", "Report", "Translation", new { translationID = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
         @Html.ActionLink("Ný lína", "AddLine", "Translation", new { ID = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
+        @Html.ActionLink("Sækja þýðingu", "Download", "Translation", new { translationId = ViewBag.TranslationID, mediaId = ViewBag.MediaID }, new { @class = "btn btn-primary", role = "button" })
     </div>
-    <div>
+
+</div>
+<div class="row voffset2">
+    <div class="col-md-9 col-md-offset-3">
         @using (Html.BeginForm("AutoTranslate", "Translation", FormMethod.Post, new { @class = "col-xs-1" }))
         {
             @Html.Hidden("translationId", ViewBag.TranslationID as string)
             @Html.Hidden("languageId", ViewBag.LanguageId as string)
             <button class="btn btn-primary">Þýða með Bing</button>
         }
-    </div>
-</div>
-<div class="row voffset2">
-    <div class="col-md-9 col-md-offset-3">
-        @Html.ActionLink("Sækja þýðingu", "Download", "Translation", new { translationId = ViewBag.TranslationID, mediaId = ViewBag.MediaID }, new { @class = "btn btn-primary", role = "button" })
     </div>
 </div>
 @if(!ViewBag.HidePager)
