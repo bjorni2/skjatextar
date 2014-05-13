@@ -111,7 +111,9 @@ namespace SkjaTextar.Controllers
 		{
 			if(id.HasValue)
 			{
-				var model = _unitOfWork.RequestRepository.GetByID(id);
+				var model = _unitOfWork.RequestRepository.Get()
+					.Where(r => r.ID == id)
+					.SingleOrDefault();
 				if(model != null)
 				{
 					string type = model.Media.GetType().BaseType.Name;

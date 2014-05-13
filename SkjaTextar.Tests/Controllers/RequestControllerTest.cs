@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SkjaTextar.Controllers;
+using SkjaTextar.Exceptions;
 using SkjaTextar.Models;
 using SkjaTextar.Tests.Mocks;
 using SkjaTextar.ViewModels;
@@ -87,9 +88,73 @@ namespace SkjaTextar.Tests.Controllers
 		}
 		
 		[TestMethod]
-		public void TestCreateExceptions()
+		public void TestDetails()
 		{
+			var mockUnitOfWork = new MockUnitOfWork();
+			var media = new Media
+			{
+				ID = 1,
+			};
+			var controller = new RequestController(mockUnitOfWork);
 
+			//Act
+			try
+			{
+					var result = controller.Details(null);
+			}
+			catch(Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
+			}
+
+			try
+			{
+					var result2 = controller.Details(0);
+			}
+			catch(Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(DataNotFoundException));
+			}
+
+			try
+			{
+				var result3 = controller.Details(1);
+			}
+			catch(Exception ex)
+			{
+				Assert.IsInstanceOfType(ex, typeof(ApplicationException));
+			}
 		}
+
+		/*public ActionResult Details(int? id)
+		{
+			if (id.HasValue)
+			{
+				var model = _unitOfWork.RequestRepository.Get()
+					.Where(r => r.ID == id)
+					.SingleOrDefault();
+				if (model != null)
+				{
+					string type = model.Media.GetType().BaseType.Name;
+					switch (type)
+					{
+						case "Movie":
+							return View("MovieRequestDetails", model);
+						case "Show":
+							ShowRequestViewModel showModel = new ShowRequestViewModel();
+							showModel.Request = model;
+							var myShow = _unitOfWork.ShowRepository.GetByID(model.MediaID);
+							showModel.Show = myShow;
+							return View("ShowRequestDetails", showModel);
+						case "Clip":
+							return View("ClipRequestDetails", model);
+						default:
+							throw new ApplicationException();
+					}
+				}
+				throw new DataNotFoundException();
+			}
+			throw new MissingParameterException();
+		}*/
 	}
 }
