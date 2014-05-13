@@ -19,6 +19,9 @@
         </ul>
     </div>
 </div>
+
+<hr />
+
 <div>
     @if (TempData["UserMessage"] != null)
     {
@@ -29,13 +32,13 @@
 <div class="row voffset3">
     <table class="table-responsive table-condensed col-md-10 col-md-offset-1">
         <tr>
-            <th class="biggertext">
+            <th class="biggertext2">
                 @Html.ActionLink("Titill", "Index", new { sortOrder = ViewBag.TitleSortParm })
             </th>
-            <th class="biggertext">
+            <th class="biggertext2">
                 @Html.ActionLink("Tungumál", "Index", new { sortOrder = ViewBag.LanguageSortParm })
             </th>
-            <th id="stig" class="biggertext">
+            <th id="stig" class="biggertext2">
                 @Html.ActionLink("Stig", "Index", new { sortOrder = ViewBag.ScoreSortParm })
             </th>
             <th></th>
@@ -43,7 +46,7 @@
 
         @foreach (var item in Model)
 {
-    <tr class="biggertext">
+    <tr class="biggertext2">
         <td>
             <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
         </td>

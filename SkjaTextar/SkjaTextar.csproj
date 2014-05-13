@@ -179,7 +179,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\ExampleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\RequestController.cs" />
@@ -243,6 +242,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fb2.jpg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\placeholder.png" />
     <Content Include="Content\space.jpg" />
@@ -369,15 +369,9 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Example\Create.cshtml" />
-    <Content Include="Views\Example\Delete.cshtml" />
-    <Content Include="Views\Example\Details.cshtml" />
-    <Content Include="Views\Example\Edit.cshtml" />
-    <Content Include="Views\Example\Index.cshtml" />
     <Content Include="Views\Media\MovieIndex.cshtml" />
     <Content Include="Views\Media\ShowIndex.cshtml" />
     <Content Include="Views\Media\ClipIndex.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\MovieByCategory.cshtml" />
     <Content Include="Views\Request\MovieRequestDetails.cshtml" />
     <Content Include="Views\Request\ClipRequestDetails.cshtml" />
