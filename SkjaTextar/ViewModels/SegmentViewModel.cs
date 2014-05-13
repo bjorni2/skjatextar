@@ -9,9 +9,9 @@ namespace SkjaTextar.ViewModels
 {
     public class SegmentViewModel
     {
-        [DisplayName("Lína 1")]
+        [DisplayName("Þýdd lína 1")]
         public string Line1 { get; set; }
-        [DisplayName("Lína 2")]
+        [DisplayName("Þýdd lína 2")]
         public string Line2 { get; set; }
         [DisplayName("Upprunaleg lína 1")]
         public string Original1 { get; set; }
