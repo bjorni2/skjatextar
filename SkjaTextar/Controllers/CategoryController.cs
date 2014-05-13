@@ -52,7 +52,7 @@ namespace SkjaTextar.Controllers
             }
             else
             {
-                var category = _unitOfWork.CategoryRepository.GetByID(id);
+                var category = _unitOfWork.CategoryRepository.Get().Where(c => c.ID == id).SingleOrDefault();
                 if(category == null)
                 {
                     throw new DataNotFoundException();

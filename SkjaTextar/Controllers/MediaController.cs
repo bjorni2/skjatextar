@@ -32,7 +32,7 @@ namespace SkjaTextar.Controllers
         {
             if (id.HasValue)
             {
-                var model = _unitOfWork.MediaRepository.GetByID(id);
+                var model = _unitOfWork.MediaRepository.Get().Where(m => m.ID == id).SingleOrDefault();
 				if(model != null)
 				{
 					string type = model.GetType().BaseType.Name;

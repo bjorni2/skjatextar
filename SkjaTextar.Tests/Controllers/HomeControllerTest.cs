@@ -32,6 +32,7 @@ namespace SkjaTextar.Tests.Controllers
                     NumberOfDownloads = i,
                     Locked = false,
                     LanguageID = 2,
+                    Media = new Movie(),
                 });
 
             }
@@ -65,6 +66,7 @@ namespace SkjaTextar.Tests.Controllers
                     NumberOfDownloads = i,
                     Locked = false,
                     LanguageID = 2,
+                    Media = new Movie(),
                 });
 
             }
