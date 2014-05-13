@@ -228,6 +228,7 @@ namespace SkjaTextar.Controllers
                 var request = new Request { LanguageID = languageId.Value, MediaID = Id.Value };
                 _unitOfWork.RequestRepository.Insert(request);
                 _unitOfWork.Save();
+                TempData["UserMessage"] = "Beiðnin var stofnuð";
                 return RedirectToAction("Index", "Request");
             }
             if (reqExists != null)
@@ -313,6 +314,7 @@ namespace SkjaTextar.Controllers
 					_unitOfWork.MovieRepository.Insert(movieRequest.Movie);
 					_unitOfWork.RequestRepository.Insert(movieRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
                 // If the movie exists we need to check if it already has the translation or the request
@@ -329,6 +331,7 @@ namespace SkjaTextar.Controllers
 					movieRequest.Request.MediaID = movieToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(movieRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				movieRequest.Movie = movieToCheckFor;
@@ -376,6 +379,7 @@ namespace SkjaTextar.Controllers
 					_unitOfWork.ShowRepository.Insert(showRequest.Show);
 					_unitOfWork.RequestRepository.Insert(showRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
                 // If the show exists we need to check if it already has the translation or the request
@@ -392,6 +396,7 @@ namespace SkjaTextar.Controllers
                     showRequest.Request.MediaID = showToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(showRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				showRequest.Show = showToCheckFor;
@@ -433,6 +438,7 @@ namespace SkjaTextar.Controllers
 					_unitOfWork.ClipRepository.Insert(clipRequest.Clip);
 					_unitOfWork.RequestRepository.Insert(clipRequest.Request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
                 // If the clip exists we need to check if it already has the translation or the reques
@@ -450,6 +456,7 @@ namespace SkjaTextar.Controllers
 					request.MediaID = clipToCheckFor.ID;
 					_unitOfWork.RequestRepository.Insert(request);
 					_unitOfWork.Save();
+                    TempData["UserMessage"] = "Beiðnin var stofnuð";
 					return RedirectToAction("Index", "Request");
 				}
 				clipRequest.Clip = clipToCheckFor;

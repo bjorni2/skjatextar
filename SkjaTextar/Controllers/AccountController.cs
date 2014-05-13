@@ -49,7 +49,7 @@ namespace SkjaTextar.Controllers
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -207,7 +207,7 @@ namespace SkjaTextar.Controllers
             if (user != null)
             {
                 await SignInAsync(user, isPersistent: false);
-                return RedirectToLocal(returnUrl);
+                return RedirectToAction("Index", "Home");
             }
             else
             {

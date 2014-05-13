@@ -60,6 +60,14 @@ namespace SkjaTextar.Controllers
 
 			int pageSize = 50;
 			int pageNumber = (page ?? 1);
+            if(model.Count() < 51)
+            {
+                ViewBag.HidePager = true;
+            }
+            else
+            {
+                ViewBag.HidePager = false;
+            }
 			return View(model.ToPagedList(pageNumber, pageSize));
         }
 
