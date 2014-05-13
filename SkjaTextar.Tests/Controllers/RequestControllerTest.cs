@@ -63,49 +63,33 @@ namespace SkjaTextar.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void TestCreateForMedia()
-		{
-
-		}
-
-		/*[TestMethod]
-		public void TestDetailsMovie()
+		public void TestCreate()
 		{
 			//Arrange
 			var mockUnitOfWork = new MockUnitOfWork();
-			mockUnitOfWork.MediaRepository.Insert(new Movie
-			{
-				ID = 1,
-				Title = "Test",
-				CategoryID = 1,
-				ReleaseYear = 1998,
-			});
-
-			var movie = new Movie
-			{
-				ID = 1,
-				Title = "Test",
-				CategoryID = 1,
-				ReleaseYear = 1998,
-			};
-
-			mockUnitOfWork.RequestRepository.Insert(new Request
-			{
-				ID = 1,
-				MediaID = 1,
-				LanguageID = 1,
-				Score = 1,
-				Media = movie,
-			});
-
 			var controller = new RequestController(mockUnitOfWork);
 
-			//Act
-			var result = controller.Details(1);
-			//Assert
+			//Act and Assert
+			var result = controller.Create("Movie");
 			var viewresult = (ViewResult)result;
-			Request model = viewresult.Model as Request;
-			Assert.IsTrue(model.MediaID == 1);
-		}*/
+			var model = viewresult.Model;
+			Assert.IsInstanceOfType(model, typeof(MovieRequestViewModel));
+
+			var result2 = controller.Create("Show");
+			var viewresult2 = (ViewResult)result2;
+			var model2 = viewresult2.Model;
+			Assert.IsInstanceOfType(model2, typeof(ShowRequestViewModel));
+
+			var result3 = controller.Create("Clip");
+			var viewresult3 = (ViewResult)result3;
+			var model3 = viewresult3.Model;
+			Assert.IsInstanceOfType(model3, typeof(ClipRequestViewModel));
+		}
+		
+		[TestMethod]
+		public void TestCreateExceptions()
+		{
+
+		}
 	}
 }
