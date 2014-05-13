@@ -43,14 +43,14 @@ namespace SkjaTextar.Controllers
             {
 				throw new MissingParameterException();
             }
-            var translation = _unitOfWork.TranslationRepository.GetByID(id);
+            var translation = _unitOfWork.TranslationRepository.Get().Where(t => t.ID == id).SingleOrDefault();
 			
             if (translation == null)
             {
                 throw new DataNotFoundException();
             }
 
-			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID);
+			var model = translation.TranslationSegments.OrderBy(ts => ts.SegmentID).ToList();
 
 			ViewBag.TranslationID = translation.ID;
 			ViewBag.MediaTitle = translation.Media.Title;
