@@ -85,5 +85,11 @@ namespace SkjaTextar.Tests.Controllers
 			var model3 = viewresult3.Model;
 			Assert.IsInstanceOfType(model3, typeof(ClipRequestViewModel));
 		}
+		
+		[TestMethod]
+		public void TestCreateExceptions()
+		{
+
+		}
 	}
 }
