@@ -42,7 +42,12 @@ namespace SkjaTextar.Controllers
 
             var model = new List<RequestVoteViewModel>();
             var requests = _unitOfWork.RequestRepository.Get();
-            var user = User.Identity.GetUserId();
+			string user = "";
+			try
+			{
+				user = User.Identity.GetUserId();
+			}
+			catch { }
 
 			switch (sortOrder)
 			{

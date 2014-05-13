@@ -14,7 +14,10 @@ namespace SkjaTextar.Tests.Controllers
     [TestClass]
     public class HomeControllerTest
     {
-        [TestMethod]
+        
+		
+		
+		[TestMethod]
         public void TestIndexWithMoreThan5()
         {
 
