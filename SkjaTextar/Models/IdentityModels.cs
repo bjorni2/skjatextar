@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNet.Identity;
 
 namespace SkjaTextar.Models
 {
@@ -27,8 +28,8 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            : base("SQLserverinnokkar")
-            //: base("SubTitleContext")
+            //: base("SQLserverinnokkar")
+            : base("SubTitleContext")
             //:base("RUSQLServer")
         {
         }
@@ -45,7 +46,7 @@ namespace SkjaTextar.Models
         public DbSet<Request> Requests { get; set; }
 		public DbSet<Report> Reports { get; set; }
     }
-    /*
+    
     public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
@@ -180,5 +181,5 @@ namespace SkjaTextar.Models
 			reports.ForEach(r => context.Reports.Add(r));
 			context.SaveChanges();
         }
-    }*/
+    }
 }
