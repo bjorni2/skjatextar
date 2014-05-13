@@ -14,11 +14,24 @@ using PagedList;
 using MoreLinq;
 using SkjaTextar.Exceptions;
 using System.Text.RegularExpressions;
+using SkjaTextar.DAL;
 
 namespace SkjaTextar.Controllers
 {
     public class TranslationController : BaseController
     {
+         public TranslationController() : base(new UnitOfWork())
+        { 
+        }
+        
+        /// <summary>
+        /// Constructor for unit tests
+        /// </summary>
+        /// <param name="unitOfWork">The Data access object</param>
+        public TranslationController(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+        }
+        
         /// <summary>
         /// Displays the index page for a translation.
         /// </summary>
