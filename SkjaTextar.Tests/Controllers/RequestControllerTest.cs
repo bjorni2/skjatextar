@@ -63,12 +63,106 @@ namespace SkjaTextar.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void TestCreateForMedia()
+		public void TestCreate()
 		{
+			//Arrange
+			var mockUnitOfWork = new MockUnitOfWork();
+			var controller = new RequestController(mockUnitOfWork);
 
+			//Act and Assert
+			var result = controller.Create("Movie");
+			var viewresult = (ViewResult)result;
+			var model = viewresult.Model;
+			Assert.IsInstanceOfType(model, typeof(MovieRequestViewModel));
+
+			var result2 = controller.Create("Show");
+			var viewresult2 = (ViewResult)result2;
+			var model2 = viewresult2.Model;
+			Assert.IsInstanceOfType(model2, typeof(ShowRequestViewModel));
+
+			var result3 = controller.Create("Clip");
+			var viewresult3 = (ViewResult)result3;
+			var model3 = viewresult3.Model;
+			Assert.IsInstanceOfType(model3, typeof(ClipRequestViewModel));
 		}
 
+		/*
+		[TestMethod]
+		public void TestCreateFor()
+		{
+			var mockUnitOfWork = new MockUnitOfWork();
+			var translations = new List<Translation>();
+			mockUnitOfWork.MediaRepository.Insert(new Movie
+			{
+				ID = 1,
+				Title = "Test",
+				CategoryID = 1,
+				ReleaseYear = 1998,
+				Translations = translations,
+			});
+
+			var movie = new Movie
+			{
+				ID = 1,
+				Title = "Test",
+				CategoryID = 1,
+				ReleaseYear = 1998,
+			};
+
+			mockUnitOfWork.RequestRepository.Insert(new Request
+			{
+				ID = 1,
+				MediaID = 1,
+				LanguageID = 5,
+				Score = 10,
+				Media = movie,
+			});
+
+			var controller = new RequestController(mockUnitOfWork);
+
+			var result = controller.CreateForMedia(1, 5);
+			var viewresult = (ViewResult)result;
+			var model = viewresult.Model as MovieRequestViewModel;
+
+			Assert.IsTrue(model.Movie.Title == "Test");
+			Assert.IsTrue(model.Request.Score == 10);
+			Assert.IsTrue(model.Movie.ReleaseYear == 1998);
+			Assert.IsTrue(model.Request.LanguageID == 5);
+		}*/
+
+
 		/*[TestMethod]
+		 * 
+		 * var mockUnitOfWork = new MockUnitOfWork();
+			var translations = new List<Translation>();
+			mockUnitOfWork.MediaRepository.Insert(new Movie
+			{
+				ID = 1,
+				Title = "Test",
+				CategoryID = 1,
+				ReleaseYear = 1998,
+				Translations = translations,
+			});
+
+			var movie = new Movie
+			{
+				ID = 1,
+				Title = "Test",
+				CategoryID = 1,
+				ReleaseYear = 1998,
+			};
+
+			mockUnitOfWork.RequestRepository.Insert(new Request
+			{
+				ID = 1,
+				MediaID = 1,
+				LanguageID = 5,
+				Score = 10,
+				Media = movie,
+			});
+		  	Assert.IsTrue(model.LanguageID == 5);
+			Assert.IsTrue(model.Score == 10);
+			Assert.IsTrue(model.Media.ReleaseYear == 1998);
 		public void TestDetailsMovie()
 		{
 			//Arrange

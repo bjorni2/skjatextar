@@ -203,7 +203,7 @@ namespace SkjaTextar.Tests.Mocks
 
         public void Save()
         {
-            throw new NotImplementedException();
+
         }
 
         public void Dispose()
