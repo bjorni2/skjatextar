@@ -258,6 +258,10 @@ a.list-group-item:focus {
     color: white;
 }
 
+ul {
+    list-style-type: none;
+}
+
 
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
