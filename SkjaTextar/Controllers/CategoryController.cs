@@ -44,7 +44,7 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                throw new DataNotFoundException();
+                throw new MissingParameterException();
             }
             if(id == 0)
             {
@@ -52,7 +52,12 @@ namespace SkjaTextar.Controllers
             }
             else
             {
-                ViewBag.Category = _unitOfWork.CategoryRepository.GetByID(id).Name;
+                var category = _unitOfWork.CategoryRepository.GetByID(id);
+                if(category == null)
+                {
+                    throw new DataNotFoundException();
+                }
+                ViewBag.Category = category.Name;
             }
 
             switch (mediaType)

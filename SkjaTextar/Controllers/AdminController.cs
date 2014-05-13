@@ -26,8 +26,8 @@ namespace SkjaTextar.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-			List<Report> reportList = _unitOfWork.ReportRepository.Get().OrderByDescending(r => r.ID).ToList();
-            return View(reportList);
+			List<Report> model = _unitOfWork.ReportRepository.Get().OrderByDescending(r => r.ID).ToList();
+            return View(model);
         }
 
         /// <summary>
@@ -40,17 +40,17 @@ namespace SkjaTextar.Controllers
         {
             if(id == null)
             {
-                throw new DataNotFoundException();
+                throw new MissingParameterException();
             }
 
             var model = _unitOfWork.ReportRepository.GetByID(id);
             if(model == null)
             {
-                throw new MissingParameterException();
+                throw new DataNotFoundException();
             }
             _unitOfWork.ReportRepository.Delete(id);
             _unitOfWork.Save();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index");
         }
 	}
 }

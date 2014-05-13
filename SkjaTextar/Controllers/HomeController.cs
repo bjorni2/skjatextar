@@ -24,7 +24,7 @@ namespace SkjaTextar.Controllers
         }
 
         /// <summary>
-        /// Displays the sites home page with top lists for active users, most downloaded translations, latest translations and the top requests
+        /// Displays the sites home page with top lists for active users, most downloaded translations, latest translations and the top requests.
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
