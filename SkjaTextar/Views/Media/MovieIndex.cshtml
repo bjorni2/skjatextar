@@ -19,8 +19,10 @@
 <div class="row">
     <div class="col-md-3 col-xs-offset-2">
         <div id="poster"></div>
-        <p>@Html.DisplayFor(model => model.Category.Name)</p>
-        <p id="relyear" data-year="@Html.DisplayFor(model => model.ReleaseYear)">@Html.DisplayFor(model => model.ReleaseYear)</p>
+        <div class="biggertext2 voffset1">
+            <p>@Html.DisplayFor(model => model.Category.Name)</p>
+            <p id="relyear" data-year="@Html.DisplayFor(model => model.ReleaseYear)">@Html.DisplayFor(model => model.ReleaseYear)</p>
+        </div>
         @if (Model.Link != null)
         {
             <a href="@Model.Link">Hlekkur</a>
@@ -33,7 +35,7 @@
             @foreach (var item in Model.Translations)
             {
                 <div class="list-group-item">
-                    <a href="@Url.Action("Index", "Translation", new { id = item.ID })" >
+                    <a class="biggertext" href="@Url.Action("Index", "Translation", new { id = item.ID })">
                         @item.Language.Name
                     </a>
                     <a href="@Url.Action("Download", "Translation", new { translationId = item.ID , mediaId = item.MediaID})">

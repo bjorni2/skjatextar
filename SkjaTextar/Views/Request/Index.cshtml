@@ -10,8 +10,8 @@
     <div class="col-sm-4"></div>
     <div class="col-md-2 col-sm-3 col-md-offset-3 newrequestbutton voffset3">
         <button type="button" id="newrequest" class="btn btn-primary btn-lg btn-default btn-block dropdown-toggle newrequestbutton col-sm-offset-1" data-toggle="dropdown">
-            Ný Beiðni <span class="caret"></span>
-        </button>
+                Ný Beiðni <span class="caret"></span>
+            </button>
         <ul class="dropdown-menu" role="menu">
             <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
             <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
@@ -44,41 +44,41 @@
         </tr>
 
         @foreach (var item in Model)
-        {
+{
             <tr>
-                <td id="votes">
+        <td id="votes">
                     <div data-id="@item.Request.ID" data-vote="true"></div>
                     @if (item.Vote == true)
-                    {
+            {
                         <button class="btn-success btn-sm upvote"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
-                    }
-                    else
-                    {
+                }
+                else
+                {
                         <button class="btn-sm upvote"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
 
-                    }
+                }
                     <div class="biggertext2 annarfont">
-                        @Html.DisplayFor(modelItem => item.Request.Score)
+            @Html.DisplayFor(modelItem => item.Request.Score)
                     </div>
                     <div data-id="@item.Request.ID" data-vote="false"></div>
                     @if (item.Vote == false)
-                    {
+                {
                         <button class="btn-danger btn-sm downvote"><span class="glyphicon glyphicon-chevron-down"></span></button>
-                    }
-                    else
-                    {
+                }
+                else
+                {
                         <button class="btn-sm downvote"><span class="glyphicon glyphicon-chevron-down"></span></button>
 
-                    }
-                </td>
+                }
+        </td>
                 <td>
                     <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Request.Language.Name)
                 </td>
-            </tr>
-        }
+    </tr>
+}
     </table>
 </div>
 @section Scripts {
