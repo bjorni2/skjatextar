@@ -22,20 +22,19 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3 col-md-offset-2">
-
+    <div class="col-md-3 col-md-offset-2 biggertext2 voffset1">
         <p>@Html.DisplayFor(model => model.Category.Name)</p>
         <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
         <a href="@Model.Link">Hlekkur</a>
     </div>
     @if (Model.Translations.Count != 0)
     {
-        <div class="col-md-3 col-xs-6 list-group">
+        <div class="col-md-3 col-xs-6 list-group voffset1">
             <p class="list-group-item list-group-item-heading text-center h4">Þýðingar</p>
             @foreach (var item in Model.Translations)
             {
                 <div class="list-group-item">
-                    <a href="@Url.Action("Index", "Translation", new { id = item.ID })">
+                    <a class="biggertext" href="@Url.Action("Index", "Translation", new { id = item.ID })">
                         @item.Language.Name
                     </a>
                     <a href="@Url.Action("Download", "Translation", new { translationId = item.ID , mediaId = item.MediaID})">

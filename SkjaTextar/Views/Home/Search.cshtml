@@ -3,8 +3,30 @@
 @{
     ViewBag.Title = "Leitarniðurstöður";
 }
-<div class="col-xs-offset-1">
-    <h1>@ViewBag.Count  Niðurstöður</h1>
+<div class="row col-sm-offset-1">
+    <h1 class="col-md-4 col-sm-5">@ViewBag.Count  Niðurstöður</h1>
+    <div class="col-md-5 col-sm-6 voffset3">
+        <div class="btn-group  col-sm-6 col-md-6 col-xs-12">
+            <button type="button" id="newrequest" class="btn btn-primary btn-lg btn-default dropdown-toggle newrequestbutton btn-block" data-toggle="dropdown">
+                Ný beiðni <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu col-xs-12" role="menu">
+                <li>@Html.ActionLink("Kvikmynd", "Create", "Request", new { mediaCat = "Movie" }, null)</li>
+                <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Request", new { mediaCat = "Show" }, null)</li>
+                <li>@Html.ActionLink("Myndbrot", "Create", "Request", new { mediaCat = "Clip" }, null)</li>
+            </ul>
+        </div>
+        <div class="btn-group col-sm-6 col-md-6 col-xs-12">
+            <button type="button" id="newtranslation" class="btn btn-primary btn-lg btn-default dropdown-toggle newrequestbutton btn-block" data-toggle="dropdown">
+                Ný þýðing <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu col-xs-12" role="menu">
+                <li>@Html.ActionLink("Kvikmynd", "Create", "Translation", new { mediaCat = "Movie" }, null)</li>
+                <li>@Html.ActionLink("Sjónvarpsþáttur", "Create", "Translation", new { mediaCat = "Show" }, null)</li>
+                <li>@Html.ActionLink("Myndbrot", "Create", "Translation", new { mediaCat = "Clip" }, null)</li>
+            </ul>
+        </div>
+    </div>
 </div>
 <hr />
 <div class="col-xs-offset-1">

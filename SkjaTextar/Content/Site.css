@@ -278,6 +278,16 @@ ul {
   border-radius: 3px;
 }
 
+#newtranslation:hover,
+#newtranslation:focus,
+#newtranslation:active,
+#newtranslation.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: rgb(2, 36, 106);
+  border-color: #285e8e;
+}
+
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
 .voffset2 { margin-top: 10px; }

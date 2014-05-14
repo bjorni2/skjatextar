@@ -19,14 +19,16 @@
 <div class="row">
     <div class="col-md-3 col-xs-offset-2">
         <div id="poster"></div>
-        <p>@Html.DisplayNameFor(model => model.Series): @Html.DisplayFor(model => model.Series)</p>
-        <p>@Html.DisplayNameFor(model => model.Episode): @Html.DisplayFor(model => model.Episode)</p>
-        <p>@Html.DisplayFor(model => model.Category.Name)</p>
-        <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
-        @if (Model.Link != null)
-        {
-            <a href="@Model.Link">Hlekkur</a>
-        }
+        <div class="biggertext2 voffset1">
+            <p>@Html.DisplayNameFor(model => model.Series): @Html.DisplayFor(model => model.Series)</p>
+            <p>@Html.DisplayNameFor(model => model.Episode): @Html.DisplayFor(model => model.Episode)</p>
+            <p>@Html.DisplayFor(model => model.Category.Name)</p>
+            <p>@Html.DisplayFor(model => model.ReleaseYear)</p>
+            @if (Model.Link != null)
+            {
+                <a href="@Model.Link">Hlekkur</a>
+            }
+        </div>
     </div>
     @if (Model.Translations.Count != 0)
     {
@@ -35,7 +37,7 @@
             @foreach (var item in Model.Translations)
             {
                 <div class="list-group-item">
-                    <a href="@Url.Action("Index", "Translation", new { id = item.ID })" >
+                    <a class="biggertext" href="@Url.Action("Index", "Translation", new { id = item.ID })">
                         @item.Language.Name
                     </a>
                     <a href="@Url.Action("Download", "Translation", new { translationId = item.ID , mediaId = item.MediaID})">
