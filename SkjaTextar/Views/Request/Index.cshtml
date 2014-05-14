@@ -4,11 +4,11 @@
     ViewBag.Title = "Beiðnir";
 }
 <div class="row">
-    <div class="col-sm-offset-1 col-md-2">
+    <div class="col-sm-offset-1 col-sm-2">
         <h1>Beiðnir</h1>
     </div>
-    <div class="col-md-5"></div>
-    <div class="col-md-2 col-sm-6 col-sm-offset-3 newrequestbutton voffset3">
+    <div class="col-sm-4"></div>
+    <div class="col-md-2 col-sm-3 col-md-offset-3 newrequestbutton voffset3">
             <button type="button" id ="newrequest" class="btn btn-primary btn-lg btn-default btn-block dropdown-toggle newrequestbutton col-sm-offset-1" data-toggle="dropdown">
                 Ný Beiðni <span class="caret"></span>
             </button>
@@ -20,8 +20,6 @@
     </div>
 </div>
 
-<hr />
-
 <div>
     @if (TempData["UserMessage"] != null)
     {
@@ -30,64 +28,62 @@
 </div>
 
 <div class="row voffset3">
-    <table class="table-responsive table-condensed col-md-10 col-md-offset-1">
+    <table class="table-responsive table-hover table-condensed col-md-8 col-md-offset-1">
         <tr>
+            <th id="stig" class="biggertext2 col-sm-2">
+                @Html.ActionLink("Stig", "Index", new { sortOrder = ViewBag.ScoreSortParm })
+            </th>
             <th class="biggertext2">
                 @Html.ActionLink("Titill", "Index", new { sortOrder = ViewBag.TitleSortParm })
             </th>
             <th class="biggertext2">
                 @Html.ActionLink("Tungumál", "Index", new { sortOrder = ViewBag.LanguageSortParm })
             </th>
-            <th id="stig" class="biggertext2">
-                @Html.ActionLink("Stig", "Index", new { sortOrder = ViewBag.ScoreSortParm })
-            </th>
-            <th></th>
         </tr>
 
         @foreach (var item in Model)
-{
-    <tr class="biggertext2">
-        <td>
-            <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Request.Language.Name)
-        </td>
-        <td id="votes">
-            @using (Html.BeginForm("RequestVote", "Request", FormMethod.Post))
-            {
-                @Html.Hidden("ID", item.Request.ID)
-                @Html.Hidden("Vote", true)
-                if (item.Vote == true)
-                {
-                    <button class="btn-success"><span class="glyphicon glyphicon-chevron-up"></span></button>
-                }
-                else
-                {
-                    <button><span class="glyphicon glyphicon-chevron-up"></span></button>
+        {
+            <tr>
+                <td id="votes">
+                    @using (Html.BeginForm("RequestVote", "Request", FormMethod.Post))
+                    {
+                        @Html.Hidden("ID", item.Request.ID)
+                        @Html.Hidden("Vote", true)
+                        if (item.Vote == true)
+                        {
+                            <button class="btn-success btn-sm"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
+                        }
+                        else
+                        {
+                            <button class="btn-sm"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
 
-                }
-            }
+                        }
+                    }
+                    <div class="biggertext2 annarfont">
+                        @Html.DisplayFor(modelItem => item.Request.Score)
+                    </div>
+                    @using (Html.BeginForm("RequestVote", "Request"))
+                    {
+                        @Html.Hidden("ID", item.Request.ID)
+                        @Html.Hidden("Vote", false)
+                        if (item.Vote == false)
+                        {
+                            <button class="btn-danger btn-sm"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                        }
+                        else
+                        {
+                            <button class="btn-sm"><span class="glyphicon glyphicon-chevron-down"></span></button>
 
-            @Html.DisplayFor(modelItem => item.Request.Score)
-
-            @using (Html.BeginForm("RequestVote", "Request"))
-            {
-                @Html.Hidden("ID", item.Request.ID)
-                @Html.Hidden("Vote", false)
-                if (item.Vote == false)
-                {
-                    <button class="btn-danger"><span class="glyphicon glyphicon-chevron-down"></span></button>
-                }
-                else
-                {
-                    <button><span class="glyphicon glyphicon-chevron-down"></span></button>
-
-                }
-            }
-        </td>
-    </tr>
-}
-
+                        }
+                    }
+                </td>
+                <td>
+                    <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Request.Language.Name)
+                </td>
+            </tr>
+        }
     </table>
 </div>

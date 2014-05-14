@@ -266,6 +266,18 @@ ul {
     list-style-type: none;
 }
 
+.annarfont {
+    font-family: 'Comic Sans MS'; 
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+  padding: 5px 5px;
+  font-size: 10px;
+  line-height: 0.7;
+  border-radius: 3px;
+}
+
 .voffset  { margin-top: 2px; }
 .voffset1 { margin-top: 5px; }
 .voffset2 { margin-top: 10px; }

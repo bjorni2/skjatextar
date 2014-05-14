@@ -36,9 +36,9 @@ namespace SkjaTextar.Controllers
         public ActionResult Index(string sortOrder)
         {
 			// for toggling asc/desc sort order on columns
-            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.TitleSortParm = sortOrder == "title" ? "title_desc" : "title";
 			ViewBag.LanguageSortParm = sortOrder == "Lang" ? "lang_desc" : "Lang";
-            ViewBag.ScoreSortParm = sortOrder == "score_desc" ? "Score" : "score_desc";
+            ViewBag.ScoreSortParm = String.IsNullOrEmpty(sortOrder) ? "Score" : "";
 
             var model = new List<RequestVoteViewModel>();
             var requests = _unitOfWork.RequestRepository.Get();
@@ -63,11 +63,12 @@ namespace SkjaTextar.Controllers
 				case "Score":
 					requests = requests.OrderBy(r => r.Score);
 					break;
-				case "score_desc":
-					requests = requests.OrderByDescending(r => r.Score);
+				case "title":
+                    requests = requests.OrderBy(s => s.Media.Title);
 					break;
 				default:
-					requests = requests.OrderBy(s => s.Media.Title);
+					
+                    requests = requests.OrderByDescending(r => r.Score);
 					break;
 			}
 
