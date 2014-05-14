@@ -28,9 +28,9 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            : base("SQLserverinnokkar")
+            //: base("SQLserverinnokkar")
             //: base("SubTitleContext")
-            //:base("RUSQLServer")
+            :base("RUSQLServer")
         {
         }
 
@@ -47,7 +47,7 @@ namespace SkjaTextar.Models
 		public DbSet<Report> Reports { get; set; }
     }
 
-    /* public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class ApplicationInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
      {
          protected override void Seed(ApplicationDbContext context)
          {
@@ -115,7 +115,7 @@ namespace SkjaTextar.Models
 
              var movies = new List<Movie>
              {
-                 new Movie{ ID = 1, CategoryID = 2, Title = "Die Hard", ReleaseYear = 1988, Link = "http://www.imdb.com/title/tt0095016/ },
+                 new Movie{ ID = 1, CategoryID = 2, Title = "Die Hard", ReleaseYear = 1988, Link = "http://www.imdb.com/title/tt0095016/" },
                  new Movie{ ID = 2, CategoryID = 4, Title = "Lion King", ReleaseYear = 1994, Link = "http://www.imdb.com/title/tt0110357/" },
                  new Movie{ ID = 3, CategoryID = 3, Title = "Brokeback mountain", ReleaseYear = 2005, Link = "http://www.imdb.com/title/tt0388795/" },
              };
@@ -151,5 +151,5 @@ namespace SkjaTextar.Models
              requests.ForEach(r => context.Requests.Add(r));
              context.SaveChanges();
          }
-     }*/
+     }
 }
