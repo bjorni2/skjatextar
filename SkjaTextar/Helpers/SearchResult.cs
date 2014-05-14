@@ -8,7 +8,6 @@ namespace SkjaTextar.Helpers
     public class SearchResult
     {
         public int id { get; set; }
-
         public string label { get; set; }
     }
 }

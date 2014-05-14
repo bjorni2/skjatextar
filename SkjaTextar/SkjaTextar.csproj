@@ -189,6 +189,7 @@
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Exceptions\DataNotFoundException.cs" />
     <Compile Include="Exceptions\MissingParameterException.cs" />
+    <Compile Include="Exceptions\SubtitleParseException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
