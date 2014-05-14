@@ -64,7 +64,7 @@ namespace SkjaTextar.Tests.Controllers
 		}
 
 		[TestMethod]
-		public void TestCreate()
+		public void TestHomeCreate()
 		{
 			//Arrange
 			var mockUnitOfWork = new MockUnitOfWork();
@@ -88,7 +88,7 @@ namespace SkjaTextar.Tests.Controllers
 		}
 		
 		[TestMethod]
-		public void TestDetails()
+		public void HomeCreate()
 		{
 			var mockUnitOfWork = new MockUnitOfWork();
 			var media = new Media
