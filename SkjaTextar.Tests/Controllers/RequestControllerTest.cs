@@ -125,36 +125,5 @@ namespace SkjaTextar.Tests.Controllers
 				Assert.IsInstanceOfType(ex, typeof(ApplicationException));
 			}
 		}
-
-		/*public ActionResult Details(int? id)
-		{
-			if (id.HasValue)
-			{
-				var model = _unitOfWork.RequestRepository.Get()
-					.Where(r => r.ID == id)
-					.SingleOrDefault();
-				if (model != null)
-				{
-					string type = model.Media.GetType().BaseType.Name;
-					switch (type)
-					{
-						case "Movie":
-							return View("MovieRequestDetails", model);
-						case "Show":
-							ShowRequestViewModel showModel = new ShowRequestViewModel();
-							showModel.Request = model;
-							var myShow = _unitOfWork.ShowRepository.GetByID(model.MediaID);
-							showModel.Show = myShow;
-							return View("ShowRequestDetails", showModel);
-						case "Clip":
-							return View("ClipRequestDetails", model);
-						default:
-							throw new ApplicationException();
-					}
-				}
-				throw new DataNotFoundException();
-			}
-			throw new MissingParameterException();
-		}*/
 	}
 }
