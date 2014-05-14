@@ -17,7 +17,7 @@ namespace SkjaTextar.Tests.Controllers
     {
         //Arrange
         [TestMethod]
-        public void TestIndexWithMoreThan5()
+        public void TestHomeIndexWithMoreThan5()
         {
 
 
@@ -45,14 +45,14 @@ namespace SkjaTextar.Tests.Controllers
             //Assert
             var viewresult = (ViewResult)result;
             HomeViewModel model = viewresult.Model as HomeViewModel;
-            Assert.IsTrue(model.TopTranslations.Count == 5);
+            Assert.IsTrue(model.TopTranslations.Count == 5); 
             for (int i = 0; i < model.TopTranslations.Count - 1; i++)
             {
                 Assert.IsTrue(model.TopTranslations[i].NumberOfDownloads >= model.TopTranslations[i + 1].NumberOfDownloads);
             }
         }
         [TestMethod]
-        public void TestIndexWithLessThan5()
+        public void TestHomeIndexWithLessThan5()
         {
             //Arrange
             var mockUnitOfWork = new MockUnitOfWork();
