@@ -24,12 +24,16 @@
 
 $(document).keypress(function (e) {
     if (e.which == 13) {
-        $(':focus').siblings().first().children().first().trigger("click");
-        var readOnly = $(':focus').attr('readonly');
-        if (!readOnly) {
-            $(':focus').select();
-            return false;
+        if ($(':focus').attr('name') == 'searchQuery') {
         }
-        $(':focus').parent().next().next().next().children().first().siblings('span').children().first().trigger("click");
+        else {
+            $(':focus').siblings().first().children().first().trigger("click");
+            var readOnly = $(':focus').attr('readonly');
+            if (!readOnly) {
+                $(':focus').select();
+                return false;
+            }
+            $(':focus').parent().next().next().next().children().first().siblings('span').children().first().trigger("click");
+        }
     }
 });
