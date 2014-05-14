@@ -8,40 +8,30 @@
 <div id="translationid" data-translationid="@ViewBag.TranslationID" class="hidden"></div>
 
 <div class="row">
-    <h2 class="col-md-9 col-md-offset-3">@Html.ActionLink(ViewBag.MediaTitle as string, "Index", "Media", new { ID = ViewBag.MediaID }, null) - @ViewBag.LanguageName</h2>
-</div>
-
-<div>
-    @if (TempData["UserMessage"] != null)
-    {
-        <p class="alert-success col-md-offset-3 col-md-2">@TempData["UserMessage"]</p>
-    }
+    <h2 class="col-md-9 col-md-offset-2">@Html.ActionLink(ViewBag.MediaTitle as string, "Index", "Media", new { ID = ViewBag.MediaID }, null) - @ViewBag.LanguageName</h2>
 </div>
 
 <div class="row">
-    <div class=" row col-md-4 col-sm-6 col-md-offset-3">
+    @if (TempData["UserMessage"] != null)
+    {
+        <p class="alert-success col-md-offset-3 col-md-4">@TempData["UserMessage"]</p>
+    }
+</div>
+<div class="row col-md-10 col-md-offset-2">
+    <div class="row btn-group col-md-6">
         @Html.ActionLink("Umræður", "CommentIndex", "Translation", new { id = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
         @Html.ActionLink("Tilkynna þýðingu", "Report", "Translation", new { translationID = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
         @Html.ActionLink("Ný lína", "AddLine", "Translation", new { ID = ViewBag.TranslationID }, new { @class = "btn btn-primary", role = "button" })
     </div>
-    <div>
-        @using (Html.BeginForm("AutoTranslate", "Translation", FormMethod.Post, new { @class = "col-xs-1" }))
-        {
-            @Html.Hidden("translationId", ViewBag.TranslationID as string)
-            @Html.Hidden("languageId", ViewBag.LanguageId as string)
-            <button class="btn btn-primary">Þýða með Bing</button>
-        }
-    </div>
-</div>
-<div class="row voffset2">
-    <div class="col-md-9 col-md-offset-3">
+    <div class="col-md-1">
         @Html.ActionLink("Sækja þýðingu", "Download", "Translation", new { translationId = ViewBag.TranslationID, mediaId = ViewBag.MediaID }, new { @class = "btn btn-primary", role = "button" })
     </div>
 </div>
+
 @if(!ViewBag.HidePager)
 {
 <div class="row">
-    <div class="col-md-9 col-md-offset-3">
+    <div class="col-md-9 col-md-offset-2">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID })) 
     </div>
 </div>
@@ -50,7 +40,7 @@
 
 
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-2">
         @foreach(var item in Model)
         {
             <p class="voffset4" style="font-size: 1.1em">@item.Timestamp</p>
@@ -69,14 +59,27 @@
     </div>
 </div>
 <br />
+
 @if(!ViewBag.HidePager)
 {
-<div class="col-md-offset-3">
+<div class="col-md-offset-2">
     Síða @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) af @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("Index", new { page, ID = ViewBag.TranslationID }))
 </div>
 }
+
+<div class="col-md-offset-2">
+    @using (Html.BeginForm("AutoTranslate", "Translation", FormMethod.Post, new { @class = "col-xs-1" }))
+    {
+        @Html.Hidden("translationId", ViewBag.TranslationID as string)
+        @Html.Hidden("languageId", ViewBag.LanguageId as string)
+        <button class="btn btn-primary glyphicon glyphicon-sort"></button>
+    }
+</div>
+
+<br />
+
 @section Scripts {
     <script src="~/Scripts/TranslationSegment.js"></script>
 }

@@ -185,6 +185,10 @@ body{
     font-size: large;
 }
 
+.biggertext2 {
+    font-size: 12pt;
+}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,

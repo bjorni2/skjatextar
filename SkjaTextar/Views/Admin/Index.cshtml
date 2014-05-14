@@ -4,43 +4,46 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Tilkynningar</h2>
+<h2 class="col-md-offset-1">Tilkynningar</h2>
 
-<table class="table-responsive table-striped table-condensed">
-    <tr>
-        <th>
-            <p>Þýðing</p>
-        </th>
-        <th>
-            <p>Dagsetning</p>
-        </th>
-        <th>
-            <p>Lýsing</p>
-        </th>
-        <th>
-            <p>Eyða</p>
-        </th>
-    </tr>
+<hr />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            <p>@Html.ActionLink(item.Translation.Media.Title + " - " + item.Translation.Language.Name, "Index", "Translation", new { id = item.TranslationID }, null)</p>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReportDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReportText)
-        </td>
-        <td>           
-            @using (Html.BeginForm("Delete", "Admin"))
-            {   
-                @Html.Hidden("ID", item.ID)                        
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
-            }            
-        </td>
-    </tr>
-}
-
-</table>
+<div class="row">
+    <table class="table-responsive table-condensed col-md-8 col-md-offset-1">
+        <tr>
+            <th>
+                <p>Þýðing</p>
+            </th>
+            <th>
+                <p>Dagsetning</p>
+            </th>
+            <th>
+                <p>Lýsing</p>
+            </th>
+            <th>
+                <p>Eyða</p>
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p>@Html.ActionLink(item.Translation.Media.Title + " - " + item.Translation.Language.Name, "Index", "Translation", new { id = item.TranslationID }, null)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReportText)
+                </td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Admin"))
+                    {
+                        @Html.Hidden("ID", item.ID)
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-trash"></span></button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
