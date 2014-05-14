@@ -36,7 +36,7 @@
 @foreach(var comment in Model.Comments)
 {
     <div class="row">
-        <div class="col-md-1 col-md-offset-2">
+        <div class="col-sm-2 col-md-offset-2">
             @if(String.IsNullOrEmpty(comment.AvatarUrl))
             {
                 <img src="~/Content/avatar.png" alt="@comment.User.UserName avatar" />
@@ -50,7 +50,7 @@
             </p>
             <p><span>Stig: </span>@comment.User.Score</p>
         </div>
-        <div class="col-md-6">
+        <div class="col-sm-6">
             <p> @comment.CommentText</p>
         </div>
     </div>

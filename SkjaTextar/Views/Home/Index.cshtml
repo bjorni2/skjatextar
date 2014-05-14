@@ -42,13 +42,13 @@
 
 <div class="row voffset6">
     <div class="col-lg-3 col-sm-5 col-sm-offset-1 col-lg-offset-0">
-        <ul class="list-group">
-            <li class="list-group-item list-group-item-heading text-center h4">Virkir notendur</li>
-            @foreach(var item in Model.ActiveUsers)
+        <div class="list-group">
+            <p class="list-group-item list-group-item-heading text-center h4">Nýjast</p>
+            @foreach (var item in Model.NewTranslations)
             {
-                <li class="list-group-item"><span class="badge">@item.Score</span>@item.UserName</li>
+                <a href="@Url.Action("Index", "Translation", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.Language.Name</span></a>
             }
-        </ul>
+        </div>
     </div>
     <div class="col-lg-3 col-sm-5">
         <div class="list-group">
@@ -69,13 +69,13 @@
         </div>
     </div>
     <div class="col-lg-3 col-sm-5">
-        <div class="list-group">
-            <p class="list-group-item list-group-item-heading text-center h4">Nýjast</p>
-            @foreach (var item in Model.NewTranslations)
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-heading text-center h4">Virkir notendur</li>
+            @foreach (var item in Model.ActiveUsers)
             {
-                <a href="@Url.Action("Index", "Translation", new { id = item.ID })" class="list-group-item">@item.Media.Title<span class="badge">@item.Language.Name</span></a>
+                <li class="list-group-item"><span class="badge">@item.Score</span>@item.UserName</li>
             }
-        </div>
+        </ul>
     </div>
 </div>
 @section Scripts {

@@ -41,11 +41,11 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-#stig {
+.stig {
     text-align: center;
 }
 
-#votes {
+.votes {
     text-align: center;
 }
 
@@ -277,6 +277,14 @@ ul {
 
 .annarfont {
     font-family: 'Comic Sans MS'; 
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    cursor: default;
+    background-color: #eee;
+    opacity: 1;
 }
 
 .btn-sm,

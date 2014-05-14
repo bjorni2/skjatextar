@@ -32,7 +32,7 @@
 <div class="row voffset3">
     <table class="table-responsive table-hover table-condensed col-md-8 col-sm-offset-2">
         <tr>
-            <th id="stig" class="biggertext2 col-sm-2">
+            <th class="biggertext2 col-sm-2 stig">
                 @Html.ActionLink("Stig", "Index", new { sortOrder = ViewBag.ScoreSortParm })
             </th>
             <th class="biggertext2">
@@ -46,7 +46,7 @@
         @foreach (var item in Model)
 {
             <tr>
-        <td id="votes">
+        <td class="votes">
                     <div data-id="@item.Request.ID" data-vote="true"></div>
                     @if (item.Vote == true)
             {
