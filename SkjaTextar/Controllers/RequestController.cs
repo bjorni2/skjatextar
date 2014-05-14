@@ -51,11 +51,11 @@ namespace SkjaTextar.Controllers
 
             if(string.IsNullOrEmpty(user))
             {
-                ViewBag.UserLoggedIn = false;
+                ViewBag.UserLoggedIn = "false";
             }
             else
             {
-                ViewBag.UserLoggedIn = true;
+                ViewBag.UserLoggedIn = "true";
             }
 
 			switch (sortOrder)
@@ -532,7 +532,7 @@ namespace SkjaTextar.Controllers
             return RedirectToAction("Index", "Request");
         }
 
-        
+        [Authorize]
         [HttpPost]
         public ActionResult VoteAjax(int id, bool vote)
         {

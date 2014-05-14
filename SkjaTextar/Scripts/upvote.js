@@ -1,7 +1,8 @@
 ﻿$(document).ready(function () {
     $(".upvote").click(function () {
         var usrLgdIn = $("#logged-in").attr("data-user-logged-in");
-        if (!usrLgdIn){
+        alert(usrLgdIn);
+        if (usrLgdIn == "false"){
             return false;
         }
         if ($(this).hasClass("btn-success")) {
@@ -27,7 +28,7 @@
     });
     $(".downvote").click(function () {
         var usrLgdIn = $("#logged-in").attr("data-user-logged-in");
-        if (!usrLgdIn) {
+        if (usrLgdIn == "false") {
             return false;
         }
         if ($(this).hasClass("btn-danger")) {
