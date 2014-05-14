@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Collections.Generic;
 using System;
+using Microsoft.AspNet.Identity;
 
 namespace SkjaTextar.Models
 {
@@ -45,8 +46,8 @@ namespace SkjaTextar.Models
         public DbSet<Request> Requests { get; set; }
 		public DbSet<Report> Reports { get; set; }
     }
-    /*
-    public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    
+   /* public class ApplicationInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {
