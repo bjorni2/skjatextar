@@ -20,6 +20,8 @@
     </div>
 </div>
 
+<hr />
+
 <div>
     @if (TempData["UserMessage"] != null)
     {
@@ -42,48 +44,52 @@
         </tr>
 
         @foreach (var item in Model)
-        {
+{
             <tr>
-                <td id="votes">
-                    @using (Html.BeginForm("RequestVote", "Request", FormMethod.Post))
-                    {
-                        @Html.Hidden("ID", item.Request.ID)
-                        @Html.Hidden("Vote", true)
-                        if (item.Vote == true)
-                        {
+        <td id="votes">
+            @using (Html.BeginForm("RequestVote", "Request", FormMethod.Post))
+            {
+                @Html.Hidden("ID", item.Request.ID)
+                @Html.Hidden("Vote", true)
+                if (item.Vote == true)
+                {
                             <button class="btn-success btn-sm"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
-                        }
-                        else
-                        {
+                }
+                else
+                {
                             <button class="btn-sm"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
 
-                        }
-                    }
+                }
+            }
                     <div class="biggertext2 annarfont">
-                        @Html.DisplayFor(modelItem => item.Request.Score)
+            @Html.DisplayFor(modelItem => item.Request.Score)
                     </div>
-                    @using (Html.BeginForm("RequestVote", "Request"))
-                    {
-                        @Html.Hidden("ID", item.Request.ID)
-                        @Html.Hidden("Vote", false)
-                        if (item.Vote == false)
-                        {
+            @using (Html.BeginForm("RequestVote", "Request"))
+            {
+                @Html.Hidden("ID", item.Request.ID)
+                @Html.Hidden("Vote", false)
+                if (item.Vote == false)
+                {
                             <button class="btn-danger btn-sm"><span class="glyphicon glyphicon-chevron-down"></span></button>
-                        }
-                        else
-                        {
+                }
+                else
+                {
                             <button class="btn-sm"><span class="glyphicon glyphicon-chevron-down"></span></button>
 
-                        }
-                    }
-                </td>
+                }
+            }
+        </td>
                 <td>
                     <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Request.Language.Name)
                 </td>
-            </tr>
-        }
+    </tr>
+}
     </table>
 </div>
+
+@section Scripts {
+    <script src="~/Scripts/upvote.js"></script>
+}

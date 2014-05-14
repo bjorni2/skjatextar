@@ -49,6 +49,15 @@ namespace SkjaTextar.Controllers
 			}
 			catch { }
 
+            if(string.IsNullOrEmpty(user))
+            {
+                ViewBag.UserLoggedIn = false;
+            }
+            else
+            {
+                ViewBag.UserLoggedIn = true;
+            }
+
 			switch (sortOrder)
 			{
 				case "title_desc":
