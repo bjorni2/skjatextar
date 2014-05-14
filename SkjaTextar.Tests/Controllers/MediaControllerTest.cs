@@ -13,7 +13,7 @@ namespace SkjaTextar.Tests.Controllers
     public class MediaControllerTest
     {
         [TestMethod]
-        public void ReturnsCorrectMedia()
+        public void TestReturnsCorrectMedia()
         {
             // Arrange
             var mockUnitOfWork = new MockUnitOfWork();

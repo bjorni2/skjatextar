@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using SkjaTextar.ViewModels;
 using SkjaTextar.Helpers;
 using PagedList;
+using SkjaTextar.Exceptions;
 
 namespace SkjaTextar.Tests.Controllers
 {
@@ -17,7 +18,7 @@ namespace SkjaTextar.Tests.Controllers
     {
 
         [TestMethod]
-        public void TestIndexForTranslation()
+        public void TestTranslationIndex()
         {
 
             //Arrange
@@ -76,10 +77,60 @@ namespace SkjaTextar.Tests.Controllers
             
             var controller = new TranslationController(mockUnitOfWork);
             int countbefore = mockUnitOfWork.TranslationSegmentRepository.Get().ToList().Count;
-            var result = controller.AddLine(segment);
             // Act
+            var result = controller.AddLine(segment);
+            // Assert
             Assert.IsTrue(mockUnitOfWork.TranslationSegmentRepository.Get().ToList().Count == countbefore + 1);
         }
+        [TestMethod]
+        public void TestCreateTranslationThrowsErrors()
+        {
+            //Arrange
+            var mockUnitOfWork = new MockUnitOfWork();
+            var controller = new TranslationController(mockUnitOfWork);
+            // Act
+            try
+            {
+                var result = controller.CreateTranslation(1, null);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(DataNotFoundException));
+            }
+            try
+            {
+                var result = controller.CreateTranslation(null, null);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
+            }
+
+        }
+        [TestMethod]
+        public void TestCommentIndexTrowsErrors()
+        {
+
+            var mockUnitOfWork = new MockUnitOfWork();
+            var controller = new TranslationController(mockUnitOfWork);
+            // Act
+            try
+            {
+                var result = controller.CommentIndex(8);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(DataNotFoundException));
+            }
+            try
+            {
+                int? variable = null;
+                var result = controller.CommentIndex(variable);
+            }
+            catch (Exception ex)
+            {
+                Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
+            }
+        }    
     }
-    
 }

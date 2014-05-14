@@ -14,7 +14,7 @@ namespace SkjaTextar.Tests.Controllers
     public class CategoryControllerTest
     {
         [TestMethod]
-        public void CorrectModel()
+        public void TestCorrectModel()
         {
             // Arrange
             var mockUnitOfWork = new MockUnitOfWork();
@@ -42,7 +42,7 @@ namespace SkjaTextar.Tests.Controllers
         }
 
         [TestMethod]
-        public void ThrowsErrors()
+        public void TestMediaByCategoryThrowsErrors()
         {
             // Arrange
             var mockUnitOfWork = new MockUnitOfWork();

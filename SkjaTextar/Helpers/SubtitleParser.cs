@@ -5,11 +5,25 @@ using System.Linq;
 using System.Web;
 using System.Text;
 using System.IO;
+using SkjaTextar.Exceptions;
+using System.Text.RegularExpressions;
 
 namespace SkjaTextar.Helpers
 {
     public class SubtitleParser
     {
+        /// <summary>
+        /// Parses .srt files into Translations.
+        /// Srt files are of the form:
+        /// 
+        /// ID
+        /// TIMESTAMP
+        /// TEXTLINE1
+        /// TEXTLINE2
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
         public static Translation Parse(string path, string format = "srt")
         {
             var translation = new Translation { TranslationSegments = new List<TranslationSegment>() };
@@ -19,17 +33,42 @@ namespace SkjaTextar.Helpers
                 string tmp = "";
                 while ((nextLine = sr.ReadLine()) != null)
                 {
+                    // Consume extra white spaces between segments in the srt file.
                     while (nextLine == "")
                     {
                         nextLine = sr.ReadLine();
                     }
                     TranslationSegment transSeg = new TranslationSegment();
-					if(int.Parse(nextLine) == 9999)
+                    
+                    // If the segment id in the srt file is not an integer we throw an error.
+                    int segmentId = 0;
+                    if(!int.TryParse(nextLine, out segmentId))
+                    {
+                        throw new SubtitleParseException();
+                    }
+
+                    // Get rid of extra translation lines found in .srt files from subtitle sites
+                    // often containing invalid timestamps and other invalid information.
+                    // These  lines usually have an id of 9999 or 0.
+                    // Known bug: if The translation contains more than 9999 translation segments
+                    // the rest will be ignored after 9999.
+					if(int.Parse(nextLine) == 9999 || int.Parse(nextLine) == 0)
 					{
 						return translation;
 					}
-                    transSeg.SegmentID = int.Parse(nextLine);
+                    transSeg.SegmentID = segmentId;
+
+                    // Checking if the timestamp matches the format that is required
+                    // 00:00:00,000 --> 00:00:00,000
                     nextLine = sr.ReadLine();
+                    Regex rgx = new Regex(@"^\d\d:[0-5]\d:[0-5]\d,\d\d\d\s-->\s\d\d:[0-5]\d:[0-5]\d,\d\d\d$");
+                    if(!rgx.IsMatch(nextLine))
+                    {
+                        throw new SubtitleParseException();
+                    }
+
+                    // Read the actual text into Line1 and Line2, if the segment contains more than 2 lines, line 2-n are 
+                    // concatenated into one line and stored in Line2,
                     transSeg.Timestamp = nextLine;
                     if((nextLine = sr.ReadLine()) != "" && nextLine != null)
                     {
