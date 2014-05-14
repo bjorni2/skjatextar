@@ -41,7 +41,7 @@
 </div>
 
 <div class="row voffset6">
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-sm-5 col-sm-offset-1 col-lg-offset-0">
         <ul class="list-group">
             <li class="list-group-item list-group-item-heading text-center h4">Virkir notendur</li>
             @foreach(var item in Model.ActiveUsers)
@@ -50,16 +50,16 @@
             }
         </ul>
     </div>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-sm-5">
         <div class="list-group">
             <p class="list-group-item list-group-item-heading text-center h4">Mest sótt</p>
             @foreach (var item in Model.TopTranslations)
             {
-                <a href="@Url.Action("Index", "Media", new { id = item.MediaID })" class="list-group-item">@((item.Media.Title.Length > 18 ? item.Media.Title.Substring(0,16) + ".." : item.Media.Title))<span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
+                <a href="@Url.Action("Index", "Media", new { id = item.MediaID })" class="list-group-item">@item.Media.Title<span class="glyphicon glyphicon-download-alt badge"><span class="pad-left">@item.NumberOfDownloads</span></span></a>
             }
         </div>
     </div>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-sm-5 col-sm-offset-1 col-lg-offset-0">
         <div class="list-group">
             <p class="list-group-item list-group-item-heading text-center h4">Heitar beiðnir</p>
             @foreach (var item in Model.TopRequests)
@@ -68,7 +68,7 @@
             }
         </div>
     </div>
-    <div class="col-md-3 col-sm-6">
+    <div class="col-lg-3 col-sm-5">
         <div class="list-group">
             <p class="list-group-item list-group-item-heading text-center h4">Nýjast</p>
             @foreach (var item in Model.NewTranslations)
@@ -80,7 +80,10 @@
 </div>
 @section Scripts {
     <script src="~/Scripts/autocomplete.js"></script>
-<script src="~/Scripts/jquery-ui-1.10.4.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="~/Scripts/jquery-ui-1.10.4.js"></script>
+    <script src="~/Scripts/transparentHome.js"></script>
+}
+@section css {
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" type="text/css" />
 }
 

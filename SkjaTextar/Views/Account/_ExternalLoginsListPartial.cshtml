@@ -16,7 +16,7 @@
         using (Html.BeginForm(action, "Account", new { ReturnUrl = returnUrl }))
         {
             @Html.AntiForgeryToken()
-            <div id="socialLoginList">
+            <div id="socialLoginList" class="row">
                 <p>
                 @foreach (AuthenticationDescription p in loginProviders)
                 {

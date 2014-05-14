@@ -1,12 +1,14 @@
 ﻿@model SkjaTextar.Models.LoginViewModel
 
-<h2>Skráðu þig inn með Facebook eða Google</h2>
-<div class="row">
-    <div class="col-md-8">
-        <div class="col-md-4">
-            <section id="socialLoginForm">
-                @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
-            </section>
+<div class="col-md-offset-1">
+    <h2>Skráðu þig inn með Facebook eða Google</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="col-md-4">
+                <section id="socialLoginForm">
+                    @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
+                </section>
+            </div>
         </div>
     </div>
 </div>

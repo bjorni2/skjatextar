@@ -4,12 +4,12 @@
     ViewBag.Title = "Beiðnir";
 }
 <div class="row">
-    <div class="col-sm-offset-1 col-md-2">
+    <div class="col-sm-offset-2 col-sm-2">
         <h1>Beiðnir</h1>
     </div>
-    <div class="col-md-5"></div>
-    <div class="col-md-2 col-sm-6 col-sm-offset-3 newrequestbutton voffset3">
-            <button type="button" id ="newrequest" class="btn btn-primary btn-lg btn-default btn-block dropdown-toggle newrequestbutton col-sm-offset-1" data-toggle="dropdown">
+    <div class="col-sm-4"></div>
+    <div class="col-md-2 col-sm-3 col-md-offset-3 newrequestbutton voffset3">
+        <button type="button" id="newrequest" class="btn btn-primary btn-lg btn-default btn-block dropdown-toggle newrequestbutton col-sm-offset-1" data-toggle="dropdown">
                 Ný Beiðni <span class="caret"></span>
             </button>
         <ul class="dropdown-menu" role="menu">
@@ -19,72 +19,68 @@
         </ul>
     </div>
 </div>
+
+<hr />
+<div id="logged-in" data-user-logged-in="@ViewBag.UserLoggedIn"></div>
 <div>
     @if (TempData["UserMessage"] != null)
     {
-        <p class="alert-success col-sm-offset-1 col-md-2">@TempData["UserMessage"]</p>
+        <p class="alert-success col-md-offset-2 col-md-2">@TempData["UserMessage"]</p>
     }
 </div>
 
 <div class="row voffset3">
-    <table class="table-responsive table-condensed col-md-10 col-md-offset-1">
+    <table class="table-responsive table-hover table-condensed col-md-8 col-sm-offset-2">
         <tr>
-            <th class="biggertext">
-                @Html.ActionLink("Titill", "Index", new { sortOrder = ViewBag.TitleSortParm })
-            </th>
-            <th class="biggertext">
-                @Html.ActionLink("Tungumál", "Index", new { sortOrder = ViewBag.LanguageSortParm })
-            </th>
-            <th id="stig" class="biggertext">
+            <th id="stig" class="biggertext2 col-sm-2">
                 @Html.ActionLink("Stig", "Index", new { sortOrder = ViewBag.ScoreSortParm })
             </th>
-            <th></th>
+            <th class="biggertext2">
+                @Html.ActionLink("Titill", "Index", new { sortOrder = ViewBag.TitleSortParm })
+            </th>
+            <th class="biggertext2">
+                @Html.ActionLink("Tungumál", "Index", new { sortOrder = ViewBag.LanguageSortParm })
+            </th>
         </tr>
 
         @foreach (var item in Model)
 {
-    <tr class="biggertext">
-        <td>
-            <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Request.Language.Name)
-        </td>
+            <tr>
         <td id="votes">
-            @using (Html.BeginForm("RequestVote", "Request", FormMethod.Post))
+                    <div data-id="@item.Request.ID" data-vote="true"></div>
+                    @if (item.Vote == true)
             {
-                @Html.Hidden("ID", item.Request.ID)
-                @Html.Hidden("Vote", true)
-                if (item.Vote == true)
-                {
-                    <button class="btn-success"><span class="glyphicon glyphicon-chevron-up"></span></button>
+                        <button class="btn-success btn-sm upvote"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
                 }
                 else
                 {
-                    <button><span class="glyphicon glyphicon-chevron-up"></span></button>
+                        <button class="btn-sm upvote"><span class="glyphicon glyphicon-chevron-up glyph-smaller"></span></button>
 
                 }
-            }
-
+                    <div class="biggertext2 annarfont">
             @Html.DisplayFor(modelItem => item.Request.Score)
-
-            @using (Html.BeginForm("RequestVote", "Request"))
-            {
-                @Html.Hidden("ID", item.Request.ID)
-                @Html.Hidden("Vote", false)
-                if (item.Vote == false)
+                    </div>
+                    <div data-id="@item.Request.ID" data-vote="false"></div>
+                    @if (item.Vote == false)
                 {
-                    <button class="btn-danger"><span class="glyphicon glyphicon-chevron-down"></span></button>
+                        <button class="btn-danger btn-sm downvote"><span class="glyphicon glyphicon-chevron-down"></span></button>
                 }
                 else
                 {
-                    <button><span class="glyphicon glyphicon-chevron-down"></span></button>
+                        <button class="btn-sm downvote"><span class="glyphicon glyphicon-chevron-down"></span></button>
 
                 }
-            }
         </td>
+                <td>
+                    <p>@Html.ActionLink(item.Request.Media.Title, "Details", "Request", new { id = item.Request.ID }, null)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Request.Language.Name)
+                </td>
     </tr>
 }
-
     </table>
 </div>
+@section Scripts {
+    <script src="~/Scripts/upvote.js"></script>
+}

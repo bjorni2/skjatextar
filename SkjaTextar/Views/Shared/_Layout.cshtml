@@ -13,6 +13,7 @@
     }
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("css", required: false)
 
 </head>
 
@@ -137,7 +138,7 @@
             </div>
         </div>
     </div>
-    <div class="container body-content opa">
+    <div id="bdy-ctr" class="container body-content opa">
         @RenderBody()
         <hr />
         <footer class="text-center">

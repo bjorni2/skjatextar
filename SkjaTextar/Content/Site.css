@@ -185,6 +185,10 @@ body{
     font-size: large;
 }
 
+.biggertext2 {
+    font-size: 12pt;
+}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
@@ -198,6 +202,15 @@ body{
 .opa{
     background-color: rgba(255, 255, 255, 0.9)
 }
+
+.opa-home{
+    background-color: rgba(255, 255, 255, 0)
+}
+
+.footer-home{
+    color: white;
+}
+
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
@@ -260,6 +273,28 @@ a.list-group-item:focus {
 
 ul {
     list-style-type: none;
+}
+
+.annarfont {
+    font-family: 'Comic Sans MS'; 
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+  padding: 5px 5px;
+  font-size: 10px;
+  line-height: 0.7;
+  border-radius: 3px;
+}
+
+#newtranslation:hover,
+#newtranslation:focus,
+#newtranslation:active,
+#newtranslation.active,
+.open .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: rgb(2, 36, 106);
+  border-color: #285e8e;
 }
 
 .voffset  { margin-top: 2px; }

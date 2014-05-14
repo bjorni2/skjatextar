@@ -15,6 +15,7 @@ using MoreLinq;
 using SkjaTextar.Exceptions;
 using System.Text.RegularExpressions;
 using SkjaTextar.DAL;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SkjaTextar.Controllers
 {
@@ -506,7 +507,23 @@ namespace SkjaTextar.Controllers
         {
             if (ModelState.IsValid)
             {
+                var usrId = User.Identity.GetUserId();
                 commentViewModel.Comment.UserID = User.Identity.GetUserId();
+
+                var um = new UserManager<User>(new UserStore<User>(new ApplicationDbContext()));
+                var usr = um.FindById(usrId);
+                foreach(var login in usr.Logins)
+                {
+                    if(String.IsNullOrEmpty(commentViewModel.Comment.AvatarUrl))
+                    { 
+                        if(login.LoginProvider == "Facebook")
+                        {
+                            commentViewModel.Comment.AvatarUrl = "https://graph.facebook.com/" + login.ProviderKey + "/picture?width=80&height=80";
+                        }
+                    }
+                }
+
+
                 var translation = _unitOfWork.TranslationRepository.GetByID(commentViewModel.Translation.ID);
                 translation.Comments.Add(commentViewModel.Comment);
                 _unitOfWork.TranslationRepository.Update(translation);

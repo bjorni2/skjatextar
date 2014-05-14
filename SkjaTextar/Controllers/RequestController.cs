@@ -36,9 +36,9 @@ namespace SkjaTextar.Controllers
         public ActionResult Index(string sortOrder)
         {
 			// for toggling asc/desc sort order on columns
-            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.TitleSortParm = sortOrder == "title" ? "title_desc" : "title";
 			ViewBag.LanguageSortParm = sortOrder == "Lang" ? "lang_desc" : "Lang";
-            ViewBag.ScoreSortParm = sortOrder == "score_desc" ? "Score" : "score_desc";
+            ViewBag.ScoreSortParm = String.IsNullOrEmpty(sortOrder) ? "Score" : "";
 
             var model = new List<RequestVoteViewModel>();
             var requests = _unitOfWork.RequestRepository.Get();
@@ -48,6 +48,15 @@ namespace SkjaTextar.Controllers
 				user = User.Identity.GetUserId();
 			}
 			catch { }
+
+            if(string.IsNullOrEmpty(user))
+            {
+                ViewBag.UserLoggedIn = false;
+            }
+            else
+            {
+                ViewBag.UserLoggedIn = true;
+            }
 
 			switch (sortOrder)
 			{
@@ -63,11 +72,12 @@ namespace SkjaTextar.Controllers
 				case "Score":
 					requests = requests.OrderBy(r => r.Score);
 					break;
-				case "score_desc":
-					requests = requests.OrderByDescending(r => r.Score);
+				case "title":
+                    requests = requests.OrderBy(s => s.Media.Title);
 					break;
 				default:
-					requests = requests.OrderBy(s => s.Media.Title);
+					
+                    requests = requests.OrderByDescending(r => r.Score);
 					break;
 			}
 
@@ -520,6 +530,68 @@ namespace SkjaTextar.Controllers
             _unitOfWork.RequestVoteRepository.Insert(newRequestVote);
             _unitOfWork.Save();
             return RedirectToAction("Index", "Request");
+        }
+
+        
+        [HttpPost]
+        public ActionResult VoteAjax(int id, bool vote)
+        {
+            if (id == null || vote == null)
+            {
+                throw new MissingParameterException();
+            }
+
+            var userID = User.Identity.GetUserId();
+            var request = _unitOfWork.RequestRepository.GetByID(id);
+            var requestVote = _unitOfWork.RequestVoteRepository.Get()
+                .Where(r => r.RequestID == id)
+                .Where(r => r.UserID == userID)
+                .SingleOrDefault();
+            // Check if the user has already voted for this request
+            if (requestVote != null)
+            {
+                // If the existing vote is the same as the one being cast
+                // we return without doing any changes.
+                if (requestVote.Vote == vote)
+                {
+                    return null;
+                }
+                // Otherwise we increase/decrease the score counter for the request
+                else
+                {
+                    if (vote == true)
+                    {
+                        request.Score += 2;
+                        requestVote.Vote = true;
+                    }
+                    else
+                    {
+                        request.Score -= 2;
+                        requestVote.Vote = false;
+                    }
+                    _unitOfWork.Save();
+                    return null;
+                }
+            }
+
+            // Create a new vote
+            var newRequestVote = new RequestVote
+            {
+                UserID = userID,
+                RequestID = id,
+                Vote = vote,
+            };
+            if (vote == true)
+            {
+                request.Score++;
+            }
+            else
+            {
+                request.Score--;
+            }
+            _unitOfWork.RequestVoteRepository.Insert(newRequestVote);
+            _unitOfWork.Save();
+            return null;
         }
 	}
 }
