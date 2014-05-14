@@ -202,6 +202,15 @@ body{
 .opa{
     background-color: rgba(255, 255, 255, 0.9)
 }
+
+.opa-home{
+    background-color: rgba(255, 255, 255, 0)
+}
+
+.footer-home{
+    color: white;
+}
+
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
