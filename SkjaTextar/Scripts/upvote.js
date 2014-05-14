@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
     $(".upvote").click(function () {
         var usrLgdIn = $("#logged-in").attr("data-user-logged-in");
-        alert(usrLgdIn);
         if (usrLgdIn == "false"){
             return false;
         }
