@@ -118,6 +118,15 @@
     <Content Include="Content\PagedList.css" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Content\cutsOff.srt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\idError.srt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\timestamperror.srt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
