@@ -1,6 +1,6 @@
 ﻿@model PagedList.IPagedList<SkjaTextar.Models.TranslationSegment>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 @{
     ViewBag.Title = ViewBag.MediaTitle + " - " + ViewBag.LanguageName;
 }
@@ -79,6 +79,10 @@
 </div>
 
 <br />
+
+@section css {
+    <link rel="stylesheet" href="~/Content/PagedList.css" type="text/css">
+}
 
 @section Scripts {
     <script src="~/Scripts/TranslationSegment.js"></script>
