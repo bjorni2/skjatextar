@@ -31,7 +31,7 @@ namespace SkjaTextar.Helpers
                 // Create a header with the access_token property of the returned token
                 headerValue = "Bearer " + admToken.access_token;
                 //DetectMethod(headerValue);
-                foreach (var segment in trans.TranslationSegments)
+                foreach (var segment in trans.TranslationSegments.Take(50))
                 {
                     if (!String.IsNullOrEmpty(segment.Original1))
                     {

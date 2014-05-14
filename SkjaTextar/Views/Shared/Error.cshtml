@@ -4,10 +4,11 @@
     ViewBag.Title = "Villa";
 }
 
-<h2 class="text-danger col-sm-offset-1">Villa kom upp við úrvinnslu fyrirspurnarinnar.</h2>
-@if (Model.Exception.HResult == -2147467261)
+@if (Model.Exception.GetType() == typeof(SkjaTextar.Exceptions.SubtitleParseException))
 {
-    <h3 class="text-danger col-sm-offset-1">Villa við lestur .srt skráar</h3>
+    <h2 class="text-danger col-sm-offset-1">@Model.Exception.Message</h2>
 }
-@Model.Exception.HResult 
-
+else
+{
+    <h2 class="text-danger col-sm-offset-1">Villa kom upp við úrvinnslu fyrirspurnar.</h2>
+}

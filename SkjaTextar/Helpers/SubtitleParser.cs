@@ -44,7 +44,7 @@ namespace SkjaTextar.Helpers
                     int segmentId = 0;
                     if(!int.TryParse(nextLine, out segmentId))
                     {
-                        throw new SubtitleParseException();
+                        throw new SubtitleParseException("Villa við lestur .srt skráar, auðkenni þýðingarbúts var \"" + nextLine + "\" en þarf að vera heiltala");
                     }
 
                     // Get rid of extra translation lines found in .srt files from subtitle sites
@@ -64,7 +64,7 @@ namespace SkjaTextar.Helpers
                     Regex rgx = new Regex(@"^\d\d:[0-5]\d:[0-5]\d,\d\d\d\s-->\s\d\d:[0-5]\d:[0-5]\d,\d\d\d$");
                     if(!rgx.IsMatch(nextLine))
                     {
-                        throw new SubtitleParseException();
+                        throw new SubtitleParseException("Villa við lestur .srt skráar, tímastimpill númer " + segmentId + " var ekki á réttu formi");
                     }
 
                     // Read the actual text into Line1 and Line2, if the segment contains more than 2 lines, line 2-n are 

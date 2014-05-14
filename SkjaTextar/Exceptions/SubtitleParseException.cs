@@ -7,5 +7,6 @@ namespace SkjaTextar.Exceptions
 {
     public class SubtitleParseException : ApplicationException
     {
+        public SubtitleParseException(string message) : base(message) { }
     }
 }
