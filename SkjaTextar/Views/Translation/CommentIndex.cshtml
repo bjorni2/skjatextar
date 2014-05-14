@@ -37,7 +37,14 @@
 {
     <div class="row">
         <div class="col-md-1 col-md-offset-2">
-            <img src="@comment.AvatarUrl" alt="@comment.User.UserName avatar" />
+            @if(String.IsNullOrEmpty(comment.AvatarUrl))
+            {
+                <img src="~/Content/avatar.png" alt="@comment.User.UserName avatar" />
+            }
+            else
+            {
+                <img src="@comment.AvatarUrl" alt="@comment.User.UserName avatar" />
+            }           
             <p>
                 @comment.User.UserName
             </p>

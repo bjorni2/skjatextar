@@ -514,16 +514,13 @@ namespace SkjaTextar.Controllers
                 {
                     if(String.IsNullOrEmpty(commentViewModel.Comment.AvatarUrl))
                     { 
-                        if(login.LoginProvider == "Google")
+                        if(login.LoginProvider == "Facebook")
                         {
-                            commentViewModel.Comment.AvatarUrl = "https://plus.google.com/s2/photos/profile/" + login.ProviderKey + "?sz=100";
-                        }
-                        else if(login.LoginProvider == "Facebook")
-                        {
-                            commentViewModel.Comment.AvatarUrl = "https://graph.facebook.com/" + login.ProviderKey + "/picture?type=square";
+                            commentViewModel.Comment.AvatarUrl = "https://graph.facebook.com/" + login.ProviderKey + "/picture?width=80&height=80";
                         }
                     }
                 }
+
 
                 var translation = _unitOfWork.TranslationRepository.GetByID(commentViewModel.Translation.ID);
                 translation.Comments.Add(commentViewModel.Comment);
