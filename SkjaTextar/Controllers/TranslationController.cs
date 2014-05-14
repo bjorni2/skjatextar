@@ -75,7 +75,7 @@ namespace SkjaTextar.Controllers
         }
 
         /// <summary>
-        /// Return the create  translation page for specified media type, creating both the media and translation.
+        /// Return the create  translation page for specified media type,  for creating both the media and translation.
         /// </summary>
         /// <param name="mediaCat">Type of the media to create</param>
         /// <returns></returns>
@@ -103,10 +103,10 @@ namespace SkjaTextar.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Check if the translation being created is requested, if so delete the request
         /// </summary>
-        /// <param name="mediaID"></param>
-        /// <param name="languageID"></param>
+        /// <param name="mediaID">The id of the media the translation is being made for</param>
+        /// <param name="languageID">The id of the translations language</param>
         public void HasRequest(int mediaID, int languageID)
         {
             var request = _unitOfWork.RequestRepository.Get()
@@ -200,6 +200,12 @@ namespace SkjaTextar.Controllers
             return View("CreateMovie");
         }
 
+        /// <summary>
+        /// Save the show and translation to the database.
+        /// </summary>
+        /// <param name="movieTranslation">The show and translation to create</param>
+        /// <param name="file">Optional subtitle file to start off the translation</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult CreateShow(ShowTranslationViewModel showTranslation, HttpPostedFileBase file)
@@ -270,6 +276,12 @@ namespace SkjaTextar.Controllers
             return View("CreateShow");
         }
 
+        /// <summary>
+        /// Save the clip and translation to the database.
+        /// </summary>
+        /// <param name="movieTranslation">The clip and translation to create</param>
+        /// <param name="file">Optional subtitle file to start off the translation</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult CreateClip(ClipTranslationViewModel clipTranslation, HttpPostedFileBase file)
@@ -340,6 +352,12 @@ namespace SkjaTextar.Controllers
             return View("CreateClip");
         }
 
+        /// <summary>
+        /// Displays a form for creating a new translation for an existing media object
+        /// </summary>
+        /// <param name="id">The id of the media to create the translation for</param>
+        /// <param name="languageid">Optional. The id of the language that is selected by default</param>
+        /// <returns></returns>
         [Authorize]
         public ActionResult CreateTranslation(int? id, int? languageid)
         {
@@ -375,6 +393,13 @@ namespace SkjaTextar.Controllers
             throw new MissingParameterException();
         }
 
+        /// <summary>
+        /// Save the Translation to the database
+        /// </summary>
+        /// <param name="id">The id of the media object to create the translation for</param>
+        /// <param name="languageID">The id of the language to create the translation in</param>
+        /// <param name="file">Optional file to start off the translation</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult CreateTranslation(int? id, int? languageID, HttpPostedFileBase file)
@@ -443,6 +468,7 @@ namespace SkjaTextar.Controllers
             }
         }
 
+        // UNUSED
         // TODO For admins only
         [Authorize]
         [HttpPost]
@@ -463,6 +489,7 @@ namespace SkjaTextar.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // UNUSED
         // TODO For admins only
         [Authorize]
         [HttpPost]
@@ -483,6 +510,11 @@ namespace SkjaTextar.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Displays all comments in ascending order for a specified translation
+        /// </summary>
+        /// <param name="id">The id of the translation</param>
+        /// <returns></returns>
         [Authorize]
         public ActionResult CommentIndex(int? id)
         {
@@ -501,6 +533,11 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Posts a new comment to the server
+        /// </summary>
+        /// <param name="commentViewModel">Holds the neccesary information about the comment to save it to the db</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult CommentIndex(CommentViewModel commentViewModel)
@@ -535,6 +572,12 @@ namespace SkjaTextar.Controllers
             return View(commentViewModel);
         }
 
+        /// <summary>
+        /// Sends the selected translation to the user as a memorystream 
+        /// </summary>
+        /// <param name="translationId">The translation to download</param>
+        /// <param name="mediaId">Unused?</param>
+        /// <returns></returns>
         public ActionResult Download(int? translationId, int? mediaId)
         {
             if (translationId == null || mediaId == null)
@@ -553,6 +596,11 @@ namespace SkjaTextar.Controllers
             return File(SubtitleParser.Output(translation).ToArray(), System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
+        /// <summary>
+        /// Displays a textbox for the user to write his report
+        /// </summary>
+        /// <param name="translationID">The translation that's being reported</param>
+        /// <returns></returns>
         public ActionResult Report(int? translationID)
         {
             if (translationID == null)
@@ -574,6 +622,12 @@ namespace SkjaTextar.Controllers
             return View(report);
         }
 
+        /// <summary>
+        /// Sends a report to admins concerning a specified translation
+        /// </summary>
+        /// <param name="Report">The model containing all neccesary information about the report, 
+        /// including the translation it concerns</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Report(Report Report)
         {
@@ -590,12 +644,21 @@ namespace SkjaTextar.Controllers
             throw new DataNotFoundException();
         }
 
+        /// <summary>
+        /// Unused?
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LanguageList()
         {
             var language = _unitOfWork.LanguageRepository.Get().ToList();
             return View(language);
         }
 
+        /// <summary>
+        /// Returns a list of all translations of a certain language
+        /// </summary>
+        /// <param name="id">The id of the language to display</param>
+        /// <returns></returns>
         public ActionResult ByLanguage(int? id)
         {
             if (id == null)
@@ -634,6 +697,14 @@ namespace SkjaTextar.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Updates the text in a specified translation
+        /// </summary>
+        /// <param name="translationID">The translation to update</param>
+        /// <param name="segmentID">The segment to update</param>
+        /// <param name="translationText">The text to insert</param>
+        /// <param name="line">The segment line to update</param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult UpdateLine(int? translationID, int? segmentID, string translationText, int line)
@@ -669,6 +740,11 @@ namespace SkjaTextar.Controllers
             return View(segment);
         }
 
+        /// <summary>
+        /// Adds a new line to a translation, placing it in the right position depending on its timestamp
+        /// </summary>
+        /// <param name="segment">The viewmodel containing all the information needed to build a new segment for a translation</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult AddLine(SegmentViewModel segment)
@@ -718,6 +794,12 @@ namespace SkjaTextar.Controllers
             return View(segment);
         }
 
+        /// <summary>
+        /// Automatically translates subtitles to the language specified.
+        /// </summary>
+        /// <param name="translationId">The translation to translate</param>
+        /// <param name="languageId">The language to translate to</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public ActionResult AutoTranslate(int? translationId, int? languageId)
