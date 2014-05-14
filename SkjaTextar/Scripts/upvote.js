@@ -1,42 +1,54 @@
-﻿/*$(document).ready(function () {
-    $(".glyphicon-chevron-up").click(function () {
-        // Create a JSON object:
-        var button = $(this).parent().first();
-        if (button.hasClass("btn-success")) {
+﻿$(document).ready(function () {
+    $(".upvote").click(function () {
+        var usrLgdIn = $("#logged-in").attr("data-user-logged-in");
+        if (!usrLgdIn){
             return false;
-           // button.removeClass("glyphicon-edit").addClass("glyphicon-floppy-disk");
-            //input.removeAttr("readonly");
-            //input.focus();
+        }
+        if ($(this).hasClass("btn-success")) {
+            return false;
         }
         else {
+            var scoreToAdd = 1;
+            var downVote = $(this).next().next().next();
+            if (downVote.hasClass("btn-danger")) {
+                downVote.removeClass("btn-danger");
+                scoreToAdd = 2;
+            }
+            $(this).addClass("btn-success");
 
-
-
-
-
-
-
-            button.removeClass("glyphicon-floppy-disk").addClass("glyphicon-edit");
-            input.attr("readonly", "readonly");
-            var segmentID = $(this).attr("data-segmentid");
-            var translationID = $("#translationid").attr("data-translationid");
-            var line = $(this).attr("data-line");
-            var translationText = input.val();
-            var args = { "translationID": translationID, "segmentID": segmentID, "translationText": translationText, "line": line };
-            $.post("/Translation/UpdateLine", args, null);
+            var vote = $(this).prev().attr("data-vote");
+            var id = $(this).prev().attr("data-id");
+            var args = { "id": id, "vote": vote };
+            var score = parseInt($(this).next().html());
+            score += scoreToAdd;
+            $(this).next().html(score);
+            $.post("/Request/VoteAjax", args, null);
         }
-
     });
-});
-
-$(document).keypress(function (e) {
-    if (e.which == 13) {
-        $(':focus').siblings().first().children().first().trigger("click");
-        var readOnly = $(':focus').attr('readonly');
-        if (!readOnly) {
-            $(':focus').select();
+    $(".downvote").click(function () {
+        var usrLgdIn = $("#logged-in").attr("data-user-logged-in");
+        if (!usrLgdIn) {
             return false;
         }
-        $(':focus').parent().next().next().next().children().first().siblings('span').children().first().trigger("click");
-    }
-});*/
+        if ($(this).hasClass("btn-danger")) {
+            return false;
+        }
+        else {
+            var scoreToAdd = -1;
+            var upVote = $(this).prev().prev().prev();
+            if (upVote.hasClass("btn-success")) {
+                upVote.removeClass("btn-success");
+                scoreToAdd = -2;
+            }
+            $(this).addClass("btn-danger");
+
+            var vote = $(this).prev().attr("data-vote");
+            var id = $(this).prev().attr("data-id");
+            var args = { "id": id, "vote": vote };
+            var score = parseInt($(this).prev().prev().html());
+            score += scoreToAdd;
+            $(this).prev().prev().html(score);
+            $.post("/Request/VoteAjax", args, null);
+        }
+    });
+});
