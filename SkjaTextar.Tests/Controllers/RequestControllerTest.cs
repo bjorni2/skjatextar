@@ -17,9 +17,12 @@ namespace SkjaTextar.Tests.Controllers
 	public class RequestControllerTest
 	{
 		[TestMethod]
+        // Here we test if the requests are ordered
+        // correctly by score.
 		public void TestIndexScore()
 		{
 			//Arrange
+            
 			var mockUnitOfWork = new MockUnitOfWork();
 			mockUnitOfWork.MediaRepository.Insert(new Movie
 				{
@@ -64,6 +67,9 @@ namespace SkjaTextar.Tests.Controllers
 		}
 
 		[TestMethod]
+        // Here we test whether or not the controller
+        // returns the correct view model depending on
+        // the input.
 		public void TestHomeCreate()
 		{
 			//Arrange
@@ -88,8 +94,11 @@ namespace SkjaTextar.Tests.Controllers
 		}
 		
 		[TestMethod]
-		public void HomeCreate()
+        // Here we test the exeptions of the
+        // home controllers Create methods.
+		public void TestHomeCreateErrors()
 		{
+            //Arrange
 			var mockUnitOfWork = new MockUnitOfWork();
 			var media = new Media
 			{
@@ -102,24 +111,29 @@ namespace SkjaTextar.Tests.Controllers
 			{
 					var result = controller.Details(null);
 			}
+
+            // Assert
 			catch(Exception ex)
 			{
 				Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
 			}
 
+            //Act
 			try
 			{
 					var result2 = controller.Details(0);
 			}
 			catch(Exception ex)
+            //Assert
 			{
 				Assert.IsInstanceOfType(ex, typeof(DataNotFoundException));
 			}
-
+            //Act
 			try
 			{
 				var result3 = controller.Details(1);
 			}
+            //Assert
 			catch(Exception ex)
 			{
 				Assert.IsInstanceOfType(ex, typeof(ApplicationException));

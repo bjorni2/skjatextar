@@ -14,6 +14,10 @@ namespace SkjaTextar.Tests.Controllers
     public class CategoryControllerTest
     {
         [TestMethod]
+        // Here we test whether the Media by category
+        // returns IEnumerable of the right type 
+        // of media.
+
         public void TestCorrectModel()
         {
             // Arrange
@@ -42,6 +46,8 @@ namespace SkjaTextar.Tests.Controllers
         }
 
         [TestMethod]
+        // Here we check whether or not the Media by
+        // category method throws the right errors.
         public void TestMediaByCategoryThrowsErrors()
         {
             // Arrange
@@ -59,23 +65,24 @@ namespace SkjaTextar.Tests.Controllers
                 CategoryID = 1,
             });
 
-            // Act
             var controller = new CategoryController(mockUnitOfWork);
-
-            // Assert
+            // Act
             try
             {
                 var result = controller.MediaByCategory(null, "Movie");
             }
+            // Assert
             catch(Exception ex)
             {
                 Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
             }
 
+            // Act
             try
             {
                 var result = controller.MediaByCategory(1, null);
             }
+            // Assert
             catch (Exception ex)
             {
                 Assert.IsInstanceOfType(ex, typeof(MissingParameterException));

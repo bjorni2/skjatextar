@@ -13,14 +13,19 @@ using SkjaTextar.Helpers;
 namespace SkjaTextar.Tests.Controllers
 {
     [TestClass]
+    
     public class HomeControllerTest
     {
-        //Arrange
+
         [TestMethod]
+        // Here we test how many translations are 
+        // added to the Toptranslations property of 
+        // the home viewmodel when there are more
+        // than 5 translations in the database. 
         public void TestHomeIndexWithMoreThan5()
         {
 
-
+            //Arrange
             var mockUnitOfWork = new MockUnitOfWork();
             for (int i = 1; i < 8; i++)
             {
@@ -38,11 +43,11 @@ namespace SkjaTextar.Tests.Controllers
             }
 
             var controller = new HomeController(mockUnitOfWork);
-
-            
             //Act
             var result = controller.Index();
             //Assert
+            // the top translations should include 5 in this case
+            // because it the max is 5.
             var viewresult = (ViewResult)result;
             HomeViewModel model = viewresult.Model as HomeViewModel;
             Assert.IsTrue(model.TopTranslations.Count == 5); 
@@ -52,6 +57,10 @@ namespace SkjaTextar.Tests.Controllers
             }
         }
         [TestMethod]
+        // Here we test how many translations are 
+        // added to the Toptranslations property of 
+        // the home viewmodel when there are less
+        // than 5 translations in the database. 
         public void TestHomeIndexWithLessThan5()
         {
             //Arrange
@@ -89,9 +98,11 @@ namespace SkjaTextar.Tests.Controllers
 
         }
         [TestMethod]
+        // Here we test the search method of the 
+        // Home controller
         public void TestSearch()
         {
-            // Arrange
+            // Arrange 
             var mockUnitOfWork = new MockUnitOfWork();
             for (int i = 1; i < 4; i++)
             mockUnitOfWork.MovieRepository.Insert(new Movie
@@ -154,6 +165,8 @@ namespace SkjaTextar.Tests.Controllers
 
         }
         [TestMethod]
+        // Here we test the auto complete method of the 
+        // Home controller
         public void TestAutocomplete()
         {
             //Arrange
