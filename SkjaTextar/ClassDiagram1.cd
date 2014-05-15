@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SkjaTextar.Controllers.AdminController">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\AdminController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Controllers.BaseController">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_unitOfWork" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Controllers\BaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Controllers.CategoryController">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAQAAA=</HashCode>
+      <FileName>Controllers\CategoryController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Controllers.HomeController">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAgAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Controllers.MediaController">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <InheritanceLine Type="SkjaTextar.Controllers.BaseController" FixedToPoint="true">
+      <Path>
+        <Point X="7.25" Y="2.117" />
+        <Point X="7.25" Y="2.875" />
+        <Point X="3.75" Y="2.875" />
+        <Point X="3.75" Y="3.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\MediaController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Controllers.RequestController">
+    <Position X="4.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAJAAAAAAABAAAAAAAAAAAAAAQAAEAAAgFBAAAAAAA=</HashCode>
+      <FileName>Controllers\RequestController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Controllers.TranslationController">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAAAAAQAAQAQAAIAAAIAQABGAAAgEAAAAARAA=</HashCode>
+      <FileName>Controllers\TranslationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.DAL.GenericRepository&lt;TEntity&gt;" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="9.25" Width="2.25" />
+    <Members>
+      <Field Name="_context" Hidden="true" />
+      <Field Name="_dbSet" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAABABAAAAAIAAAAAEAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>DAL\GenericRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SkjaTextar.DAL.UnitOfWork" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="6.5" Width="1.5" />
+    <Members>
+      <Field Name="_achievementRepo" Hidden="true" />
+      <Field Name="_categoryRepo" Hidden="true" />
+      <Field Name="_clipRepo" Hidden="true" />
+      <Field Name="_commentRepo" Hidden="true" />
+      <Field Name="_context" Hidden="true" />
+      <Field Name="_disposed" Hidden="true" />
+      <Field Name="_languageRepo" Hidden="true" />
+      <Field Name="_mediaRepo" Hidden="true" />
+      <Field Name="_movieRepo" Hidden="true" />
+      <Field Name="_reportRepo" Hidden="true" />
+      <Field Name="_requestRepo" Hidden="true" />
+      <Field Name="_requestVoteRepo" Hidden="true" />
+      <Field Name="_showRepo" Hidden="true" />
+      <Field Name="_translationRepo" Hidden="true" />
+      <Field Name="_translationSegmentRepo" Hidden="true" />
+      <Field Name="_userRepo" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gBACCIAAACAEFAAAAQAAACIAEAQgAjAAgABICtEAMiA=</HashCode>
+      <FileName>DAL\UnitOfWork.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SkjaTextar.Exceptions.DataNotFoundException" Collapsed="true">
+    <Position X="8.5" Y="10.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\DataNotFoundException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Exceptions.MissingParameterException" Collapsed="true">
+    <Position X="8.5" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\MissingParameterException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Exceptions.SubtitleParseException" Collapsed="true">
+    <Position X="8.5" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\SubtitleParseException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Helpers.Logger">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="theInstance" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Helpers.SubtitleParser">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Helpers\SubtitleParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Helpers.Translate">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAgAAAAA=</HashCode>
+      <FileName>Helpers\Translate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Helpers.YoutubeParser">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\YoutubeParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.ExternalLoginConfirmationViewModel">
+    <Position X="10.5" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.ManageUserViewModel">
+    <Position X="13.5" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.LoginViewModel">
+    <Position X="6.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAgAAA=</HashCode>
+      <FileName>Models\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.RegisterViewModel">
+    <Position X="13.5" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAAIAA=</HashCode>
+      <FileName>Models\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.ApplicationDbContext">
+    <Position X="14.75" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAACAAAEAACAAMAAAAAIAAAEAAAAAAAABAAAAQ=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.ClipRequestViewModel">
+    <Position X="9.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAIAAAAAA=</HashCode>
+      <FileName>ViewModels\ClipRequestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.ClipTranslationViewModel">
+    <Position X="12.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAIAAAAAIAAAAAA=</HashCode>
+      <FileName>ViewModels\ClipTranslationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.CommentViewModel">
+    <Position X="8.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ViewModels\CommentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.HomeViewModel">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAACAAAAQAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\HomeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.MediaViewModel">
+    <Position X="6.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>ViewModels\MediaViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.MovieRequestViewModel">
+    <Position X="10.75" Y="10" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MovieRequestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.MovieTranslationViewModel">
+    <Position X="13" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAgAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MovieTranslationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.RequestMediaViewModel">
+    <Position X="8.5" Y="7.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>ViewModels\RequestMediaViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.RequestVoteViewModel">
+    <Position X="10.75" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAABAAA=</HashCode>
+      <FileName>ViewModels\RequestVoteViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.SearchMediaViewModel">
+    <Position X="10.75" Y="6.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAMAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\SearchMediaViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.SegmentViewModel">
+    <Position X="12.75" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEEAAQAAAAAQ=</HashCode>
+      <FileName>ViewModels\SegmentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.ShowRequestViewModel">
+    <Position X="15.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ShowRequestViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.ShowTranslationViewModel">
+    <Position X="2.25" Y="7.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAEAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ShowTranslationViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.ViewModels.TranslationMediaViewModel">
+    <Position X="13.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>ViewModels\TranslationMediaViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SkjaTextar.DAL.IGenericRepository&lt;T&gt;">
+    <Position X="2.25" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEAAAAAAAABAAAAAAAAAAAEAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>DAL\IGenericRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SkjaTextar.DAL.IUnitOfWork">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAIAAAAAAEAAAAAAAACIAEAQAABAAgABAAEAAIiA=</HashCode>
+      <FileName>DAL\IUnitOfWork.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

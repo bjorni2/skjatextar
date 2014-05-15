@@ -534,17 +534,18 @@ namespace SkjaTextar.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult VoteAjax(int id, bool vote)
+        public ActionResult VoteAjax(int? id, bool? vote)
         {
             if (id == null || vote == null)
             {
                 throw new MissingParameterException();
             }
-
+            int requestID = id.Value;
+            bool voteValue = vote.Value;
             var userID = User.Identity.GetUserId();
-            var request = _unitOfWork.RequestRepository.GetByID(id);
+            var request = _unitOfWork.RequestRepository.GetByID(requestID);
             var requestVote = _unitOfWork.RequestVoteRepository.Get()
-                .Where(r => r.RequestID == id)
+                .Where(r => r.RequestID == requestID)
                 .Where(r => r.UserID == userID)
                 .SingleOrDefault();
             // Check if the user has already voted for this request
@@ -552,14 +553,14 @@ namespace SkjaTextar.Controllers
             {
                 // If the existing vote is the same as the one being cast
                 // we return without doing any changes.
-                if (requestVote.Vote == vote)
+                if (requestVote.Vote == voteValue)
                 {
                     return null;
                 }
                 // Otherwise we increase/decrease the score counter for the request
                 else
                 {
-                    if (vote == true)
+                    if (voteValue == true)
                     {
                         request.Score += 2;
                         requestVote.Vote = true;
@@ -578,10 +579,10 @@ namespace SkjaTextar.Controllers
             var newRequestVote = new RequestVote
             {
                 UserID = userID,
-                RequestID = id,
-                Vote = vote,
+                RequestID = requestID,
+                Vote = voteValue,
             };
-            if (vote == true)
+            if (voteValue == true)
             {
                 request.Score++;
             }

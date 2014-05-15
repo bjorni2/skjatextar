@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="5a4551fd-813d-43e6-a135-9bd6ce2856f3" name="SkjaTextar" linkedPackageId="9d0e3aa7-0f90-4fb3-8879-7800f9cb6789" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="eb44b537-a966-4f7e-ab43-cfd3f7b81e13">
+      <profileInstance Id="d6632bc2-f017-4395-858e-c2a4a47c5fe5" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="39cd5aa2-95a4-401d-8f19-4535281dc2b5">
+      <profileInstance Id="7938002a-e6a1-4b9c-8682-99dd0a91b97b" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="3849e94d-3711-4344-bbfb-3f2b462c4669">
+      <profileInstance Id="cda27bc3-ddea-4e82-ab62-975efbe21267" name="CSharpProfile">
+        <elementDefinition Id="bdbbb2d0-3804-4cd0-b0f3-99d1191d2b88" />
+      </profileInstance>
+      <elementDefinition Id="999dc1dc-0cb1-4275-b093-b4c5df192ba6" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <package Id="9d0e3aa7-0f90-4fb3-8879-7800f9cb6789" name="SkjatextarFinalKlasarit">
+    <elementDefinition Id="2b289b1d-99ba-4029-9148-a8dcef91e2d8" />
+  </package>
+</logicalClassDesignerModel>
