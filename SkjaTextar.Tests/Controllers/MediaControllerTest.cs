@@ -13,7 +13,9 @@ namespace SkjaTextar.Tests.Controllers
     public class MediaControllerTest
     {
         [TestMethod]
-        public void TestReturnsCorrectMedia()
+        // A test to see if the right Exeptions are thrown
+        // in the Index method of the MediaController.
+        public void TestReturnsCorrectMediaErrors()
         {
             // Arrange
             var mockUnitOfWork = new MockUnitOfWork();
@@ -22,6 +24,8 @@ namespace SkjaTextar.Tests.Controllers
             var controller = new MediaController(mockUnitOfWork);
 
             // Assert
+            // the MissingParameterExeption is should be thrown
+            // if the method takes null as a parameter.
             try
             {
                 var result = controller.Index(null);
@@ -30,7 +34,9 @@ namespace SkjaTextar.Tests.Controllers
             {
                 Assert.IsInstanceOfType(ex, typeof(MissingParameterException));
             }
-
+            // the DataNotFoundExeption should be thrown
+            // if the parameter does not match any id in
+            // in the database.
             try
             {
                 var result = controller.Index(99);
