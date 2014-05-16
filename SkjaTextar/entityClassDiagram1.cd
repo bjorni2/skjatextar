@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SkjaTextar.Models.Achievement">
+    <Position X="2.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\Achievement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Category">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Category.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Clip">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <InheritanceLine Type="SkjaTextar.Models.Media" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.95" />
+        <Point X="3.75" Y="3.25" />
+        <Point X="6" Y="3.25" />
+        <Point X="6" Y="3.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Clip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Comment">
+    <Position X="6.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAABAAAgAAKAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Comment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.User">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAACAAgAQAEAAAAAAAAAAAAAAAABAAAAIAA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Language">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Language.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Media">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAgEACAAEAAAAAAAAAAAAgAAAAQAAACAA=</HashCode>
+      <FileName>Models\Media.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Movie">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Movie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Report">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAQAAAAAAgCACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Request">
+    <Position X="4.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAgAgAAAAAAAAAQAAAAAIAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Request.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.RequestVote">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAgAQAAAAAAAgAAAAAgAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\RequestVote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Show">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <InheritanceLine Type="SkjaTextar.Models.Media" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.95" />
+        <Point X="3.75" Y="3.25" />
+        <Point X="1.25" Y="3.25" />
+        <Point X="1.25" Y="3.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Show.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.Translation">
+    <Position X="8.5" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAgCAACgAgAAAAAAAAAYAIAAAIAAAAAAAAAIAQ=</HashCode>
+      <FileName>Models\Translation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.TranslationSegment">
+    <Position X="0.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAgAACAAACAAAAAAAAAAAgAAAAQAAAAAQ=</HashCode>
+      <FileName>Models\TranslationSegment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SkjaTextar.Models.TranslationVote">
+    <Position X="9" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAAAAAAgAACAAAAAAgAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Models\TranslationVote.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
