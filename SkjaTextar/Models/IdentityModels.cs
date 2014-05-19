@@ -28,9 +28,9 @@ namespace SkjaTextar.Models
     public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
-            //: base("SQLserverinnokkar")
+            : base("SQLserverinnokkar")
             //: base("SubTitleContext")
-            :base("RUSQLServer")
+            //:base("RUSQLServer")
         {
         }
 
@@ -47,7 +47,7 @@ namespace SkjaTextar.Models
 		public DbSet<Report> Reports { get; set; }
     }
 
-    public class ApplicationInitializer : CreateDatabaseIfNotExists<ApplicationDbContext>
+    public class ApplicationInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
      {
          protected override void Seed(ApplicationDbContext context)
          {

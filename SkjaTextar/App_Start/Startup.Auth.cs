@@ -29,12 +29,12 @@ namespace SkjaTextar
             //   consumerSecret: "");
 
             app.UseFacebookAuthentication(
-                appId: "657226957688658",
-                appSecret: "074a63a56507c059d982b721ba59c4ab");
+                appId: "1442824195965922",
+                appSecret: "984d0e2104ee3fa394012cf181b87e91");
 
             app.UseGoogleAuthentication(
-                clientId: "609312055860-nniknvqsdfku418lt9s12t7npbc41ov2.apps.googleusercontent.com",
-                clientSecret: "i72MjSaJ0QJp9W5lG9a_XR6j");
+                clientId: "609312055860-i5hfhlqucgn1g2eht961vhnd2k6lai4b.apps.googleusercontent.com",
+                clientSecret: "8VX56ISOpy5BwxITRVKscWm3");
         }
     }
 }
